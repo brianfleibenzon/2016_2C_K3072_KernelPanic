@@ -51,12 +51,9 @@ namespace TGC.Group.Model
             var d3dDevice = D3DDevice.Instance.Device;
 
             var loader = new TgcSceneLoader();
-            //scene = loader.loadSceneFromFile(MediaDir + "Habitaciones2\\Habitaciones2-TgcScene.xml");
+            scene = loader.loadSceneFromFile(MediaDir + "Escenario\\Escenario-TgcScene.xml");
 
-            scene = loader.loadSceneFromFile(MediaDir + "Escenario\\Departamento\\Departamento-TgcScene.xml");
-
-
-            Camara = new TgcFpsCamera(new Vector3(48.7606f, 11.6399f, 54.6701f) , Input);
+            Camara = new TgcFpsCamera(new Vector3(254f, 66f, 189f) , Input);
 
         }
 
