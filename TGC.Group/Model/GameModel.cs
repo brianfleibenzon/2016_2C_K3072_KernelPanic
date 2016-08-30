@@ -54,7 +54,7 @@ namespace TGC.Group.Model
             scene = loader.loadSceneFromFile(MediaDir + "Escenario\\Escenario-TgcScene.xml");
 
             Camara = new TgcFpsCamera(new Vector3(128f, 66f, 51f) , Input);
-
+    
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace TGC.Group.Model
         {
             PreUpdate();
 
-
+            
 
         }
 
