@@ -42,8 +42,8 @@ namespace TGC.Group.Camara
             MovementSpeed = 250f;
             JumpSpeed = 500f;
             directionView = new Vector3(0, 0, -1);
-            leftrightRot = FastMath.PI_HALF;
-            updownRot = -FastMath.PI / 10.0f;
+            leftrightRot = FastMath.PI;
+            //updownRot = -FastMath.PI / 10.0f;
             cameraRotation = Matrix.RotationX(updownRot) * Matrix.RotationY(leftrightRot);
         }
 
@@ -117,13 +117,24 @@ namespace TGC.Group.Camara
             //Strafe right
             if (Input.keyDown(Key.D))
             {
+
+                /* SI MUEVE LA POSICION*/
                 moveVector += new Vector3(-1, 0, 0) * MovementSpeed;
+
+                /* SI ROTA LA CAMARA*/
+                /*leftrightRot += 0.1f * RotationSpeed;
+                cameraRotation = Matrix.RotationX(updownRot) * Matrix.RotationY(leftrightRot);*/
             }
 
             //Strafe left
             if (Input.keyDown(Key.A))
             {
+                /* SI MUEVE LA POSICION*/
                 moveVector += new Vector3(1, 0, 0) * MovementSpeed;
+
+                /* SI ROTA LA CAMARA*/
+                /*leftrightRot -= 0.1f * RotationSpeed;
+                cameraRotation = Matrix.RotationX(updownRot) * Matrix.RotationY(leftrightRot);*/
             }
 
             //Jump
@@ -147,7 +158,7 @@ namespace TGC.Group.Camara
             if (lockCam || Input.buttonDown(TgcD3dInput.MouseButtons.BUTTON_LEFT))
             {
                 leftrightRot -= -Input.XposRelative * RotationSpeed;
-                updownRot -= Input.YposRelative * RotationSpeed;
+                //updownRot -= Input.YposRelative * RotationSpeed;
                 //Se actualiza matrix de rotacion, para no hacer este calculo cada vez y solo cuando en verdad es necesario.
                 cameraRotation = Matrix.RotationX(updownRot) * Matrix.RotationY(leftrightRot);
             }
