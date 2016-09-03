@@ -29,7 +29,7 @@ namespace TGC.Group.Camara
         private float updownRot;
 
         private bool lockCam;
-        private Vector3 positionEye;        
+        private Vector3 positionEye;
 
         public TgcFpsCamera(TgcD3dInput input)
         {
@@ -135,19 +135,8 @@ namespace TGC.Group.Camara
                 /* SI ROTA LA CAMARA*/
                 /*leftrightRot -= 0.1f * RotationSpeed;
                 cameraRotation = Matrix.RotationX(updownRot) * Matrix.RotationY(leftrightRot);*/
-            }
+            }   
 
-            //Jump
-            if (Input.keyDown(Key.Space))
-            {
-                moveVector += new Vector3(0, 1, 0) * JumpSpeed;
-            }
-
-            //Crouch
-            if (Input.keyDown(Key.LeftControl))
-            {
-                moveVector += new Vector3(0, -1, 0) * JumpSpeed;
-            }
 
             if (Input.keyPressed(Key.L) || Input.keyPressed(Key.Escape))
             {
@@ -178,6 +167,7 @@ namespace TGC.Group.Camara
             var cameraRotatedUpVector = Vector3.TransformNormal(cameraOriginalUpVector, cameraRotation);
 
             base.SetCamera(positionEye, cameraFinalTarget, cameraRotatedUpVector);
+
         }
 
         /// <summary>
