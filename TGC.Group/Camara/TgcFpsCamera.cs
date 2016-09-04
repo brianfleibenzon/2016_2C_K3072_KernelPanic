@@ -47,6 +47,7 @@ namespace TGC.Group.Camara
             cameraRotation = Matrix.RotationX(updownRot) * Matrix.RotationY(leftrightRot);
         }
 
+
         public TgcFpsCamera(Vector3 positionEye, TgcD3dInput input) : this(input)
         {
             this.positionEye = positionEye;
@@ -130,6 +131,7 @@ namespace TGC.Group.Camara
             if (Input.keyDown(Key.A))
             {
                 /* SI MUEVE LA POSICION*/
+
                 moveVector += new Vector3(1, 0, 0) * MovementSpeed;
 
                 /* SI ROTA LA CAMARA*/
@@ -177,8 +179,11 @@ namespace TGC.Group.Camara
         /// <param name="directionView"> debe ser normalizado.</param>
         public override void SetCamera(Vector3 position, Vector3 directionView)
         {
-            positionEye = position;
+
+            positionEye = position;       
+            
             this.directionView = directionView;
         }
+
     }
 }

@@ -40,9 +40,12 @@ namespace TGC.Group.Model
         private TgcPickingRay pickingRay;
 
         private Puerta[] puertas = new Puerta[8];
-        private Puerta puertaAbierta;
+
+        private Interruptor[] interruptores = new Interruptor[3];
 
         private Vector3 collisionPoint;
+
+        private float mostrarBloqueado = 0;
 
         /// <summary>
         ///     Se llama una sola vez, al principio cuando se ejecuta el ejemplo.
@@ -62,8 +65,9 @@ namespace TGC.Group.Model
 
             pickingRay = new TgcPickingRay(Input);
 
-            InicializarPuertas();            
-  
+            InicializarPuertas();
+            InicializarInterruptores();
+
         }
 
         void InicializarPuertas()
@@ -73,35 +77,30 @@ namespace TGC.Group.Model
                 puertas[i] = new Puerta();
                 puertas[i].mesh = scene.getMeshByName("Puerta"+(i+1));
             }
+
+            puertas[2].estado = Puerta.Estado.BLOQUEADA;
+            puertas[3].estado = Puerta.Estado.BLOQUEADA;
+        }
+
+        void InicializarInterruptores()
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                interruptores[i] = new Interruptor();
+                interruptores[i].mesh = scene.getMeshByName("Interruptor" + (i + 1));
+            }
+
+            interruptores[0].funcion = () => { puertas[2].estado = Puerta.Estado.CERRADA; puertas[3].estado = Puerta.Estado.CERRADA; };
+            interruptores[1].funcion = () => { puertas[4].estado = Puerta.Estado.CERRADA; };
+            
         }
 
         void ActualizarEstadoPuertas()
         {
             foreach (var puerta in puertas)
             {
-                switch (puerta.estado)
-                {
-
-                    case (Puerta.Estado.ABIERTA):
-                        if (TgcCollisionUtils.sqDistPointAABB(Camara.Position, puerta.mesh.BoundingBox) > 100000f)
-                            puerta.estado = Puerta.Estado.CERRANDO;
-                        break;
-
-                    case (Puerta.Estado.ABRIENDO):
-                        if (puerta.mesh.Position.Y < 195)
-                            puerta.mesh.move(new Vector3(0, 80f * ElapsedTime, 0));
-                        else
-                            puerta.estado = Puerta.Estado.ABIERTA;
-                        break;
-
-                    case (Puerta.Estado.CERRANDO):
-                        if (puerta.mesh.Position.Y > 0)
-                            puerta.mesh.move(new Vector3(0, -80f * ElapsedTime, 0));
-                        else
-                            puerta.estado = Puerta.Estado.CERRADA;
-                        break;
-
-                }
+                puerta.actualizarEstado(Camara, ElapsedTime);
+                
             }
         }
 
@@ -118,16 +117,35 @@ namespace TGC.Group.Model
 
                     //Ejecutar test, si devuelve true se carga el punto de colision collisionPoint
 
-                    if (puerta.estado == Puerta.Estado.CERRADA && TgcCollisionUtils.intersectRayAABB(pickingRay.Ray, aabb, out collisionPoint))
+                    if (TgcCollisionUtils.intersectRayAABB(pickingRay.Ray, aabb, out collisionPoint))
                     {
                         if (TgcCollisionUtils.sqDistPointAABB(Camara.Position, puerta.mesh.BoundingBox) < 15000f)
                         {
-                            puerta.estado = Puerta.Estado.ABRIENDO;
-                            if (puertaAbierta != null)
-                            {
-                                puertaAbierta.estado = Puerta.Estado.CERRANDO;
-                            }
-                            puertaAbierta = puerta;
+                            switch (puerta.estado) {
+                                case (Puerta.Estado.BLOQUEADA):
+                                    mostrarBloqueado = 3f;
+                                    break;
+                                case (Puerta.Estado.CERRADA):
+                                    puerta.estado = Puerta.Estado.ABRIENDO;
+                                    break;
+                            }                            
+                        }
+                        break;
+                    }
+                }
+
+
+                foreach (var interruptor in interruptores)
+                {
+                    var aabb = interruptor.mesh.BoundingBox;
+
+                    //Ejecutar test, si devuelve true se carga el punto de colision collisionPoint
+
+                    if (interruptor.estado == Interruptor.Estado.DESACTIVADO && TgcCollisionUtils.intersectRayAABB(pickingRay.Ray, aabb, out collisionPoint))
+                    {
+                        if (TgcCollisionUtils.sqDistPointAABB(Camara.Position, interruptor.mesh.BoundingBox) < 15000f)
+                        {
+                            interruptor.activar(puertas, MediaDir);                            
                         }
                         break;
                     }
@@ -162,11 +180,22 @@ namespace TGC.Group.Model
             
 
             //Dibuja un texto por pantalla
-            DrawText.drawText("Con la tecla F se dibuja el bounding box.", 0, 20, Color.OrangeRed);
             DrawText.drawText(
-                "Con clic izquierdo subimos la camara [Actual]: " + TgcParserUtils.printVector3(Camara.Position) + " - LookAt: " + TgcParserUtils.printVector3(Camara.LookAt), 0, 30,
+                "Con clic izquierdo subimos la camara [Actual]: " + TgcParserUtils.printVector3(Camara.Position) + " - LookAt: " + TgcParserUtils.printVector3(Camara.LookAt), 0, 20,
                 Color.OrangeRed);
 
+            if (mostrarBloqueado > 0)
+            {
+
+                DrawText.drawText(
+                    "PUERTA BLOQUEADA", 0, 40,
+                    Color.OrangeRed);
+
+                mostrarBloqueado -= ElapsedTime;
+
+            } else if (mostrarBloqueado < 0) { 
+                mostrarBloqueado = 0;
+            }
             scene.renderAll();
 
 
