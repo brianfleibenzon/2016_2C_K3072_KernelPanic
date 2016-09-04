@@ -35,7 +35,7 @@ namespace TGC.Group.Camara
         private bool lockCam;
         private Vector3 positionEye;
 
-        public bool colisiones;
+        public bool colisiones = true;
 
         TgcScene scene;
 

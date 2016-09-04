@@ -46,6 +46,8 @@ namespace TGC.Group.Model
         private Vector3 collisionPoint;
 
         private float mostrarBloqueado = 0;
+        TgcMesh bloqueado;
+
 
         /// <summary>
         ///     Se llama una sola vez, al principio cuando se ejecuta el ejemplo.
@@ -68,6 +70,9 @@ namespace TGC.Group.Model
             InicializarPuertas();
             InicializarInterruptores();
 
+            bloqueado = loader.loadSceneFromFile(MediaDir + "Bloqueado\\locked-TgcScene.xml").Meshes[0];
+            bloqueado.Scale = new Vector3(0.004f, 0.004f, 0.004f);
+            bloqueado.Position = new Vector3(0.65f, -0.38f, 1f);
         }
 
         void InicializarPuertas()
@@ -193,14 +198,16 @@ namespace TGC.Group.Model
                 DrawText.drawText(
                    "Colisiones desactivadas (C para activar)", 0, 30,
                    Color.OrangeRed);
+            
 
             if (mostrarBloqueado > 0)
             {
 
-                DrawText.drawText(
-                    "PUERTA BLOQUEADA", 0, 40,
-                    Color.OrangeRed);
 
+                var matrizView = D3DDevice.Instance.Device.Transform.View;
+                D3DDevice.Instance.Device.Transform.View = Matrix.Identity;
+                bloqueado.render();
+                D3DDevice.Instance.Device.Transform.View = matrizView;
                 mostrarBloqueado -= ElapsedTime;
 
             } else if (mostrarBloqueado < 0) { 
