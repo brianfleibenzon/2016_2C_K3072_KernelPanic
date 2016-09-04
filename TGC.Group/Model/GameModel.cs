@@ -61,7 +61,7 @@ namespace TGC.Group.Model
             var loader = new TgcSceneLoader();
             scene = loader.loadSceneFromFile(MediaDir + "Escenario\\Escenario-TgcScene.xml");
 
-            Camara = new TgcFpsCamera(new Vector3(128f, 66f, 51f) , Input);
+            Camara = new TgcFpsCamera(scene, new Vector3(128f, 66f, 51f) , Input);
 
             pickingRay = new TgcPickingRay(Input);
 
@@ -177,12 +177,22 @@ namespace TGC.Group.Model
             PreRender();
 
             VerificarColisionConClick();
-            
+
 
             //Dibuja un texto por pantalla
             DrawText.drawText(
                 "Con clic izquierdo subimos la camara [Actual]: " + TgcParserUtils.printVector3(Camara.Position) + " - LookAt: " + TgcParserUtils.printVector3(Camara.LookAt), 0, 20,
                 Color.OrangeRed);
+
+            if (((TgcFpsCamera)Camara).colisiones)
+
+                DrawText.drawText(
+                    "Colisiones activadas (C para desactivar)", 0, 30,
+                    Color.OrangeRed);
+            else
+                DrawText.drawText(
+                   "Colisiones desactivadas (C para activar)", 0, 30,
+                   Color.OrangeRed);
 
             if (mostrarBloqueado > 0)
             {

@@ -6,6 +6,10 @@ using TGC.Core.Camara;
 using TGC.Core.Direct3D;
 using TGC.Core.Input;
 using TGC.Core.Utils;
+using TGC.Core.SceneLoader;
+using TGC.Core.Collision;
+using TGC.Core.BoundingVolumes;
+using System.Collections.Generic;
 
 namespace TGC.Group.Camara
 {
@@ -31,6 +35,10 @@ namespace TGC.Group.Camara
         private bool lockCam;
         private Vector3 positionEye;
 
+        public bool colisiones;
+
+        TgcScene scene;
+
         public TgcFpsCamera(TgcD3dInput input)
         {
             Input = input;
@@ -51,6 +59,11 @@ namespace TGC.Group.Camara
         public TgcFpsCamera(Vector3 positionEye, TgcD3dInput input) : this(input)
         {
             this.positionEye = positionEye;
+        }
+
+        public TgcFpsCamera(TgcScene scene, Vector3 positionEye, TgcD3dInput input) : this(positionEye, input)
+        {
+            this.scene = scene;
         }
 
         public TgcFpsCamera(Vector3 positionEye, float moveSpeed, float jumpSpeed, TgcD3dInput input)
@@ -102,6 +115,8 @@ namespace TGC.Group.Camara
 
         public override void UpdateCamera(float elapsedTime)
         {
+            Vector3 lastPositionEye = positionEye;
+
             var moveVector = new Vector3(0, 0, 0);
             //Forward
             if (Input.keyDown(Key.W))
@@ -157,6 +172,11 @@ namespace TGC.Group.Camara
             if (lockCam)
                 Cursor.Position = mouseCenter;
 
+            if (Input.keyPressed(Key.C))
+            {
+                colisiones = !colisiones;
+            }
+
             //Calculamos la nueva posicion del ojo segun la rotacion actual de la camara.
             var cameraRotatedPositionEye = Vector3.TransformNormal(moveVector * elapsedTime, cameraRotation);
             positionEye += cameraRotatedPositionEye;
@@ -168,8 +188,27 @@ namespace TGC.Group.Camara
             var cameraOriginalUpVector = DEFAULT_UP_VECTOR;
             var cameraRotatedUpVector = Vector3.TransformNormal(cameraOriginalUpVector, cameraRotation);
 
-            base.SetCamera(positionEye, cameraFinalTarget, cameraRotatedUpVector);
 
+
+
+            bool colision = false;
+
+            if (colisiones)
+            {
+                foreach (var mesh in scene.Meshes)
+                {
+                    if (TgcCollisionUtils.sqDistPointAABB(positionEye, mesh.BoundingBox) < 100f)
+                    {
+                        colision = true;
+                        break;
+                    }
+                }
+            }
+            if (colision)
+                positionEye = lastPositionEye;
+            else
+                base.SetCamera(positionEye, cameraFinalTarget, cameraRotatedUpVector);
+            
         }
 
         /// <summary>
