@@ -63,7 +63,7 @@ namespace TGC.Group.Model
             var loader = new TgcSceneLoader();
             scene = loader.loadSceneFromFile(MediaDir + "Escenario\\Escenario-TgcScene.xml");
 
-            Camara = new TgcFpsCamera(scene, new Vector3(128f, 66f, 51f) , Input);
+            Camara = new TgcFpsCamera(scene, new Vector3(128f, 90f, 51f) , Input);
 
             pickingRay = new TgcPickingRay(Input);
 

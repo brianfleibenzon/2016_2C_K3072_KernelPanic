@@ -25,6 +25,8 @@ namespace TGC.Group.Camara
         //Se mantiene la matriz rotacion para no hacer este calculo cada vez.
         private Matrix cameraRotation;
 
+        private Matrix cameraRotationParcial;
+
         //Direction view se calcula a partir de donde se quiere ver con la camara inicialmente. por defecto se ve en -Z.
         private Vector3 directionView;        
 
@@ -52,6 +54,7 @@ namespace TGC.Group.Camara
             directionView = new Vector3(0, 0, -1);
             leftrightRot = FastMath.PI;
             //updownRot = -FastMath.PI / 10.0f;
+            cameraRotationParcial = Matrix.RotationY(leftrightRot);
             cameraRotation = Matrix.RotationX(updownRot) * Matrix.RotationY(leftrightRot);
         }
 
@@ -164,8 +167,9 @@ namespace TGC.Group.Camara
             if (lockCam || Input.buttonDown(TgcD3dInput.MouseButtons.BUTTON_LEFT))
             {
                 leftrightRot -= -Input.XposRelative * RotationSpeed;
-                //updownRot -= Input.YposRelative * RotationSpeed;
+                updownRot -= Input.YposRelative * RotationSpeed;
                 //Se actualiza matrix de rotacion, para no hacer este calculo cada vez y solo cuando en verdad es necesario.
+                cameraRotationParcial = Matrix.RotationY(leftrightRot);
                 cameraRotation = Matrix.RotationX(updownRot) * Matrix.RotationY(leftrightRot);
             }
 
@@ -178,7 +182,9 @@ namespace TGC.Group.Camara
             }
 
             //Calculamos la nueva posicion del ojo segun la rotacion actual de la camara.
-            var cameraRotatedPositionEye = Vector3.TransformNormal(moveVector * elapsedTime, cameraRotation);
+            //var cameraRotatedPositionEye = Vector3.TransformNormal(moveVector * elapsedTime, cameraRotation);
+            //Uso cameraRotationPacial para que no pueda moverse para arriba y para abajo
+            var cameraRotatedPositionEye = Vector3.TransformNormal(moveVector * elapsedTime, cameraRotationParcial);
             positionEye += cameraRotatedPositionEye;
 
             //Calculamos el target de la camara, segun su direccion inicial y las rotaciones en screen space x,y.
@@ -187,8 +193,6 @@ namespace TGC.Group.Camara
 
             var cameraOriginalUpVector = DEFAULT_UP_VECTOR;
             var cameraRotatedUpVector = Vector3.TransformNormal(cameraOriginalUpVector, cameraRotation);
-
-
 
 
             bool colision = false;
