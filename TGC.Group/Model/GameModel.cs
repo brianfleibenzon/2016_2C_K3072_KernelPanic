@@ -43,6 +43,8 @@ namespace TGC.Group.Model
 
         private Interruptor[] interruptores = new Interruptor[3];
 
+        private Iluminacion[] iluminaciones = new Iluminacion[3];
+
         private Vector3 collisionPoint;
 
         private float mostrarBloqueado = 0;
@@ -69,6 +71,7 @@ namespace TGC.Group.Model
 
             InicializarPuertas();
             InicializarInterruptores();
+            InicializarIluminaciones();
 
             bloqueado = loader.loadSceneFromFile(MediaDir + "Bloqueado\\locked-TgcScene.xml").Meshes[0];
             bloqueado.Scale = new Vector3(0.004f, 0.004f, 0.004f);
@@ -98,6 +101,19 @@ namespace TGC.Group.Model
             interruptores[0].funcion = () => { puertas[2].estado = Puerta.Estado.CERRADA; puertas[3].estado = Puerta.Estado.CERRADA; };
             interruptores[1].funcion = () => { puertas[4].estado = Puerta.Estado.CERRADA; };
             
+        }
+
+        void InicializarIluminaciones()
+        {
+            iluminaciones[0] = new Iluminacion();
+            iluminaciones[0].mesh = scene.getMeshByName("Vela");
+
+            iluminaciones[1] = new Iluminacion();
+            iluminaciones[1].mesh = scene.getMeshByName("Linterna");
+
+            iluminaciones[2] = new Iluminacion();
+            iluminaciones[2].mesh = scene.getMeshByName("Farol");
+
         }
 
         void ActualizarEstadoPuertas()
@@ -213,8 +229,8 @@ namespace TGC.Group.Model
             } else if (mostrarBloqueado < 0) { 
                 mostrarBloqueado = 0;
             }
-            scene.renderAll();
 
+            scene.renderAll();
 
             //Finaliza el render y presenta en pantalla, al igual que el preRender se debe para casos puntuales es mejor utilizar a mano las operaciones de EndScene y PresentScene
             PostRender();

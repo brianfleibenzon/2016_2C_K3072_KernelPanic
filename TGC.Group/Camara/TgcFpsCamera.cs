@@ -10,6 +10,7 @@ using TGC.Core.SceneLoader;
 using TGC.Core.Collision;
 using TGC.Core.BoundingVolumes;
 using System.Collections.Generic;
+using TGC.Core.Geometry;
 
 namespace TGC.Group.Camara
 {
@@ -39,7 +40,11 @@ namespace TGC.Group.Camara
 
         public bool colisiones = true;
 
+        public bool agachado = false;
+
         TgcScene scene;
+
+        private TgcBoundingAxisAlignBox camaraBox = new TgcBoundingAxisAlignBox();
 
         public TgcFpsCamera(TgcD3dInput input)
         {
@@ -155,7 +160,27 @@ namespace TGC.Group.Camara
                 /* SI ROTA LA CAMARA*/
                 /*leftrightRot -= 0.1f * RotationSpeed;
                 cameraRotation = Matrix.RotationX(updownRot) * Matrix.RotationY(leftrightRot);*/
-            }   
+            }
+
+            if (Input.keyPressed(Key.LeftControl))
+            {
+                if (agachado)
+                {
+                    
+                    lastPositionEye.Y = 90f;
+                    positionEye.Y = 90f;
+                    //moveVector += new Vector3(0, 8000f, 0);
+                    MovementSpeed = 250f;
+                }
+                else
+                {
+                    lastPositionEye.Y = 40f;
+                    positionEye.Y = 40f;
+                    //moveVector += new Vector3(0, -8000f, 0);
+                    MovementSpeed = 80f;
+                }
+                agachado = !agachado;
+            }
 
 
             if (Input.keyPressed(Key.L) || Input.keyPressed(Key.Escape))
@@ -187,6 +212,30 @@ namespace TGC.Group.Camara
             var cameraRotatedPositionEye = Vector3.TransformNormal(moveVector * elapsedTime, cameraRotationParcial);
             positionEye += cameraRotatedPositionEye;
 
+            if (colisiones)
+            {
+                Vector3 pMin = new Vector3(positionEye.X - 10f, 10f, positionEye.Z - 10f);
+                Vector3 pMax = new Vector3(positionEye.X + 10f, positionEye.Y + 5f, positionEye.Z + 10f);
+                
+                camaraBox.setExtremes(pMin, pMax);
+                
+                foreach (var mesh in scene.Meshes)
+                {
+                    /* COLISIONES POR RAYOS*/
+                    /*if (TgcCollisionUtils.sqDistPointAABB(positionEye, mesh.BoundingBox) < 100f)
+                    {
+                        colision = true;
+                        break;
+                    }*/
+                    if (TgcCollisionUtils.classifyBoxBox(camaraBox, mesh.BoundingBox) == TgcCollisionUtils.BoxBoxResult.Atravesando)
+                    {
+                        positionEye = lastPositionEye;
+                        break;
+                    }
+                }
+            }
+
+
             //Calculamos el target de la camara, segun su direccion inicial y las rotaciones en screen space x,y.
             var cameraRotatedTarget = Vector3.TransformNormal(directionView, cameraRotation);
             var cameraFinalTarget = positionEye + cameraRotatedTarget;
@@ -194,25 +243,9 @@ namespace TGC.Group.Camara
             var cameraOriginalUpVector = DEFAULT_UP_VECTOR;
             var cameraRotatedUpVector = Vector3.TransformNormal(cameraOriginalUpVector, cameraRotation);
 
-
-            bool colision = false;
-
-            if (colisiones)
-            {
-                foreach (var mesh in scene.Meshes)
-                {
-                    if (TgcCollisionUtils.sqDistPointAABB(positionEye, mesh.BoundingBox) < 100f)
-                    {
-                        colision = true;
-                        break;
-                    }
-                }
-            }
-            if (colision)
-                positionEye = lastPositionEye;
-            else
-                base.SetCamera(positionEye, cameraFinalTarget, cameraRotatedUpVector);
             
+            base.SetCamera(positionEye, cameraFinalTarget, cameraRotatedUpVector);
+
         }
 
         /// <summary>
