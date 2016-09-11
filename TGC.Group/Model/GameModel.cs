@@ -35,7 +35,7 @@ namespace TGC.Group.Model
         }
         
 
-        private TgcScene scene;
+        public TgcScene scene;
 
         private TgcPickingRay pickingRay;
 
@@ -48,7 +48,10 @@ namespace TGC.Group.Model
         private Vector3 collisionPoint;
 
         private float mostrarBloqueado = 0;
+
         TgcMesh bloqueado;
+
+        private Iluminacion iluminacionEnMano;
 
 
         /// <summary>
@@ -65,7 +68,7 @@ namespace TGC.Group.Model
             var loader = new TgcSceneLoader();
             scene = loader.loadSceneFromFile(MediaDir + "Escenario\\Escenario-TgcScene.xml");
 
-            Camara = new TgcFpsCamera(scene, new Vector3(128f, 90f, 51f) , Input);
+            Camara = new TgcFpsCamera(this, new Vector3(128f, 90f, 51f) , Input);
 
             pickingRay = new TgcPickingRay(Input);
 
@@ -105,14 +108,33 @@ namespace TGC.Group.Model
 
         void InicializarIluminaciones()
         {
-            iluminaciones[0] = new Iluminacion();
+            iluminaciones[0] = new Iluminacion();  
             iluminaciones[0].mesh = scene.getMeshByName("Vela");
+            iluminaciones[0].posicionarEnMano = () =>
+            {
+                iluminacionEnMano.mesh.Scale = new Vector3(0.008f, 0.008f, 0.008f);
+                iluminacionEnMano.mesh.Position = -iluminacionEnMano.mesh.BoundingBox.Position;
+                iluminacionEnMano.mesh.Position += new Vector3(-0.8f, -0.38f, 1f);
+            };
 
             iluminaciones[1] = new Iluminacion();
             iluminaciones[1].mesh = scene.getMeshByName("Linterna");
+            iluminaciones[1].posicionarEnMano = () =>
+            {
+                
+                iluminacionEnMano.mesh.Scale = new Vector3(0.005f, 0.005f, 0.005f);
+                iluminacionEnMano.mesh.Position = -iluminacionEnMano.mesh.BoundingBox.Position;
+                iluminacionEnMano.mesh.Position += new Vector3(-0.8f, -0.38f, 1f);                
+            };
 
             iluminaciones[2] = new Iluminacion();
             iluminaciones[2].mesh = scene.getMeshByName("Farol");
+            iluminaciones[2].posicionarEnMano = () =>
+            {
+                iluminacionEnMano.mesh.Scale = new Vector3(0.005f, 0.005f, 0.005f);
+                iluminacionEnMano.mesh.Position = -iluminacionEnMano.mesh.BoundingBox.Position;
+                iluminacionEnMano.mesh.Position += new Vector3(-0.8f, -0.38f, 1f);
+            };
 
         }
 
@@ -123,6 +145,21 @@ namespace TGC.Group.Model
                 puerta.actualizarEstado(Camara, ElapsedTime);
                 
             }
+        }
+
+        public bool VerificarSiMeshEsIluminacion(TgcMesh mesh)
+        {
+            foreach(var ilum in iluminaciones)
+            {
+                if(ilum.mesh == mesh)
+                {
+                    mesh.Enabled = false;
+                    iluminacionEnMano = ilum;
+                    iluminacionEnMano.posicionarEnMano();                    
+                    return true;
+                }
+            }
+            return false;
         }
 
         void VerificarColisionConClick()
@@ -228,6 +265,19 @@ namespace TGC.Group.Model
 
             } else if (mostrarBloqueado < 0) { 
                 mostrarBloqueado = 0;
+            }
+
+            if (iluminacionEnMano!=null)
+            {
+
+
+                var matrizView = D3DDevice.Instance.Device.Transform.View;
+                D3DDevice.Instance.Device.Transform.View = Matrix.Identity;
+                iluminacionEnMano.mesh.Enabled = true;
+                iluminacionEnMano.mesh.render();
+                iluminacionEnMano.mesh.Enabled = false;
+                D3DDevice.Instance.Device.Transform.View = matrizView;
+
             }
 
             scene.renderAll();

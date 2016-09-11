@@ -11,5 +11,7 @@ namespace TGC.Group.Model
     {
         public TgcMesh mesh;
 
+        public Action posicionarEnMano = null;
+
     }
 }

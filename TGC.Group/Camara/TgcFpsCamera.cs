@@ -11,6 +11,7 @@ using TGC.Core.Collision;
 using TGC.Core.BoundingVolumes;
 using System.Collections.Generic;
 using TGC.Core.Geometry;
+using TGC.Group.Model;
 
 namespace TGC.Group.Camara
 {
@@ -42,7 +43,7 @@ namespace TGC.Group.Camara
 
         public bool agachado = false;
 
-        TgcScene scene;
+        GameModel gameModel;
 
         private TgcBoundingAxisAlignBox camaraBox = new TgcBoundingAxisAlignBox();
 
@@ -69,9 +70,9 @@ namespace TGC.Group.Camara
             this.positionEye = positionEye;
         }
 
-        public TgcFpsCamera(TgcScene scene, Vector3 positionEye, TgcD3dInput input) : this(positionEye, input)
+        public TgcFpsCamera(GameModel gameModel, Vector3 positionEye, TgcD3dInput input) : this(positionEye, input)
         {
-            this.scene = scene;
+            this.gameModel = gameModel;
         }
 
         public TgcFpsCamera(Vector3 positionEye, float moveSpeed, float jumpSpeed, TgcD3dInput input)
@@ -219,7 +220,7 @@ namespace TGC.Group.Camara
                 
                 camaraBox.setExtremes(pMin, pMax);
                 
-                foreach (var mesh in scene.Meshes)
+                foreach (var mesh in gameModel.scene.Meshes)
                 {
                     /* COLISIONES POR RAYOS*/
                     /*if (TgcCollisionUtils.sqDistPointAABB(positionEye, mesh.BoundingBox) < 100f)
@@ -229,8 +230,10 @@ namespace TGC.Group.Camara
                     }*/
                     if (TgcCollisionUtils.classifyBoxBox(camaraBox, mesh.BoundingBox) == TgcCollisionUtils.BoxBoxResult.Atravesando)
                     {
-                        positionEye = lastPositionEye;
-                        break;
+                        if (!gameModel.VerificarSiMeshEsIluminacion(mesh)){
+                            positionEye = lastPositionEye;
+                            break;
+                        }
                     }
                 }
             }
