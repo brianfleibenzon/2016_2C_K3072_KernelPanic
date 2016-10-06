@@ -2720,7 +2720,7 @@
       <userProps count="0" />
     </mesh>
     <mesh name="Puerta3" layer="Default" type="Original" matId="20" color="[1,1,1]" visibility="1.0" lightmap="">
-      <boundingBox min="[2005.518,-3.6297,1478.861]" max="[2014.482,203.6297,1581.139]" />
+      <boundingBox min="[-24.3517,-47.1044,-4.4819]" max="[24.3517,47.1044,4.482]" />
       <coordinatesIdx count="36">0 1 2 1 3 2 4 5 6 6 5 7 0 5 4 0 2 5 1 6 7 1 7 3 0 6 1 4 6 0 2 3 7 5 2 7 </coordinatesIdx>
       <textCoordsIdx count="36">0 1 2 1 3 2 0 2 1 1 2 3 0 3 1 0 2 3 0 1 3 0 3 2 0 3 1 2 3 0 0 1 3 2 0 3 </textCoordsIdx>
       <colorsIdx count="36">0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 </colorsIdx>
@@ -2736,7 +2736,7 @@
       <userProps count="0" />
     </mesh>
     <mesh name="Puerta4" layer="Default" type="Original" matId="20" color="[1,1,1]" visibility="1.0" lightmap="">
-      <boundingBox min="[2005.518,-3.6297,418.8615]" max="[2014.482,203.6297,521.1385]" />
+      <boundingBox min="[-24.3517,-47.1044,-4.4819]" max="[24.3517,47.1044,4.482]" />
       <coordinatesIdx count="36">0 1 2 1 3 2 4 5 6 6 5 7 0 5 4 0 2 5 1 6 7 1 7 3 0 6 1 4 6 0 2 3 7 5 2 7 </coordinatesIdx>
       <textCoordsIdx count="36">0 1 2 1 3 2 0 2 1 1 2 3 0 3 1 0 2 3 0 1 3 0 3 2 0 3 1 2 3 0 0 1 3 2 0 3 </textCoordsIdx>
       <colorsIdx count="36">0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 </colorsIdx>
