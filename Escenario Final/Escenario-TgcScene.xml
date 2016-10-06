@@ -5,494 +5,494 @@
   <sceneBoundingBox min="[-24.3517,-47.1044,-4.4819]" max="[2600,203.6297,2600]" />
   <materials count="26">
     <m name="Standardmaterial" type="Standardmaterial">
-      <ambient>[149.94,149.94,149.94,255.0]</ambient>
-      <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-      <specular>[229.5,229.5,229.5,255.0]</specular>
-      <opacity>100.0</opacity>
+      <ambient>[0,0,0,0]</ambient>
+      <diffuse>[0,0,0,0]</diffuse>
+      <specular>[0,0,0,0]</specular>
+      <opacity>1</opacity>
       <alphaBlendEnable>False</alphaBlendEnable>
       <bitmap uvTiling="[1,1]" uvOffset="[1,1]">techo.jpg</bitmap>
     </m>
     <m name="Standardmaterial" type="Standardmaterial">
-      <ambient>[149.94,149.94,149.94,255.0]</ambient>
-      <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-      <specular>[229.5,229.5,229.5,255.0]</specular>
-      <opacity>100.0</opacity>
+      <ambient>[0,0,0,0]</ambient>
+      <diffuse>[0,0,0,0]</diffuse>
+      <specular>[0,0,0,0]</specular>
+      <opacity>1</opacity>
       <alphaBlendEnable>False</alphaBlendEnable>
       <bitmap uvTiling="[1,1]" uvOffset="[1,1]">piso.jpg</bitmap>
     </m>
     <m name="Standardmaterial" type="Standardmaterial">
-      <ambient>[149.94,149.94,149.94,255.0]</ambient>
-      <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-      <specular>[229.5,229.5,229.5,255.0]</specular>
-      <opacity>100.0</opacity>
+      <ambient>[0,0,0,0]</ambient>
+      <diffuse>[0,0,0,0]</diffuse>
+      <specular>[0,0,0,0]</specular>
+      <opacity>1</opacity>
       <alphaBlendEnable>False</alphaBlendEnable>
       <bitmap uvTiling="[1,1]" uvOffset="[1,1]">pared.jpg</bitmap>
     </m>
     <m name="Standardmaterial" type="Standardmaterial">
-      <ambient>[149.94,149.94,149.94,255.0]</ambient>
-      <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-      <specular>[229.5,229.5,229.5,255.0]</specular>
-      <opacity>100.0</opacity>
+      <ambient>[0,0,0,0]</ambient>
+      <diffuse>[0,0,0,0]</diffuse>
+      <specular>[0,0,0,0]</specular>
+      <opacity>1</opacity>
       <alphaBlendEnable>False</alphaBlendEnable>
       <bitmap uvTiling="[1,1]" uvOffset="[1,1]">floor1.jpg</bitmap>
     </m>
     <m name="Standardmaterial" type="Standardmaterial">
-      <ambient>[149.94,149.94,149.94,255.0]</ambient>
-      <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-      <specular>[229.5,229.5,229.5,255.0]</specular>
-      <opacity>100.0</opacity>
+      <ambient>[0,0,0,0]</ambient>
+      <diffuse>[0,0,0,0]</diffuse>
+      <specular>[0,0,0,0]</specular>
+      <opacity>1</opacity>
       <alphaBlendEnable>False</alphaBlendEnable>
       <bitmap uvTiling="[1,1]" uvOffset="[1,1]">brick3_1.jpg</bitmap>
     </m>
     <m name="Standardmaterial" type="Standardmaterial">
-      <ambient>[149.94,149.94,149.94,255.0]</ambient>
-      <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-      <specular>[229.5,229.5,229.5,255.0]</specular>
-      <opacity>100.0</opacity>
+      <ambient>[0,0,0,0]</ambient>
+      <diffuse>[0,0,0,0]</diffuse>
+      <specular>[0,0,0,0]</specular>
+      <opacity>1</opacity>
       <alphaBlendEnable>False</alphaBlendEnable>
       <bitmap uvTiling="[1,1]" uvOffset="[1,1]">brick3_5.jpg</bitmap>
     </m>
     <m name="Standardmaterial" type="Standardmaterial">
-      <ambient>[149.94,149.94,149.94,255.0]</ambient>
-      <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-      <specular>[229.5,229.5,229.5,255.0]</specular>
-      <opacity>100.0</opacity>
+      <ambient>[0,0,0,0]</ambient>
+      <diffuse>[0,0,0,0]</diffuse>
+      <specular>[0,0,0,0]</specular>
+      <opacity>1</opacity>
       <alphaBlendEnable>False</alphaBlendEnable>
       <bitmap uvTiling="[1,1]" uvOffset="[1,1]">cemento.jpg</bitmap>
     </m>
     <m name="Standardmaterial" type="Standardmaterial">
-      <ambient>[149.94,149.94,149.94,255.0]</ambient>
-      <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-      <specular>[229.5,229.5,229.5,255.0]</specular>
-      <opacity>100.0</opacity>
+      <ambient>[0,0,0,0]</ambient>
+      <diffuse>[0,0,0,0]</diffuse>
+      <specular>[0,0,0,0]</specular>
+      <opacity>1</opacity>
       <alphaBlendEnable>False</alphaBlendEnable>
       <bitmap uvTiling="[1,1]" uvOffset="[1,1]">blocks17floor.jpg</bitmap>
     </m>
     <m name="Standardmaterial" type="Standardmaterial">
-      <ambient>[149.94,149.94,149.94,255.0]</ambient>
-      <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-      <specular>[229.5,229.5,229.5,255.0]</specular>
-      <opacity>100.0</opacity>
+      <ambient>[0,0,0,0]</ambient>
+      <diffuse>[0,0,0,0]</diffuse>
+      <specular>[0,0,0,0]</specular>
+      <opacity>1</opacity>
       <alphaBlendEnable>False</alphaBlendEnable>
       <bitmap uvTiling="[1,1]" uvOffset="[1,1]">clang_floor3blava.JPG</bitmap>
     </m>
     <m name="Standardmaterial" type="Standardmaterial">
-      <ambient>[149.94,149.94,149.94,255.0]</ambient>
-      <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-      <specular>[229.5,229.5,229.5,255.0]</specular>
-      <opacity>100.0</opacity>
+      <ambient>[0,0,0,0]</ambient>
+      <diffuse>[0,0,0,0]</diffuse>
+      <specular>[0,0,0,0]</specular>
+      <opacity>1</opacity>
       <alphaBlendEnable>False</alphaBlendEnable>
       <bitmap uvTiling="[1,1]" uvOffset="[1,1]">ceilingtechplain.jpg</bitmap>
     </m>
     <m name="Standardmaterial" type="Standardmaterial">
-      <ambient>[149.94,149.94,149.94,255.0]</ambient>
-      <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-      <specular>[229.5,229.5,229.5,255.0]</specular>
-      <opacity>100.0</opacity>
+      <ambient>[0,0,0,0]</ambient>
+      <diffuse>[0,0,0,0]</diffuse>
+      <specular>[0,0,0,0]</specular>
+      <opacity>1</opacity>
       <alphaBlendEnable>False</alphaBlendEnable>
       <bitmap uvTiling="[1,1]" uvOffset="[1,1]">arena3.jpg</bitmap>
     </m>
     <m name="Standardmaterial" type="Standardmaterial">
-      <ambient>[149.94,149.94,149.94,255.0]</ambient>
-      <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-      <specular>[229.5,229.5,229.5,255.0]</specular>
-      <opacity>100.0</opacity>
+      <ambient>[0,0,0,0]</ambient>
+      <diffuse>[0,0,0,0]</diffuse>
+      <specular>[0,0,0,0]</specular>
+      <opacity>1</opacity>
       <alphaBlendEnable>False</alphaBlendEnable>
       <bitmap uvTiling="[1,1]" uvOffset="[1,1]">rock_moss3_512.JPG</bitmap>
     </m>
     <m name="Standardmaterial" type="Standardmaterial">
-      <ambient>[149.94,149.94,149.94,255.0]</ambient>
-      <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-      <specular>[229.5,229.5,229.5,255.0]</specular>
-      <opacity>100.0</opacity>
+      <ambient>[0,0,0,0]</ambient>
+      <diffuse>[0,0,0,0]</diffuse>
+      <specular>[0,0,0,0]</specular>
+      <opacity>1</opacity>
       <alphaBlendEnable>False</alphaBlendEnable>
       <bitmap uvTiling="[1,1]" uvOffset="[1,1]">tilefloor7_ow.jpg</bitmap>
     </m>
     <m name="Standardmaterial" type="Standardmaterial">
-      <ambient>[149.94,149.94,149.94,255.0]</ambient>
-      <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-      <specular>[229.5,229.5,229.5,255.0]</specular>
-      <opacity>100.0</opacity>
+      <ambient>[0,0,0,0]</ambient>
+      <diffuse>[0,0,0,0]</diffuse>
+      <specular>[0,0,0,0]</specular>
+      <opacity>1</opacity>
       <alphaBlendEnable>False</alphaBlendEnable>
       <bitmap uvTiling="[1,1]" uvOffset="[1,1]">paredRugosa.jpg</bitmap>
     </m>
     <m name="Standardmaterial" type="Standardmaterial">
-      <ambient>[149.94,149.94,149.94,255.0]</ambient>
-      <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-      <specular>[229.5,229.5,229.5,255.0]</specular>
-      <opacity>100.0</opacity>
+      <ambient>[0,0,0,0]</ambient>
+      <diffuse>[0,0,0,0]</diffuse>
+      <specular>[0,0,0,0]</specular>
+      <opacity>1</opacity>
       <alphaBlendEnable>False</alphaBlendEnable>
       <bitmap uvTiling="[1,1]" uvOffset="[1,1]">brick2_2.jpg</bitmap>
     </m>
 	<m name="Standardmaterial" type="Standardmaterial">
-      <ambient>[149.94,149.94,149.94,255.0]</ambient>
-      <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-      <specular>[229.5,229.5,229.5,255.0]</specular>
-      <opacity>100.0</opacity>
+      <ambient>[0,0,0,0]</ambient>
+      <diffuse>[0,0,0,0]</diffuse>
+      <specular>[0,0,0,0]</specular>
+      <opacity>1</opacity>
       <alphaBlendEnable>False</alphaBlendEnable>
       <bitmap uvTiling="[1,1]" uvOffset="[1,1]">skeleton.png</bitmap>
     </m>
     <m name="Standardmaterial" type="Standardmaterial">
-      <ambient>[149.94,149.94,149.94,255.0]</ambient>
-      <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-      <specular>[229.5,229.5,229.5,255.0]</specular>
-      <opacity>100.0</opacity>
+      <ambient>[0,0,0,0]</ambient>
+      <diffuse>[0,0,0,0]</diffuse>
+      <specular>[0,0,0,0]</specular>
+      <opacity>1</opacity>
       <alphaBlendEnable>False</alphaBlendEnable>
       <bitmap uvTiling="[1,1]" uvOffset="[1,1]">gunpowder.bmp</bitmap>
     </m>
     <m name="Standardmaterial" type="Standardmaterial">
-      <ambient>[149.94,149.94,149.94,255.0]</ambient>
-      <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-      <specular>[229.5,229.5,229.5,255.0]</specular>
-      <opacity>100.0</opacity>
+      <ambient>[0,0,0,0]</ambient>
+      <diffuse>[0,0,0,0]</diffuse>
+      <specular>[0,0,0,0]</specular>
+      <opacity>1</opacity>
       <alphaBlendEnable>False</alphaBlendEnable>
       <bitmap uvTiling="[1,1]" uvOffset="[1,1]">uvw.jpg</bitmap>
     </m>
     <m name="Multimaterial" type="Multimaterial">
       <subM name="Standardmaterial" type="Standardmaterial">
-        <ambient>[149.94,149.94,149.94,255.0]</ambient>
-        <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-        <specular>[229.5,229.5,229.5,255.0]</specular>
-        <opacity>100.0</opacity>
+        <ambient>[0,0,0,0]</ambient>
+        <diffuse>[0,0,0,0]</diffuse>
+        <specular>[0,0,0,0]</specular>
+        <opacity>1</opacity>
         <alphaBlendEnable>False</alphaBlendEnable>
         <bitmap uvTiling="[1,1]" uvOffset="[1,1]">clr100-149-237.bmp</bitmap>
       </subM>
       <subM name="Standardmaterial" type="Standardmaterial">
-        <ambient>[149.94,149.94,149.94,255.0]</ambient>
-        <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-        <specular>[229.5,229.5,229.5,255.0]</specular>
-        <opacity>100.0</opacity>
+        <ambient>[0,0,0,0]</ambient>
+        <diffuse>[0,0,0,0]</diffuse>
+        <specular>[0,0,0,0]</specular>
+        <opacity>1</opacity>
         <alphaBlendEnable>False</alphaBlendEnable>
         <bitmap uvTiling="[1,1]" uvOffset="[1,1]">clr0-0-0.bmp</bitmap>
       </subM>
       <subM name="Standardmaterial" type="Standardmaterial">
-        <ambient>[149.94,149.94,149.94,255.0]</ambient>
-        <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-        <specular>[229.5,229.5,229.5,255.0]</specular>
-        <opacity>100.0</opacity>
+        <ambient>[0,0,0,0]</ambient>
+        <diffuse>[0,0,0,0]</diffuse>
+        <specular>[0,0,0,0]</specular>
+        <opacity>1</opacity>
         <alphaBlendEnable>False</alphaBlendEnable>
         <bitmap uvTiling="[1,1]" uvOffset="[1,1]">clr35-35-35.bmp</bitmap>
       </subM>
       <subM name="Standardmaterial" type="Standardmaterial">
-        <ambient>[149.94,149.94,149.94,255.0]</ambient>
-        <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-        <specular>[229.5,229.5,229.5,255.0]</specular>
-        <opacity>100.0</opacity>
+        <ambient>[0,0,0,0]</ambient>
+        <diffuse>[0,0,0,0]</diffuse>
+        <specular>[0,0,0,0]</specular>
+        <opacity>1</opacity>
         <alphaBlendEnable>False</alphaBlendEnable>
         <bitmap uvTiling="[1,1]" uvOffset="[1,1]">Metal_Aluminum_Anodized.jpg</bitmap>
       </subM>
       <subM name="Standardmaterial" type="Standardmaterial">
-        <ambient>[149.94,149.94,149.94,255.0]</ambient>
-        <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-        <specular>[229.5,229.5,229.5,255.0]</specular>
-        <opacity>100.0</opacity>
+        <ambient>[0,0,0,0]</ambient>
+        <diffuse>[0,0,0,0]</diffuse>
+        <specular>[0,0,0,0]</specular>
+        <opacity>1</opacity>
         <alphaBlendEnable>False</alphaBlendEnable>
         <bitmap uvTiling="[1,1]" uvOffset="[1,1]">clr0-100-0.bmp</bitmap>
       </subM>
       <subM name="Standardmaterial" type="Standardmaterial">
-        <ambient>[149.94,149.94,149.94,255.0]</ambient>
-        <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-        <specular>[229.5,229.5,229.5,255.0]</specular>
-        <opacity>100.0</opacity>
+        <ambient>[0,0,0,0]</ambient>
+        <diffuse>[0,0,0,0]</diffuse>
+        <specular>[0,0,0,0]</specular>
+        <opacity>1</opacity>
         <alphaBlendEnable>False</alphaBlendEnable>
         <bitmap uvTiling="[1,1]" uvOffset="[1,1]">clr0-0-139.bmp</bitmap>
       </subM>
       <subM name="Standardmaterial" type="Standardmaterial">
-        <ambient>[149.94,149.94,149.94,255.0]</ambient>
-        <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-        <specular>[229.5,229.5,229.5,255.0]</specular>
-        <opacity>100.0</opacity>
+        <ambient>[0,0,0,0]</ambient>
+        <diffuse>[0,0,0,0]</diffuse>
+        <specular>[0,0,0,0]</specular>
+        <opacity>1</opacity>
         <alphaBlendEnable>False</alphaBlendEnable>
         <bitmap uvTiling="[1,1]" uvOffset="[1,1]">clr255-0-0.bmp</bitmap>
       </subM>
       <subM name="Standardmaterial" type="Standardmaterial">
-        <ambient>[149.94,149.94,149.94,255.0]</ambient>
-        <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-        <specular>[229.5,229.5,229.5,255.0]</specular>
-        <opacity>100.0</opacity>
+        <ambient>[0,0,0,0]</ambient>
+        <diffuse>[0,0,0,0]</diffuse>
+        <specular>[0,0,0,0]</specular>
+        <opacity>1</opacity>
         <alphaBlendEnable>False</alphaBlendEnable>
         <bitmap uvTiling="[1,1]" uvOffset="[1,1]">clr139-0-0.bmp</bitmap>
       </subM>
       <subM name="Standardmaterial" type="Standardmaterial">
-        <ambient>[149.94,149.94,149.94,255.0]</ambient>
-        <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-        <specular>[229.5,229.5,229.5,255.0]</specular>
-        <opacity>100.0</opacity>
+        <ambient>[0,0,0,0]</ambient>
+        <diffuse>[0,0,0,0]</diffuse>
+        <specular>[0,0,0,0]</specular>
+        <opacity>1</opacity>
         <alphaBlendEnable>False</alphaBlendEnable>
         <bitmap uvTiling="[1,1]" uvOffset="[1,1]">Translucent_Glass_Sky_Reflection.jpg</bitmap>
       </subM>
       <subM name="Standardmaterial" type="Standardmaterial">
-        <ambient>[149.94,149.94,149.94,255.0]</ambient>
-        <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-        <specular>[229.5,229.5,229.5,255.0]</specular>
-        <opacity>100.0</opacity>
+        <ambient>[0,0,0,0]</ambient>
+        <diffuse>[0,0,0,0]</diffuse>
+        <specular>[0,0,0,0]</specular>
+        <opacity>1</opacity>
         <alphaBlendEnable>False</alphaBlendEnable>
         <bitmap uvTiling="[1,1]" uvOffset="[1,1]">Metal_Steel_Textured_White.jpg</bitmap>
       </subM>
       <subM name="Standardmaterial" type="Standardmaterial">
-        <ambient>[149.94,149.94,149.94,255.0]</ambient>
-        <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-        <specular>[229.5,229.5,229.5,255.0]</specular>
-        <opacity>100.0</opacity>
+        <ambient>[0,0,0,0]</ambient>
+        <diffuse>[0,0,0,0]</diffuse>
+        <specular>[0,0,0,0]</specular>
+        <opacity>1</opacity>
         <alphaBlendEnable>False</alphaBlendEnable>
         <bitmap uvTiling="[1,1]" uvOffset="[1,1]">clr255-255-0.bmp</bitmap>
       </subM>
     </m>
     <m name="Standardmaterial" type="Standardmaterial">
-      <ambient>[149.94,149.94,149.94,255.0]</ambient>
-      <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-      <specular>[229.5,229.5,229.5,255.0]</specular>
-      <opacity>100.0</opacity>
+      <ambient>[0,0,0,0]</ambient>
+      <diffuse>[0,0,0,0]</diffuse>
+      <specular>[0,0,0,0]</specular>
+      <opacity>1</opacity>
       <alphaBlendEnable>False</alphaBlendEnable>
       <bitmap uvTiling="[1,1]" uvOffset="[1,1]">candle.bmp</bitmap>
     </m>
     <m name="Standardmaterial" type="Standardmaterial">
-      <ambient>[149.94,149.94,149.94,255.0]</ambient>
-      <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-      <specular>[229.5,229.5,229.5,255.0]</specular>
-      <opacity>100.0</opacity>
+      <ambient>[0,0,0,0]</ambient>
+      <diffuse>[0,0,0,0]</diffuse>
+      <specular>[0,0,0,0]</specular>
+      <opacity>1</opacity>
       <alphaBlendEnable>False</alphaBlendEnable>
       <bitmap uvTiling="[1,1]" uvOffset="[1,1]">door_metal.jpg</bitmap>
     </m>
     <m name="Multimaterial" type="Multimaterial">
       <subM name="Standardmaterial" type="Standardmaterial">
-        <ambient>[149.94,149.94,149.94,255.0]</ambient>
-        <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-        <specular>[229.5,229.5,229.5,255.0]</specular>
-        <opacity>100.0</opacity>
+        <ambient>[0,0,0,0]</ambient>
+        <diffuse>[0,0,0,0]</diffuse>
+        <specular>[0,0,0,0]</specular>
+        <opacity>1</opacity>
         <alphaBlendEnable>False</alphaBlendEnable>
         <bitmap uvTiling="[1,1]" uvOffset="[1,1]">clr43-43-43.bmp</bitmap>
       </subM>
       <subM name="Standardmaterial" type="Standardmaterial">
-        <ambient>[149.94,149.94,149.94,255.0]</ambient>
-        <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-        <specular>[229.5,229.5,229.5,255.0]</specular>
-        <opacity>100.0</opacity>
+        <ambient>[0,0,0,0]</ambient>
+        <diffuse>[0,0,0,0]</diffuse>
+        <specular>[0,0,0,0]</specular>
+        <opacity>1</opacity>
         <alphaBlendEnable>False</alphaBlendEnable>
         <bitmap uvTiling="[1,1]" uvOffset="[1,1]">clr0-0-0.bmp</bitmap>
       </subM>
       <subM name="Standardmaterial" type="Standardmaterial">
-        <ambient>[149.94,149.94,149.94,255.0]</ambient>
-        <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-        <specular>[229.5,229.5,229.5,255.0]</specular>
-        <opacity>100.0</opacity>
+        <ambient>[0,0,0,0]</ambient>
+        <diffuse>[0,0,0,0]</diffuse>
+        <specular>[0,0,0,0]</specular>
+        <opacity>1</opacity>
         <alphaBlendEnable>False</alphaBlendEnable>
         <bitmap uvTiling="[1,1]" uvOffset="[1,1]">clr202-167-133.bmp</bitmap>
       </subM>
       <subM name="Standardmaterial" type="Standardmaterial">
-        <ambient>[149.94,149.94,149.94,255.0]</ambient>
-        <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-        <specular>[229.5,229.5,229.5,255.0]</specular>
-        <opacity>100.0</opacity>
+        <ambient>[0,0,0,0]</ambient>
+        <diffuse>[0,0,0,0]</diffuse>
+        <specular>[0,0,0,0]</specular>
+        <opacity>1</opacity>
         <alphaBlendEnable>False</alphaBlendEnable>
         <bitmap uvTiling="[1,1]" uvOffset="[1,1]">clr69-104-102.bmp</bitmap>
       </subM>
       <subM name="Standardmaterial" type="Standardmaterial">
-        <ambient>[149.94,149.94,149.94,255.0]</ambient>
-        <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-        <specular>[229.5,229.5,229.5,255.0]</specular>
-        <opacity>100.0</opacity>
+        <ambient>[0,0,0,0]</ambient>
+        <diffuse>[0,0,0,0]</diffuse>
+        <specular>[0,0,0,0]</specular>
+        <opacity>1</opacity>
         <alphaBlendEnable>False</alphaBlendEnable>
         <bitmap uvTiling="[1,1]" uvOffset="[1,1]">clr58-80-104.bmp</bitmap>
       </subM>
       <subM name="Standardmaterial" type="Standardmaterial">
-        <ambient>[149.94,149.94,149.94,255.0]</ambient>
-        <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-        <specular>[229.5,229.5,229.5,255.0]</specular>
-        <opacity>100.0</opacity>
+        <ambient>[0,0,0,0]</ambient>
+        <diffuse>[0,0,0,0]</diffuse>
+        <specular>[0,0,0,0]</specular>
+        <opacity>1</opacity>
         <alphaBlendEnable>False</alphaBlendEnable>
         <bitmap uvTiling="[1,1]" uvOffset="[1,1]">clr199-199-199.bmp</bitmap>
       </subM>
       <subM name="Standardmaterial" type="Standardmaterial">
-        <ambient>[149.94,149.94,149.94,255.0]</ambient>
-        <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-        <specular>[229.5,229.5,229.5,255.0]</specular>
-        <opacity>100.0</opacity>
+        <ambient>[0,0,0,0]</ambient>
+        <diffuse>[0,0,0,0]</diffuse>
+        <specular>[0,0,0,0]</specular>
+        <opacity>1</opacity>
         <alphaBlendEnable>False</alphaBlendEnable>
         <bitmap uvTiling="[1,1]" uvOffset="[1,1]">clr145-31-21.bmp</bitmap>
       </subM>
       <subM name="Standardmaterial" type="Standardmaterial">
-        <ambient>[149.94,149.94,149.94,255.0]</ambient>
-        <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-        <specular>[229.5,229.5,229.5,255.0]</specular>
-        <opacity>100.0</opacity>
+        <ambient>[0,0,0,0]</ambient>
+        <diffuse>[0,0,0,0]</diffuse>
+        <specular>[0,0,0,0]</specular>
+        <opacity>1</opacity>
         <alphaBlendEnable>False</alphaBlendEnable>
         <bitmap uvTiling="[1,1]" uvOffset="[1,1]">clr197-226-222.bmp</bitmap>
       </subM>
       <subM name="Standardmaterial" type="Standardmaterial">
-        <ambient>[149.94,149.94,149.94,255.0]</ambient>
-        <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-        <specular>[229.5,229.5,229.5,255.0]</specular>
-        <opacity>100.0</opacity>
+        <ambient>[0,0,0,0]</ambient>
+        <diffuse>[0,0,0,0]</diffuse>
+        <specular>[0,0,0,0]</specular>
+        <opacity>1</opacity>
         <alphaBlendEnable>False</alphaBlendEnable>
         <bitmap uvTiling="[1,1]" uvOffset="[1,1]">clr229-229-225.bmp</bitmap>
       </subM>
       <subM name="Standardmaterial" type="Standardmaterial">
-        <ambient>[149.94,149.94,149.94,255.0]</ambient>
-        <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-        <specular>[229.5,229.5,229.5,255.0]</specular>
-        <opacity>100.0</opacity>
+        <ambient>[0,0,0,0]</ambient>
+        <diffuse>[0,0,0,0]</diffuse>
+        <specular>[0,0,0,0]</specular>
+        <opacity>1</opacity>
         <alphaBlendEnable>False</alphaBlendEnable>
         <bitmap uvTiling="[1,1]" uvOffset="[1,1]">clr93-93-93.bmp</bitmap>
       </subM>
       <subM name="Standardmaterial" type="Standardmaterial">
-        <ambient>[149.94,149.94,149.94,255.0]</ambient>
-        <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-        <specular>[229.5,229.5,229.5,255.0]</specular>
-        <opacity>100.0</opacity>
+        <ambient>[0,0,0,0]</ambient>
+        <diffuse>[0,0,0,0]</diffuse>
+        <specular>[0,0,0,0]</specular>
+        <opacity>1</opacity>
         <alphaBlendEnable>False</alphaBlendEnable>
         <bitmap uvTiling="[1,1]" uvOffset="[1,1]">clr51-45-40.bmp</bitmap>
       </subM>
       <subM name="Standardmaterial" type="Standardmaterial">
-        <ambient>[149.94,149.94,149.94,255.0]</ambient>
-        <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-        <specular>[229.5,229.5,229.5,255.0]</specular>
-        <opacity>100.0</opacity>
+        <ambient>[0,0,0,0]</ambient>
+        <diffuse>[0,0,0,0]</diffuse>
+        <specular>[0,0,0,0]</specular>
+        <opacity>1</opacity>
         <alphaBlendEnable>False</alphaBlendEnable>
         <bitmap uvTiling="[1,1]" uvOffset="[1,1]">clr52-62-63.bmp</bitmap>
       </subM>
       <subM name="Standardmaterial" type="Standardmaterial">
-        <ambient>[149.94,149.94,149.94,255.0]</ambient>
-        <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-        <specular>[229.5,229.5,229.5,255.0]</specular>
-        <opacity>100.0</opacity>
+        <ambient>[0,0,0,0]</ambient>
+        <diffuse>[0,0,0,0]</diffuse>
+        <specular>[0,0,0,0]</specular>
+        <opacity>1</opacity>
         <alphaBlendEnable>False</alphaBlendEnable>
         <bitmap uvTiling="[1,1]" uvOffset="[1,1]">clr58-58-58.bmp</bitmap>
       </subM>
       <subM name="Standardmaterial" type="Standardmaterial">
-        <ambient>[149.94,149.94,149.94,255.0]</ambient>
-        <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-        <specular>[229.5,229.5,229.5,255.0]</specular>
-        <opacity>100.0</opacity>
+        <ambient>[0,0,0,0]</ambient>
+        <diffuse>[0,0,0,0]</diffuse>
+        <specular>[0,0,0,0]</specular>
+        <opacity>1</opacity>
         <alphaBlendEnable>False</alphaBlendEnable>
         <bitmap uvTiling="[1,1]" uvOffset="[1,1]">Untitled-1.jpg</bitmap>
       </subM>
       <subM name="Standardmaterial" type="Standardmaterial">
-        <ambient>[149.94,149.94,149.94,255.0]</ambient>
-        <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-        <specular>[229.5,229.5,229.5,255.0]</specular>
-        <opacity>100.0</opacity>
+        <ambient>[0,0,0,0]</ambient>
+        <diffuse>[0,0,0,0]</diffuse>
+        <specular>[0,0,0,0]</specular>
+        <opacity>1</opacity>
         <alphaBlendEnable>False</alphaBlendEnable>
         <bitmap uvTiling="[1,1]" uvOffset="[1,1]">clr175-175-175.bmp</bitmap>
       </subM>
       <subM name="Standardmaterial" type="Standardmaterial">
-        <ambient>[149.94,149.94,149.94,255.0]</ambient>
-        <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-        <specular>[229.5,229.5,229.5,255.0]</specular>
-        <opacity>100.0</opacity>
+        <ambient>[0,0,0,0]</ambient>
+        <diffuse>[0,0,0,0]</diffuse>
+        <specular>[0,0,0,0]</specular>
+        <opacity>1</opacity>
         <alphaBlendEnable>False</alphaBlendEnable>
         <bitmap uvTiling="[1,1]" uvOffset="[1,1]">gold1.jpg</bitmap>
       </subM>
       <subM name="Standardmaterial" type="Standardmaterial">
-        <ambient>[149.94,149.94,149.94,255.0]</ambient>
-        <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-        <specular>[229.5,229.5,229.5,255.0]</specular>
-        <opacity>100.0</opacity>
+        <ambient>[0,0,0,0]</ambient>
+        <diffuse>[0,0,0,0]</diffuse>
+        <specular>[0,0,0,0]</specular>
+        <opacity>1</opacity>
         <alphaBlendEnable>False</alphaBlendEnable>
         <bitmap uvTiling="[1,1]" uvOffset="[1,1]">clr255-255-255.bmp</bitmap>
       </subM>
       <subM name="Standardmaterial" type="Standardmaterial">
-        <ambient>[149.94,149.94,149.94,255.0]</ambient>
-        <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-        <specular>[229.5,229.5,229.5,255.0]</specular>
-        <opacity>100.0</opacity>
+        <ambient>[0,0,0,0]</ambient>
+        <diffuse>[0,0,0,0]</diffuse>
+        <specular>[0,0,0,0]</specular>
+        <opacity>1</opacity>
         <alphaBlendEnable>False</alphaBlendEnable>
         <bitmap uvTiling="[1,1]" uvOffset="[1,1]">Metal_Corrogated_Shiny.jpg</bitmap>
       </subM>
       <subM name="Standardmaterial" type="Standardmaterial">
-        <ambient>[149.94,149.94,149.94,255.0]</ambient>
-        <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-        <specular>[229.5,229.5,229.5,255.0]</specular>
-        <opacity>100.0</opacity>
+        <ambient>[0,0,0,0]</ambient>
+        <diffuse>[0,0,0,0]</diffuse>
+        <specular>[0,0,0,0]</specular>
+        <opacity>1</opacity>
         <alphaBlendEnable>False</alphaBlendEnable>
         <bitmap uvTiling="[1,1]" uvOffset="[1,1]">clr63-63-63.bmp</bitmap>
       </subM>
       <subM name="Standardmaterial" type="Standardmaterial">
-        <ambient>[149.94,149.94,149.94,255.0]</ambient>
-        <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-        <specular>[229.5,229.5,229.5,255.0]</specular>
-        <opacity>100.0</opacity>
+        <ambient>[0,0,0,0]</ambient>
+        <diffuse>[0,0,0,0]</diffuse>
+        <specular>[0,0,0,0]</specular>
+        <opacity>1</opacity>
         <alphaBlendEnable>False</alphaBlendEnable>
         <bitmap uvTiling="[1,1]" uvOffset="[1,1]">LCDL25_7.jpg</bitmap>
       </subM>
       <subM name="Standardmaterial" type="Standardmaterial">
-        <ambient>[149.94,149.94,149.94,255.0]</ambient>
-        <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-        <specular>[229.5,229.5,229.5,255.0]</specular>
-        <opacity>100.0</opacity>
+        <ambient>[0,0,0,0]</ambient>
+        <diffuse>[0,0,0,0]</diffuse>
+        <specular>[0,0,0,0]</specular>
+        <opacity>1</opacity>
         <alphaBlendEnable>False</alphaBlendEnable>
         <bitmap uvTiling="[1,1]" uvOffset="[1,1]">clr75-66-51.bmp</bitmap>
       </subM>
       <subM name="Standardmaterial" type="Standardmaterial">
-        <ambient>[149.94,149.94,149.94,255.0]</ambient>
-        <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-        <specular>[229.5,229.5,229.5,255.0]</specular>
-        <opacity>100.0</opacity>
+        <ambient>[0,0,0,0]</ambient>
+        <diffuse>[0,0,0,0]</diffuse>
+        <specular>[0,0,0,0]</specular>
+        <opacity>1</opacity>
         <alphaBlendEnable>False</alphaBlendEnable>
         <bitmap uvTiling="[1,1]" uvOffset="[1,1]">clr208-193-169.bmp</bitmap>
       </subM>
       <subM name="Standardmaterial" type="Standardmaterial">
-        <ambient>[149.94,149.94,149.94,255.0]</ambient>
-        <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-        <specular>[229.5,229.5,229.5,255.0]</specular>
-        <opacity>100.0</opacity>
+        <ambient>[0,0,0,0]</ambient>
+        <diffuse>[0,0,0,0]</diffuse>
+        <specular>[0,0,0,0]</specular>
+        <opacity>1</opacity>
         <alphaBlendEnable>False</alphaBlendEnable>
         <bitmap uvTiling="[1,1]" uvOffset="[1,1]">3.png</bitmap>
       </subM>
       <subM name="Standardmaterial" type="Standardmaterial">
-        <ambient>[149.94,149.94,149.94,255.0]</ambient>
-        <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-        <specular>[229.5,229.5,229.5,255.0]</specular>
-        <opacity>100.0</opacity>
+        <ambient>[0,0,0,0]</ambient>
+        <diffuse>[0,0,0,0]</diffuse>
+        <specular>[0,0,0,0]</specular>
+        <opacity>1</opacity>
         <alphaBlendEnable>False</alphaBlendEnable>
         <bitmap uvTiling="[1,1]" uvOffset="[1,1]">Brick_Antique.jpg</bitmap>
       </subM>
       <subM name="Standardmaterial" type="Standardmaterial">
-        <ambient>[149.94,149.94,149.94,255.0]</ambient>
-        <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-        <specular>[229.5,229.5,229.5,255.0]</specular>
-        <opacity>100.0</opacity>
+        <ambient>[0,0,0,0]</ambient>
+        <diffuse>[0,0,0,0]</diffuse>
+        <specular>[0,0,0,0]</specular>
+        <opacity>1</opacity>
         <alphaBlendEnable>False</alphaBlendEnable>
         <bitmap uvTiling="[1,1]" uvOffset="[1,1]">Untitled-2.jpg</bitmap>
       </subM>
       <subM name="Standardmaterial" type="Standardmaterial">
-        <ambient>[149.94,149.94,149.94,255.0]</ambient>
-        <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-        <specular>[229.5,229.5,229.5,255.0]</specular>
-        <opacity>100.0</opacity>
+        <ambient>[0,0,0,0]</ambient>
+        <diffuse>[0,0,0,0]</diffuse>
+        <specular>[0,0,0,0]</specular>
+        <opacity>1</opacity>
         <alphaBlendEnable>False</alphaBlendEnable>
         <bitmap uvTiling="[1,1]" uvOffset="[1,1]">Untitled-3.jpg</bitmap>
       </subM>
     </m>
 	<m name="Standardmaterial" type="Standardmaterial">
-      <ambient>[149.94,149.94,149.94,255.0]</ambient>
-      <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-      <specular>[229.5,229.5,229.5,255.0]</specular>
-      <opacity>100.0</opacity>
+      <ambient>[0,0,0,0]</ambient>
+      <diffuse>[0,0,0,0]</diffuse>
+      <specular>[0,0,0,0]</specular>
+      <opacity>1</opacity>
       <alphaBlendEnable>False</alphaBlendEnable>
       <bitmap uvTiling="[1,1]" uvOffset="[1,1]">than_button1.jpg</bitmap>
     </m>
     <m name="Standardmaterial" type="Standardmaterial">
-      <ambient>[149.94,149.94,149.94,255.0]</ambient>
-      <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-      <specular>[229.5,229.5,229.5,255.0]</specular>
-      <opacity>100.0</opacity>
+      <ambient>[0,0,0,0]</ambient>
+      <diffuse>[0,0,0,0]</diffuse>
+      <specular>[0,0,0,0]</specular>
+      <opacity>1</opacity>
       <alphaBlendEnable>False</alphaBlendEnable>
       <bitmap uvTiling="[1,1]" uvOffset="[1,1]">rack.png</bitmap>
     </m>
     <m name="Standardmaterial" type="Standardmaterial">
-      <ambient>[149.94,149.94,149.94,255.0]</ambient>
-      <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-      <specular>[229.5,229.5,229.5,255.0]</specular>
-      <opacity>100.0</opacity>
+      <ambient>[0,0,0,0]</ambient>
+      <diffuse>[0,0,0,0]</diffuse>
+      <specular>[0,0,0,0]</specular>
+      <opacity>1</opacity>
       <alphaBlendEnable>False</alphaBlendEnable>
       <bitmap uvTiling="[1,1]" uvOffset="[1,1]">guillotine.jpg</bitmap>
     </m>
     <m name="Standardmaterial" type="Standardmaterial">
-      <ambient>[149.94,149.94,149.94,255.0]</ambient>
-      <diffuse>[149.94,149.94,149.94,255.0]</diffuse>
-      <specular>[229.5,229.5,229.5,255.0]</specular>
-      <opacity>100.0</opacity>
+      <ambient>[0,0,0,0]</ambient>
+      <diffuse>[0,0,0,0]</diffuse>
+      <specular>[0,0,0,0]</specular>
+      <opacity>1</opacity>
       <alphaBlendEnable>False</alphaBlendEnable>
       <bitmap uvTiling="[1,1]" uvOffset="[1,1]">rope.jpg</bitmap>
     </m>
@@ -522,7 +522,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">0 0 0 1800 0 0 1800 0 200 0 0 200 </vertices>
-      <normals count="12">0 1 0 0 1 0 0 1 0 0 1 0 </normals>
+      <normals count="12">0 -1 0 0 -1 0 0 -1 0 0 -1 0 </normals>
       <texCoords count="8">6 2 0 2 0 0 6 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -537,7 +537,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">0 0 0 0 0 200 0 200 200 0 200 0 </vertices>
-      <normals count="12">1 0 0 1 0 0 1 0 0 1 0 0 </normals>
+      <normals count="12">-1 0 0 -1 0 0 -1 0 0 -1 0 0 </normals>
       <texCoords count="8">2 2 0 2 0 0 2 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -567,7 +567,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">200 0 200 1800 0 200 1800 200 200 200 200 200 </vertices>
-      <normals count="12">0 0 -1 0 0 -1 0 0 -1 0 0 -1 </normals>
+      <normals count="12">0 0 1 0 0 1 0 0 1 0 0 1 </normals>
       <texCoords count="8">10 2 0 2 0 0 10 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -597,7 +597,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">0 0 200 200 0 200 200 0 1800 0 0 1800 </vertices>
-      <normals count="12">0 1 0 0 1 0 0 1 0 0 1 0 </normals>
+      <normals count="12">0 -1 0 0 -1 0 0 -1 0 0 -1 0 </normals>
       <texCoords count="8">2 6 0 6 0 0 2 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -642,7 +642,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">0 0 200 0 0 1800 0 200 1800 0 200 200 </vertices>
-      <normals count="12">1 0 0 1 0 0 1 0 0 1 0 0 </normals>
+      <normals count="12">-1 0 0 -1 0 0 -1 0 0 -1 0 0 </normals>
       <texCoords count="8">10 2 0 2 0 0 10 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -672,7 +672,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">0 0 1800 1800 0 1800 1800 0 2000 0 0 2000 </vertices>
-      <normals count="12">0 1 0 0 1 0 0 1 0 0 1 0 </normals>
+      <normals count="12">0 -1 0 0 -1 0 0 -1 0 0 -1 0 </normals>
       <texCoords count="8">6 2 0 2 0 0 6 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -687,7 +687,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">0 0 1800 0 0 2000 0 200 2000 0 200 1800 </vertices>
-      <normals count="12">1 0 0 1 0 0 1 0 0 1 0 0 </normals>
+      <normals count="12">-1 0 0 -1 0 0 -1 0 0 -1 0 0 </normals>
       <texCoords count="8">2 2 0 2 0 0 2 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -732,7 +732,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">0 0 2000 420 0 2000 420 200 2000 0 200 2000 </vertices>
-      <normals count="12">0 0 -1 0 0 -1 0 0 -1 0 0 -1 </normals>
+      <normals count="12">0 0 1 0 0 1 0 0 1 0 0 1 </normals>
       <texCoords count="8">3 2 0 2 0 0 3 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -747,7 +747,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">519.9999 0 2000 1460 0 2000 1460 200 2000 519.9999 200 2000 </vertices>
-      <normals count="12">0 0 -1 0 0 -1 0 0 -1 0 0 -1 </normals>
+      <normals count="12">0 0 1 0 0 1 0 0 1 0 0 1 </normals>
       <texCoords count="8">3 2 0 2 0 0 3 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -762,7 +762,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">1560 0 2000 1800 0 2000 1800 200 2000 1560 200 2000 </vertices>
-      <normals count="12">0 0 -1 0 0 -1 0 0 -1 0 0 -1 </normals>
+      <normals count="12">0 0 1 0 0 1 0 0 1 0 0 1 </normals>
       <texCoords count="8">3 2 0 2 0 0 3 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -792,7 +792,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">1580 0 220 1780 0 220 1780 0 1780 1580 0 1780 </vertices>
-      <normals count="12">0 1 0 0 1 0 0 1 0 0 1 0 </normals>
+      <normals count="12">0 -1 0 0 -1 0 0 -1 0 0 -1 0 </normals>
       <texCoords count="8">2 6 0 6 0 0 2 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -822,7 +822,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">1580 0 420 1580 0 1580 1580 200 1580 1580 200 420 </vertices>
-      <normals count="12">1 0 0 1 0 0 1 0 0 1 0 0 </normals>
+      <normals count="12">-1 0 0 -1 0 0 -1 0 0 -1 0 0 </normals>
       <texCoords count="8">10 2 0 2 0 0 10 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -852,7 +852,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">1580 0 1780 1780 0 1780 1780 200 1780 1580 200 1780 </vertices>
-      <normals count="12">0 0 -1 0 0 -1 0 0 -1 0 0 -1 </normals>
+      <normals count="12">0 0 1 0 0 1 0 0 1 0 0 1 </normals>
       <texCoords count="8">2 2 0 2 0 0 2 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -882,7 +882,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">220 0 440 420 0 440 420 0 1560 220 0 1560 </vertices>
-      <normals count="12">0 1 0 0 1 0 0 1 0 0 1 0 </normals>
+      <normals count="12">0 -1 0 0 -1 0 0 -1 0 0 -1 0 </normals>
       <texCoords count="8">2 6 0 6 0 0 2 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -912,7 +912,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">220 0 440 220 0 879.9999 220 200 879.9999 220 200 440 </vertices>
-      <normals count="12">1 0 0 1 0 0 1 0 0 1 0 0 </normals>
+      <normals count="12">-1 0 0 -1 0 0 -1 0 0 -1 0 0 </normals>
       <texCoords count="8">4 2 0 2 0 0 4 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -927,7 +927,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">220 0 979.9999 220 0 1560 220 200 1560 220 200 979.9999 </vertices>
-      <normals count="12">1 0 0 1 0 0 1 0 0 1 0 0 </normals>
+      <normals count="12">-1 0 0 -1 0 0 -1 0 0 -1 0 0 </normals>
       <texCoords count="8">4 2 0 2 0 0 4 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -957,7 +957,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">220 0 1560 420 0 1560 420 200 1560 220 200 1560 </vertices>
-      <normals count="12">0 0 -1 0 0 -1 0 0 -1 0 0 -1 </normals>
+      <normals count="12">0 0 1 0 0 1 0 0 1 0 0 1 </normals>
       <texCoords count="8">2 2 0 2 0 0 2 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -987,7 +987,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">220 0 220 1580 0 220 1580 0 420 220 0 420 </vertices>
-      <normals count="12">0 1 0 0 1 0 0 1 0 0 1 0 </normals>
+      <normals count="12">0 -1 0 0 -1 0 0 -1 0 0 -1 0 </normals>
       <texCoords count="8">6 2 0 2 0 0 6 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -1002,7 +1002,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">220 0 220 220 0 420 220 200 420 220 200 220 </vertices>
-      <normals count="12">1 0 0 1 0 0 1 0 0 1 0 0 </normals>
+      <normals count="12">-1 0 0 -1 0 0 -1 0 0 -1 0 0 </normals>
       <texCoords count="8">2 2 0 2 0 0 2 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -1032,7 +1032,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">220 0 420 939.9999 0 420 939.9999 200 420 220 200 420 </vertices>
-      <normals count="12">0 0 -1 0 0 -1 0 0 -1 0 0 -1 </normals>
+      <normals count="12">0 0 1 0 0 1 0 0 1 0 0 1 </normals>
       <texCoords count="8">8 2 0 2 0 0 8 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -1047,7 +1047,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">1040 0 420 1580 0 420 1580 200 420 1040 200 420 </vertices>
-      <normals count="12">0 0 -1 0 0 -1 0 0 -1 0 0 -1 </normals>
+      <normals count="12">0 0 1 0 0 1 0 0 1 0 0 1 </normals>
       <texCoords count="8">8 2 0 2 0 0 8 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -1077,7 +1077,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">1800 0 0 2000 0 0 2000 0 2000 1800 0 2000 </vertices>
-      <normals count="12">0 1 0 0 1 0 0 1 0 0 1 0 </normals>
+      <normals count="12">0 -1 0 0 -1 0 0 -1 0 0 -1 0 </normals>
       <texCoords count="8">2 6 0 6 0 0 2 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -1137,7 +1137,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">1800 0 200 1800 0 1800 1800 200 1800 1800 200 200 </vertices>
-      <normals count="12">1 0 0 1 0 0 1 0 0 1 0 0 </normals>
+      <normals count="12">-1 0 0 -1 0 0 -1 0 0 -1 0 0 </normals>
       <texCoords count="8">4 2 0 2 0 0 4 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -1167,7 +1167,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">1800 0 2000 2000 0 2000 2000 200 2000 1800 200 2000 </vertices>
-      <normals count="12">0 0 -1 0 0 -1 0 0 -1 0 0 -1 </normals>
+      <normals count="12">0 0 1 0 0 1 0 0 1 0 0 1 </normals>
       <texCoords count="8">2 2 0 2 0 0 2 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -1197,7 +1197,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">220 0 1580 1580 0 1580 1580 0 1780 220 0 1780 </vertices>
-      <normals count="12">0 1 0 0 1 0 0 1 0 0 1 0 </normals>
+      <normals count="12">0 -1 0 0 -1 0 0 -1 0 0 -1 0 </normals>
       <texCoords count="8">6 2 0 2 0 0 6 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -1212,7 +1212,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">220 0 1580 220 0 1780 220 200 1780 220 200 1580 </vertices>
-      <normals count="12">1 0 0 1 0 0 1 0 0 1 0 0 </normals>
+      <normals count="12">-1 0 0 -1 0 0 -1 0 0 -1 0 0 </normals>
       <texCoords count="8">2 2 0 2 0 0 2 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -1242,7 +1242,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">220 0 1780 919.9999 0 1780 919.9999 200 1780 220 200 1780 </vertices>
-      <normals count="12">0 0 -1 0 0 -1 0 0 -1 0 0 -1 </normals>
+      <normals count="12">0 0 1 0 0 1 0 0 1 0 0 1 </normals>
       <texCoords count="8">8 2 0 2 0 0 8 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -1257,7 +1257,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">1020 0 1780 1580 0 1780 1580 200 1780 1020 200 1780 </vertices>
-      <normals count="12">0 0 -1 0 0 -1 0 0 -1 0 0 -1 </normals>
+      <normals count="12">0 0 1 0 0 1 0 0 1 0 0 1 </normals>
       <texCoords count="8">8 2 0 2 0 0 8 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -1287,7 +1287,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">440 0 639.9999 639.9999 0 639.9999 639.9999 0 1360 440 0 1360 </vertices>
-      <normals count="12">0 1 0 0 1 0 0 1 0 0 1 0 </normals>
+      <normals count="12">0 -1 0 0 -1 0 0 -1 0 0 -1 0 </normals>
       <texCoords count="8">2 6 0 6 0 0 2 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -1317,7 +1317,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">440 0 639.9999 440 0 1360 440 200 1360 440 200 639.9999 </vertices>
-      <normals count="12">1 0 0 1 0 0 1 0 0 1 0 0 </normals>
+      <normals count="12">-1 0 0 -1 0 0 -1 0 0 -1 0 0 </normals>
       <texCoords count="8">6 2 0 2 0 0 6 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -1347,7 +1347,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">440 0 440 1360 0 440 1360 0 639.9999 440 0 639.9999 </vertices>
-      <normals count="12">0 1 0 0 1 0 0 1 0 0 1 0 </normals>
+      <normals count="12">0 -1 0 0 -1 0 0 -1 0 0 -1 0 </normals>
       <texCoords count="8">6 2 0 2 0 0 6 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -1362,7 +1362,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">440 0 440 440 0 639.9999 440 200 639.9999 440 200 440 </vertices>
-      <normals count="12">1 0 0 1 0 0 1 0 0 1 0 0 </normals>
+      <normals count="12">-1 0 0 -1 0 0 -1 0 0 -1 0 0 </normals>
       <texCoords count="8">2 2 0 2 0 0 2 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -1437,7 +1437,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">440 0 1360 1360 0 1360 1360 0 1560 440 0 1560 </vertices>
-      <normals count="12">0 1 0 0 1 0 0 1 0 0 1 0 </normals>
+      <normals count="12">0 -1 0 0 -1 0 0 -1 0 0 -1 0 </normals>
       <texCoords count="8">6 2 0 2 0 0 6 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -1452,7 +1452,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">440 0 1360 440 0 1560 440 200 1560 440 200 1360 </vertices>
-      <normals count="12">1 0 0 1 0 0 1 0 0 1 0 0 </normals>
+      <normals count="12">-1 0 0 -1 0 0 -1 0 0 -1 0 0 </normals>
       <texCoords count="8">2 2 0 2 0 0 2 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -1512,7 +1512,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">1360 0 440 1560 0 440 1560 0 1560 1360 0 1560 </vertices>
-      <normals count="12">0 1 0 0 1 0 0 1 0 0 1 0 </normals>
+      <normals count="12">0 -1 0 0 -1 0 0 -1 0 0 -1 0 </normals>
       <texCoords count="8">2 6 0 6 0 0 2 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -1542,7 +1542,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">1360 0 639.9999 1360 0 959.9999 1360 200 959.9999 1360 200 639.9999 </vertices>
-      <normals count="12">1 0 0 1 0 0 1 0 0 1 0 0 </normals>
+      <normals count="12">-1 0 0 -1 0 0 -1 0 0 -1 0 0 </normals>
       <texCoords count="8">4 2 0 2 0 0 4 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -1557,7 +1557,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">1360 0 1060 1360 0 1360 1360 200 1360 1360 200 1060 </vertices>
-      <normals count="12">1 0 0 1 0 0 1 0 0 1 0 0 </normals>
+      <normals count="12">-1 0 0 -1 0 0 -1 0 0 -1 0 0 </normals>
       <texCoords count="8">4 2 0 2 0 0 4 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -1617,7 +1617,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">200 0 2020 739.9999 0 2020 739.9999 0 2600 200 0 2600 </vertices>
-      <normals count="12">0 1 0 0 1 0 0 1 0 0 1 0 </normals>
+      <normals count="12">0 -1 0 0 -1 0 0 -1 0 0 -1 0 </normals>
       <texCoords count="8">2 2 0 2 0 0 2 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -1647,7 +1647,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">200 0 2020 200 0 2600 200 200 2600 200 200 2020 </vertices>
-      <normals count="12">1 0 0 1 0 0 1 0 0 1 0 0 </normals>
+      <normals count="12">-1 0 0 -1 0 0 -1 0 0 -1 0 0 </normals>
       <texCoords count="8">2 2 0 2 0 0 2 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -1722,7 +1722,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">1260 0 2020 1800 0 2020 1800 0 2600 1260 0 2600 </vertices>
-      <normals count="12">0 1 0 0 1 0 0 1 0 0 1 0 </normals>
+      <normals count="12">0 -1 0 0 -1 0 0 -1 0 0 -1 0 </normals>
       <texCoords count="8">2 2 0 2 0 0 2 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -1752,7 +1752,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">1260 0 2020 1260 0 2600 1260 200 2600 1260 200 2020 </vertices>
-      <normals count="12">1 0 0 1 0 0 1 0 0 1 0 0 </normals>
+      <normals count="12">-1 0 0 -1 0 0 -1 0 0 -1 0 0 </normals>
       <texCoords count="8">2 2 0 2 0 0 2 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -1827,7 +1827,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">2020 0 1080 2600 0 1080 2600 0 1620 2020 0 1620 </vertices>
-      <normals count="12">0 1 0 0 1 0 0 1 0 0 1 0 </normals>
+      <normals count="12">0 -1 0 0 -1 0 0 -1 0 0 -1 0 </normals>
       <texCoords count="8">2 2 0 2 0 0 2 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -1857,7 +1857,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">2020 0 1080 2020 0 1480 2020 200 1480 2020 200 1080 </vertices>
-      <normals count="12">1 0 0 1 0 0 1 0 0 1 0 0 </normals>
+      <normals count="12">-1 0 0 -1 0 0 -1 0 0 -1 0 0 </normals>
       <texCoords count="8">2 2 0 2 0 0 2 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -1872,7 +1872,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">2020 0 1580 2020 0 1620 2020 200 1620 2020 200 1580 </vertices>
-      <normals count="12">1 0 0 1 0 0 1 0 0 1 0 0 </normals>
+      <normals count="12">-1 0 0 -1 0 0 -1 0 0 -1 0 0 </normals>
       <texCoords count="8">2 2 0 2 0 0 2 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -1932,7 +1932,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">2020 0 220 2600 0 220 2600 0 759.9999 2020 0 759.9999 </vertices>
-      <normals count="12">0 1 0 0 1 0 0 1 0 0 1 0 </normals>
+      <normals count="12">0 -1 0 0 -1 0 0 -1 0 0 -1 0 </normals>
       <texCoords count="8">2 2 0 2 0 0 2 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -1962,7 +1962,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">2020 0 220 2020 0 420 2020 200 420 2020 200 220 </vertices>
-      <normals count="12">1 0 0 1 0 0 1 0 0 1 0 0 </normals>
+      <normals count="12">-1 0 0 -1 0 0 -1 0 0 -1 0 0 </normals>
       <texCoords count="8">2 2 0 2 0 0 2 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -1977,7 +1977,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">2020 0 519.9999 2020 0 759.9999 2020 200 759.9999 2020 200 519.9999 </vertices>
-      <normals count="12">1 0 0 1 0 0 1 0 0 1 0 0 </normals>
+      <normals count="12">-1 0 0 -1 0 0 -1 0 0 -1 0 0 </normals>
       <texCoords count="8">2 2 0 2 0 0 2 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -2037,7 +2037,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">659.9999 0 659.9999 1340 0 659.9999 1340 0 1340 659.9999 0 1340 </vertices>
-      <normals count="12">0 1 0 0 1 0 0 1 0 0 1 0 </normals>
+      <normals count="12">0 -1 0 0 -1 0 0 -1 0 0 -1 0 </normals>
       <texCoords count="8">4 4 0 4 0 0 4 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -2082,7 +2082,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">659.9999 0 659.9999 659.9999 0 1340 659.9999 200 1340 659.9999 200 659.9999 </vertices>
-      <normals count="12">1 0 0 1 0 0 1 0 0 1 0 0 </normals>
+      <normals count="12">-1 0 0 -1 0 0 -1 0 0 -1 0 0 </normals>
       <texCoords count="8">4 1 0 1 0 0 4 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -2142,7 +2142,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">420 0 2000 519.9999 0 2000 519.9999 0 2020 420 0 2020 </vertices>
-      <normals count="12">0 1 0 0 1 0 0 1 0 0 1 0 </normals>
+      <normals count="12">0 -1 0 0 -1 0 0 -1 0 0 -1 0 </normals>
       <texCoords count="8">2 2 0 2 0 0 2 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -2172,7 +2172,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">420 0 2000 420 0 2020 420 200 2020 420 200 2000 </vertices>
-      <normals count="12">1 0 0 1 0 0 1 0 0 1 0 0 </normals>
+      <normals count="12">-1 0 0 -1 0 0 -1 0 0 -1 0 0 </normals>
       <texCoords count="8">1 1 0 1 0 0 1 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -2202,7 +2202,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">1460 0 2000 1560 0 2000 1560 0 2020 1460 0 2020 </vertices>
-      <normals count="12">0 1 0 0 1 0 0 1 0 0 1 0 </normals>
+      <normals count="12">0 -1 0 0 -1 0 0 -1 0 0 -1 0 </normals>
       <texCoords count="8">2 2 0 2 0 0 2 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -2232,7 +2232,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">1460 0 2000 1460 0 2020 1460 200 2020 1460 200 2000 </vertices>
-      <normals count="12">1 0 0 1 0 0 1 0 0 1 0 0 </normals>
+      <normals count="12">-1 0 0 -1 0 0 -1 0 0 -1 0 0 </normals>
       <texCoords count="8">1 1 0 1 0 0 1 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -2262,7 +2262,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">200 0 879.9999 220 0 879.9999 220 0 979.9999 200 0 979.9999 </vertices>
-      <normals count="12">0 1 0 0 1 0 0 1 0 0 1 0 </normals>
+      <normals count="12">0 -1 0 0 -1 0 0 -1 0 0 -1 0 </normals>
       <texCoords count="8">2 2 0 2 0 0 2 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -2322,7 +2322,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">919.9999 0 1780 1020 0 1780 1020 0 1800 919.9999 0 1800 </vertices>
-      <normals count="12">0 1 0 0 1 0 0 1 0 0 1 0 </normals>
+      <normals count="12">0 -1 0 0 -1 0 0 -1 0 0 -1 0 </normals>
       <texCoords count="8">2 2 0 2 0 0 2 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -2352,7 +2352,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">919.9999 0 1780 919.9999 0 1800 919.9999 200 1800 919.9999 200 1780 </vertices>
-      <normals count="12">1 0 0 1 0 0 1 0 0 1 0 0 </normals>
+      <normals count="12">-1 0 0 -1 0 0 -1 0 0 -1 0 0 </normals>
       <texCoords count="8">1 1 0 1 0 0 1 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -2382,7 +2382,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">939.9999 0 420 1040 0 420 1040 0 440 939.9999 0 440 </vertices>
-      <normals count="12">0 1 0 0 1 0 0 1 0 0 1 0 </normals>
+      <normals count="12">0 -1 0 0 -1 0 0 -1 0 0 -1 0 </normals>
       <texCoords count="8">2 2 0 2 0 0 2 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -2412,7 +2412,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">939.9999 0 420 939.9999 0 440 939.9999 200 440 939.9999 200 420 </vertices>
-      <normals count="12">1 0 0 1 0 0 1 0 0 1 0 0 </normals>
+      <normals count="12">-1 0 0 -1 0 0 -1 0 0 -1 0 0 </normals>
       <texCoords count="8">1 1 0 1 0 0 1 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -2442,7 +2442,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">1340 0 959.9999 1360 0 959.9999 1360 0 1060 1340 0 1060 </vertices>
-      <normals count="12">0 1 0 0 1 0 0 1 0 0 1 0 </normals>
+      <normals count="12">0 -1 0 0 -1 0 0 -1 0 0 -1 0 </normals>
       <texCoords count="8">2 2 0 2 0 0 2 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -2502,7 +2502,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">2000 0 420 2020 0 420 2020 0 519.9999 2000 0 519.9999 </vertices>
-      <normals count="12">0 1 0 0 1 0 0 1 0 0 1 0 </normals>
+      <normals count="12">0 -1 0 0 -1 0 0 -1 0 0 -1 0 </normals>
       <texCoords count="8">2 2 0 2 0 0 2 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -2562,7 +2562,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">2000 0 1480 2020 0 1480 2020 0 1580 2000 0 1580 </vertices>
-      <normals count="12">0 1 0 0 1 0 0 1 0 0 1 0 </normals>
+      <normals count="12">0 -1 0 0 -1 0 0 -1 0 0 -1 0 </normals>
       <texCoords count="8">2 2 0 2 0 0 2 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">

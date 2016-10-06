@@ -1,0 +1,205 @@
+<roomsEditor-Map>
+  <mapSettings width="1300" height="1300" scaleX="2" scaleY="2" scaleZ="2" />
+  <rooms count="25">
+    <room name="Room-1" x="0" y="0" width="900" length="100" height="100" floorLevel="0">
+      <wall name="Roof" textureName="techo.jpg" autoAdjustUv="False" uTile="6" vTile="2" />
+      <wall name="Floor" textureName="piso.jpg" autoAdjustUv="False" uTile="6" vTile="2" />
+      <wall name="East" textureName="pared.jpg" autoAdjustUv="False" uTile="2" vTile="2" />
+      <wall name="West" textureName="pared.jpg" autoAdjustUv="False" uTile="2" vTile="2" />
+      <wall name="North" textureName="pared.jpg" autoAdjustUv="False" uTile="10" vTile="2" />
+      <wall name="South" textureName="pared.jpg" autoAdjustUv="False" uTile="10" vTile="2" />
+    </room>
+    <room name="Room-3" x="0" y="100" width="100" length="800" height="100" floorLevel="0">
+      <wall name="Roof" textureName="techo.jpg" autoAdjustUv="True" uTile="2" vTile="6" />
+      <wall name="Floor" textureName="piso.jpg" autoAdjustUv="True" uTile="2" vTile="6" />
+      <wall name="East" textureName="pared.jpg" autoAdjustUv="True" uTile="10" vTile="2" />
+      <wall name="West" textureName="pared.jpg" autoAdjustUv="True" uTile="10" vTile="2" />
+      <wall name="North" textureName="pared.jpg" autoAdjustUv="True" uTile="1" vTile="1" />
+      <wall name="South" textureName="pared.jpg" autoAdjustUv="True" uTile="1" vTile="1" />
+    </room>
+    <room name="Room-4" x="0" y="900" width="900" length="100" height="100" floorLevel="0">
+      <wall name="Roof" textureName="techo.jpg" autoAdjustUv="True" uTile="6" vTile="2" />
+      <wall name="Floor" textureName="piso.jpg" autoAdjustUv="True" uTile="6" vTile="2" />
+      <wall name="East" textureName="pared.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="West" textureName="pared.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="North" textureName="pared.jpg" autoAdjustUv="True" uTile="3" vTile="2" />
+      <wall name="South" textureName="pared.jpg" autoAdjustUv="True" uTile="3" vTile="2" />
+    </room>
+    <room name="Room-5" x="790" y="110" width="100" length="780" height="100" floorLevel="0">
+      <wall name="Roof" textureName="techo.jpg" autoAdjustUv="True" uTile="2" vTile="6" />
+      <wall name="Floor" textureName="floor1.jpg" autoAdjustUv="True" uTile="2" vTile="6" />
+      <wall name="East" textureName="brick3_1.jpg" autoAdjustUv="True" uTile="10" vTile="2" />
+      <wall name="West" textureName="brick3_1.jpg" autoAdjustUv="True" uTile="10" vTile="2" />
+      <wall name="North" textureName="brick3_1.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="South" textureName="brick3_1.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+    </room>
+    <room name="Room-7" x="110" y="220" width="100" length="560" height="100" floorLevel="0">
+      <wall name="Roof" textureName="techo.jpg" autoAdjustUv="True" uTile="2" vTile="6" />
+      <wall name="Floor" textureName="piso.jpg" autoAdjustUv="True" uTile="2" vTile="6" />
+      <wall name="East" textureName="brick3_1.jpg" autoAdjustUv="True" uTile="4" vTile="2" />
+      <wall name="West" textureName="brick3_1.jpg" autoAdjustUv="True" uTile="4" vTile="2" />
+      <wall name="North" textureName="brick3_1.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="South" textureName="brick3_1.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+    </room>
+    <room name="Room-8" x="110" y="110" width="680" length="100" height="100" floorLevel="0">
+      <wall name="Roof" textureName="techo.jpg" autoAdjustUv="True" uTile="6" vTile="2" />
+      <wall name="Floor" textureName="piso.jpg" autoAdjustUv="True" uTile="6" vTile="2" />
+      <wall name="East" textureName="brick3_1.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="West" textureName="brick3_1.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="North" textureName="brick3_1.jpg" autoAdjustUv="True" uTile="8" vTile="2" />
+      <wall name="South" textureName="brick3_1.jpg" autoAdjustUv="True" uTile="8" vTile="2" />
+    </room>
+    <room name="Room-10" x="900" y="0" width="100" length="1000" height="100" floorLevel="0">
+      <wall name="Roof" textureName="techo.jpg" autoAdjustUv="True" uTile="2" vTile="6" />
+      <wall name="Floor" textureName="piso.jpg" autoAdjustUv="True" uTile="2" vTile="6" />
+      <wall name="East" textureName="pared.jpg" autoAdjustUv="True" uTile="4" vTile="2" />
+      <wall name="West" textureName="pared.jpg" autoAdjustUv="True" uTile="4" vTile="2" />
+      <wall name="North" textureName="pared.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="South" textureName="pared.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+    </room>
+    <room name="Room-11" x="110" y="790" width="680" length="100" height="100" floorLevel="0">
+      <wall name="Roof" textureName="techo.jpg" autoAdjustUv="True" uTile="6" vTile="2" />
+      <wall name="Floor" textureName="piso.jpg" autoAdjustUv="True" uTile="6" vTile="2" />
+      <wall name="East" textureName="brick3_1.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="West" textureName="brick3_1.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="North" textureName="brick3_1.jpg" autoAdjustUv="True" uTile="8" vTile="2" />
+      <wall name="South" textureName="brick3_1.jpg" autoAdjustUv="True" uTile="8" vTile="2" />
+    </room>
+    <room name="Room-12" x="220" y="320" width="100" length="360" height="100" floorLevel="0">
+      <wall name="Roof" textureName="techo.jpg" autoAdjustUv="True" uTile="2" vTile="6" />
+      <wall name="Floor" textureName="piso.jpg" autoAdjustUv="True" uTile="2" vTile="6" />
+      <wall name="East" textureName="brick3_5.jpg" autoAdjustUv="True" uTile="6" vTile="2" />
+      <wall name="West" textureName="brick3_5.jpg" autoAdjustUv="True" uTile="6" vTile="2" />
+      <wall name="North" textureName="brick3_5.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="South" textureName="brick3_5.jpg" autoAdjustUv="True" uTile="1" vTile="1" />
+    </room>
+    <room name="Room-13" x="220" y="220" width="460" length="100" height="100" floorLevel="0">
+      <wall name="Roof" textureName="techo.jpg" autoAdjustUv="True" uTile="6" vTile="2" />
+      <wall name="Floor" textureName="piso.jpg" autoAdjustUv="True" uTile="6" vTile="2" />
+      <wall name="East" textureName="brick3_5.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="West" textureName="brick3_5.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="North" textureName="brick3_5.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="South" textureName="brick3_5.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+    </room>
+    <room name="Room-14" x="220" y="680" width="460" length="100" height="100" floorLevel="0">
+      <wall name="Roof" textureName="techo.jpg" autoAdjustUv="True" uTile="6" vTile="2" />
+      <wall name="Floor" textureName="piso.jpg" autoAdjustUv="True" uTile="6" vTile="2" />
+      <wall name="East" textureName="brick3_5.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="West" textureName="brick3_5.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="North" textureName="brick3_5.jpg" autoAdjustUv="True" uTile="8" vTile="2" />
+      <wall name="South" textureName="brick3_5.jpg" autoAdjustUv="True" uTile="8" vTile="2" />
+    </room>
+    <room name="Room-15" x="680" y="220" width="100" length="560" height="100" floorLevel="0">
+      <wall name="Roof" textureName="techo.jpg" autoAdjustUv="True" uTile="2" vTile="6" />
+      <wall name="Floor" textureName="piso.jpg" autoAdjustUv="True" uTile="2" vTile="6" />
+      <wall name="East" textureName="brick3_5.jpg" autoAdjustUv="True" uTile="4" vTile="2" />
+      <wall name="West" textureName="brick3_5.jpg" autoAdjustUv="True" uTile="4" vTile="2" />
+      <wall name="North" textureName="brick3_5.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="South" textureName="brick3_5.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+    </room>
+    <room name="Room-31" x="100" y="1010" width="270" length="290" height="100" floorLevel="0">
+      <wall name="Roof" textureName="techo.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="Floor" textureName="cemento.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="East" textureName="blocks17floor.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="West" textureName="blocks17floor.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="North" textureName="blocks17floor.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="South" textureName="blocks17floor.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+    </room>
+    <room name="Room-32" x="630" y="1010" width="270" length="290" height="100" floorLevel="0">
+      <wall name="Roof" textureName="techo.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="Floor" textureName="clang_floor3blava.JPG" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="East" textureName="ceilingtechplain.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="West" textureName="ceilingtechplain.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="North" textureName="ceilingtechplain.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="South" textureName="ceilingtechplain.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+    </room>
+    <room name="Room-33" x="1010" y="540" width="290" length="270" height="100" floorLevel="0">
+      <wall name="Roof" textureName="techo.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="Floor" textureName="arena3.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="East" textureName="rock_moss3_512.JPG" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="West" textureName="rock_moss3_512.JPG" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="North" textureName="rock_moss3_512.JPG" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="South" textureName="rock_moss3_512.JPG" autoAdjustUv="True" uTile="2" vTile="2" />
+    </room>
+    <room name="Room-34" x="1010" y="110" width="290" length="270" height="100" floorLevel="0">
+      <wall name="Roof" textureName="techo.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="Floor" textureName="tilefloor7_ow.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="East" textureName="paredRugosa.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="West" textureName="paredRugosa.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="North" textureName="paredRugosa.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="South" textureName="paredRugosa.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+    </room>
+    <room name="Room-35" x="330" y="330" width="340" length="340" height="100" floorLevel="0">
+      <wall name="Roof" textureName="techo.jpg" autoAdjustUv="True" uTile="4" vTile="4" />
+      <wall name="Floor" textureName="piso.jpg" autoAdjustUv="True" uTile="4" vTile="4" />
+      <wall name="East" textureName="brick2_2.jpg" autoAdjustUv="True" uTile="4" vTile="1" />
+      <wall name="West" textureName="brick2_2.jpg" autoAdjustUv="True" uTile="4" vTile="1" />
+      <wall name="North" textureName="brick2_2.jpg" autoAdjustUv="True" uTile="4" vTile="1" />
+      <wall name="South" textureName="brick2_2.jpg" autoAdjustUv="True" uTile="4" vTile="1" />
+    </room>
+    <room name="Room-37" x="210" y="1000" width="50" length="10" height="100" floorLevel="0">
+      <wall name="Roof" textureName="techo.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="Floor" textureName="piso.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="East" textureName="pared.jpg" autoAdjustUv="True" uTile="1" vTile="1" />
+      <wall name="West" textureName="pared.jpg" autoAdjustUv="True" uTile="1" vTile="1" />
+      <wall name="North" textureName="pared.jpg" autoAdjustUv="True" uTile="1" vTile="1" />
+      <wall name="South" textureName="pared.jpg" autoAdjustUv="True" uTile="1" vTile="1" />
+    </room>
+    <room name="Room-38" x="730" y="1000" width="50" length="10" height="100" floorLevel="0">
+      <wall name="Roof" textureName="techo.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="Floor" textureName="piso.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="East" textureName="pared.jpg" autoAdjustUv="True" uTile="1" vTile="1" />
+      <wall name="West" textureName="pared.jpg" autoAdjustUv="True" uTile="1" vTile="1" />
+      <wall name="North" textureName="pared.jpg" autoAdjustUv="True" uTile="1" vTile="1" />
+      <wall name="South" textureName="pared.jpg" autoAdjustUv="True" uTile="1" vTile="1" />
+    </room>
+    <room name="Room-39" x="100" y="440" width="10" length="50" height="100" floorLevel="0">
+      <wall name="Roof" textureName="techo.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="Floor" textureName="piso.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="East" textureName="pared.jpg" autoAdjustUv="True" uTile="1" vTile="1" />
+      <wall name="West" textureName="pared.jpg" autoAdjustUv="True" uTile="1" vTile="1" />
+      <wall name="North" textureName="pared.jpg" autoAdjustUv="True" uTile="1" vTile="1" />
+      <wall name="South" textureName="pared.jpg" autoAdjustUv="True" uTile="1" vTile="1" />
+    </room>
+    <room name="Room-42" x="460" y="890" width="50" length="10" height="100" floorLevel="0">
+      <wall name="Roof" textureName="techo.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="Floor" textureName="piso.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="East" textureName="pared.jpg" autoAdjustUv="True" uTile="1" vTile="1" />
+      <wall name="West" textureName="pared.jpg" autoAdjustUv="True" uTile="1" vTile="1" />
+      <wall name="North" textureName="pared.jpg" autoAdjustUv="True" uTile="1" vTile="1" />
+      <wall name="South" textureName="pared.jpg" autoAdjustUv="True" uTile="1" vTile="1" />
+    </room>
+    <room name="Room-44" x="470" y="210" width="50" length="10" height="100" floorLevel="0">
+      <wall name="Roof" textureName="techo.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="Floor" textureName="piso.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="East" textureName="pared.jpg" autoAdjustUv="True" uTile="1" vTile="1" />
+      <wall name="West" textureName="pared.jpg" autoAdjustUv="True" uTile="1" vTile="1" />
+      <wall name="North" textureName="pared.jpg" autoAdjustUv="True" uTile="1" vTile="1" />
+      <wall name="South" textureName="pared.jpg" autoAdjustUv="True" uTile="1" vTile="1" />
+    </room>
+    <room name="Room-47" x="670" y="480" width="10" length="50" height="100" floorLevel="0">
+      <wall name="Roof" textureName="techo.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="Floor" textureName="piso.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="East" textureName="pared.jpg" autoAdjustUv="True" uTile="1" vTile="1" />
+      <wall name="West" textureName="pared.jpg" autoAdjustUv="True" uTile="1" vTile="1" />
+      <wall name="North" textureName="pared.jpg" autoAdjustUv="True" uTile="1" vTile="1" />
+      <wall name="South" textureName="pared.jpg" autoAdjustUv="True" uTile="1" vTile="1" />
+    </room>
+    <room name="Room-50" x="1000" y="210" width="10" length="50" height="100" floorLevel="0">
+      <wall name="Roof" textureName="techo.jpg" autoAdjustUv="True" uTile="1" vTile="1" />
+      <wall name="Floor" textureName="piso.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="East" textureName="pared.jpg" autoAdjustUv="True" uTile="1" vTile="1" />
+      <wall name="West" textureName="pared.jpg" autoAdjustUv="True" uTile="1" vTile="1" />
+      <wall name="North" textureName="pared.jpg" autoAdjustUv="True" uTile="1" vTile="1" />
+      <wall name="South" textureName="pared.jpg" autoAdjustUv="True" uTile="1" vTile="1" />
+    </room>
+    <room name="Room-51" x="1000" y="740" width="10" length="50" height="100" floorLevel="0">
+      <wall name="Roof" textureName="techo.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="Floor" textureName="piso.jpg" autoAdjustUv="True" uTile="2" vTile="2" />
+      <wall name="East" textureName="pared.jpg" autoAdjustUv="True" uTile="1" vTile="1" />
+      <wall name="West" textureName="pared.jpg" autoAdjustUv="True" uTile="1" vTile="1" />
+      <wall name="North" textureName="pared.jpg" autoAdjustUv="True" uTile="1" vTile="1" />
+      <wall name="South" textureName="pared.jpg" autoAdjustUv="True" uTile="1" vTile="1" />
+    </room>
+  </rooms>
+</roomsEditor-Map>

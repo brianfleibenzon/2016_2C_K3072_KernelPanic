@@ -1,5 +1,5 @@
 using Microsoft.DirectX;
-using Microsoft.DirectX.DirectInput;
+using Microsoft.DirectX.Direct3D;
 using System.Drawing;
 using TGC.Core.Direct3D;
 using TGC.Core.Example;
@@ -11,6 +11,7 @@ using TGC.Core.Utils;
 using TGC.Core.Camara;
 using TGC.Group.Camara;
 using TGC.Core.Collision;
+using TGC.Core.Shaders;
 
 namespace TGC.Group.Model
 {
@@ -45,6 +46,8 @@ namespace TGC.Group.Model
 
         private Iluminacion[] iluminaciones = new Iluminacion[3];
 
+        private Enemigo[] enemigos = new Enemigo[2];
+
         private Vector3 collisionPoint;
 
         private float mostrarBloqueado = 0;
@@ -52,6 +55,8 @@ namespace TGC.Group.Model
         TgcMesh bloqueado;
 
         private Iluminacion iluminacionEnMano;
+
+        private Effect effect;
 
 
         /// <summary>
@@ -68,10 +73,13 @@ namespace TGC.Group.Model
             var loader = new TgcSceneLoader();
             scene = loader.loadSceneFromFile(MediaDir + "Escenario\\Escenario-TgcScene.xml");
 
+            effect = TgcShaders.loadEffect(ShadersDir + "MultiDiffuseLights.fx");
+
             Camara = new TgcFpsCamera(this, new Vector3(128f, 90f, 51f) , Input);
 
             pickingRay = new TgcPickingRay(Input);
 
+            InicializarEnemigos();
             InicializarPuertas();
             InicializarInterruptores();
             InicializarIluminaciones();
@@ -91,6 +99,18 @@ namespace TGC.Group.Model
 
             puertas[2].estado = Puerta.Estado.BLOQUEADA;
             puertas[3].estado = Puerta.Estado.BLOQUEADA;
+            puertas[4].funcion = () => { enemigos[1].desactivar(); enemigos[1].activar(); };
+            puertas[5].funcion = () => { enemigos[0].desactivar(); enemigos[0].activar(); };
+        }
+
+        void InicializarEnemigos()
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                enemigos[i] = new Enemigo();
+                enemigos[i].mesh = scene.getMeshByName("Enemigo" + (i + 1));
+            }
+
         }
 
         void InicializarInterruptores()
@@ -144,6 +164,15 @@ namespace TGC.Group.Model
             {
                 puerta.actualizarEstado(Camara, ElapsedTime);
                 
+            }
+        }
+
+        void ActualizarEstadoEnemigos()
+        {
+            foreach (var enemigo in enemigos)
+            {
+                enemigo.actualizarEstado(Camara, ElapsedTime, scene);
+
             }
         }
 
@@ -222,6 +251,8 @@ namespace TGC.Group.Model
 
             ActualizarEstadoPuertas();
 
+            ActualizarEstadoEnemigos();
+
         }
 
         /// <summary>
@@ -233,6 +264,68 @@ namespace TGC.Group.Model
         {
             //Inicio el render de la escena, para ejemplos simples. Cuando tenemos postprocesado o shaders es mejor realizar las operaciones según nuestra conveniencia.
             PreRender();
+
+            Effect currentShader;
+            string currentTechnique;
+
+            currentShader = effect;
+            currentTechnique = "MultiDiffuseLightsTechnique";
+
+            //Aplicar a cada mesh el shader actual
+            foreach (var mesh in scene.Meshes)
+            {
+                mesh.Effect = currentShader;
+                mesh.Technique = currentTechnique;
+            }
+
+
+
+
+            var lightColors = new ColorValue();
+            var pointLightPositions = new Vector4();
+            var pointLightIntensity = new float();
+            var pointLightAttenuation = new float();
+
+                var lightMesh = iluminaciones[0].mesh;
+                //lightMesh.Position = origLightPos[i] //+ Vector3.Scale(move, i + 1);
+
+                lightColors = ColorValue.FromColor(Color.Orange);
+                pointLightPositions = TgcParserUtils.vector3ToVector4(Camara.Position);
+                pointLightIntensity = (float)38;
+                pointLightAttenuation = (float)0.1;
+
+
+            //Renderizar meshes
+            foreach (var mesh in scene.Meshes)
+            {
+                mesh.UpdateMeshTransform();
+    
+                    //Cargar variables de shader
+                    mesh.Effect.SetValue("lightColor", lightColors);
+                    mesh.Effect.SetValue("lightPosition", pointLightPositions);
+                    mesh.Effect.SetValue("lightIntensity", pointLightIntensity);
+                    mesh.Effect.SetValue("lightAttenuation", pointLightAttenuation);
+                    mesh.Effect.SetValue("materialEmissiveColor",
+                        ColorValue.FromColor((Color.Black)));
+                    mesh.Effect.SetValue("materialDiffuseColor",
+                        ColorValue.FromColor(Color.White));
+
+                //Renderizar modelo
+
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             VerificarColisionConClick();
 

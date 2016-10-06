@@ -16,6 +16,8 @@ namespace TGC.Group.Model
 
         public Estado estado = Estado.CERRADA;
 
+        public Action funcion = null;
+
         public TgcMesh mesh;
 
         public void actualizarEstado(TgcCamera Camara, float ElapsedTime)
@@ -32,7 +34,11 @@ namespace TGC.Group.Model
                     if (this.mesh.Position.Y < 195)
                         this.mesh.move(new Vector3(0, 80f * ElapsedTime, 0));
                     else
+                    {
                         this.estado = Puerta.Estado.ABIERTA;
+                        if (funcion != null)
+                            funcion();
+                    }
                     break;
 
                 case (Puerta.Estado.CERRANDO):
