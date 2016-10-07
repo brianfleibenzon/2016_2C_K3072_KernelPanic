@@ -2712,7 +2712,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="24">214.482 203.6297 981.1384 214.482 -3.6295 981.1384 214.482 203.6297 878.8613 214.482 -3.6295 878.8613 205.5181 203.6297 981.1384 205.5181 203.6297 878.8613 205.5181 -3.6295 981.1384 205.5181 -3.6295 878.8613 </vertices>
-      <normals count="24">0 0 1 0 0 1 0 0 1 0 0 1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 </normals>
+      <normals count="24">1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 </normals>
       <texCoords count="8">0 0 0 1 1 0 1 1 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -2728,7 +2728,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="24">2014.482 203.6297 1581.138 2014.482 -3.6295 1581.138 2014.482 203.6297 1478.861 2014.482 -3.6295 1478.861 2005.518 203.6297 1581.138 2005.518 203.6297 1478.861 2005.518 -3.6295 1581.138 2005.518 -3.6295 1478.861 </vertices>
-      <normals count="24">0 0 1 0 0 1 0 0 1 0 0 1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 </normals>
+      <normals count="24">1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 </normals>
       <texCoords count="8">0 0 0 1 1 0 1 1 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -2744,7 +2744,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="24">2014.482 203.6297 521.1384 2014.482 -3.6295 521.1384 2014.482 203.6297 418.8614 2014.482 -3.6295 418.8614 2005.518 203.6297 521.1384 2005.518 203.6297 418.8614 2005.518 -3.6295 521.1384 2005.518 -3.6295 418.8614 </vertices>
-      <normals count="24">0 0 1 0 0 1 0 0 1 0 0 1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 </normals>
+      <normals count="24">1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 </normals>
       <texCoords count="8">0 0 0 1 1 0 1 1 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -2760,7 +2760,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="24">1354.482 203.6297 1061.138 1354.482 -3.6295 1061.138 1354.482 203.6297 958.8613 1354.482 -3.6295 958.8613 1345.518 203.6297 1061.138 1345.518 203.6297 958.8613 1345.518 -3.6295 1061.138 1345.518 -3.6295 958.8613 </vertices>
-      <normals count="24">0 0 1 0 0 1 0 0 1 0 0 1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 </normals>
+      <normals count="24">1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 </normals>
       <texCoords count="8">0 0 0 1 1 0 1 1 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
