@@ -12,6 +12,20 @@ using TGC.Core.Camara;
 using TGC.Group.Camara;
 using TGC.Core.Collision;
 
+using TGC.Core.Shaders;
+using TGC.Core.Fog;
+using TGC.Core.Sound;
+
+using System;
+using System.Globalization;
+
+
+
+
+
+
+
+
 namespace TGC.Group.Model
 {
     /// <summary>
@@ -33,7 +47,15 @@ namespace TGC.Group.Model
             Name = Game.Default.Name;
             Description = Game.Default.Description;
         }
-        
+
+        private Effect effect;
+        private TgcFog fog;
+
+        private string currentFile;
+
+        private TgcMp3Player sonidoEntorno;
+
+        private TgcMp3Player sonidoPisadas;
 
         private TgcScene scene;
 
@@ -73,6 +95,13 @@ namespace TGC.Group.Model
             bloqueado = loader.loadSceneFromFile(MediaDir + "Bloqueado\\locked-TgcScene.xml").Meshes[0];
             bloqueado.Scale = new Vector3(0.004f, 0.004f, 0.004f);
             bloqueado.Position = new Vector3(0.65f, -0.38f, 1f);
+
+
+            fog = new TgcFog();
+
+            sonidoPisadas = new TgcMp3Player();
+            sonidoEntorno = new TgcMp3Player();
+
         }
 
         void InicializarPuertas()
@@ -158,6 +187,27 @@ namespace TGC.Group.Model
             }
         }
 
+        void inicializar_bateria()
+        {
+            int bateria = 100;
+            int minuto = DateTime.Now.Minute;
+            int aux = DateTime.Now.Minute;
+            while(bateria == 0)
+            {
+                if(minuto != aux)
+                {
+                    bateria = bateria - 10;
+                    minuto = DateTime.Now.Minute;
+                    aux = DateTime.Now.Minute;
+                }
+                else
+                {
+                    aux = DateTime.Now.Minute;
+                }
+            }
+
+        }
+
         /// <summary>
         ///     Se llama en cada frame.
         ///     Se debe escribir toda la lógica de computo del modelo, así como también verificar entradas del usuario y reacciones
@@ -171,11 +221,26 @@ namespace TGC.Group.Model
 
         }
 
+        //VARIABLES DE SONIDO
+        String rutaDelRepo = "C:\\Program Files\\TGC\\";
+
+
+        //VARIABLES DE BATERIA
+        int intervalo = 2; //Cantidad de segundos para que se reste el porcenaje
+        int porciento = 1; //Cantidad de bateria que se pierde por intervalo
+        int bateria = 100;
+        Size resolucionPantalla = System.Windows.Forms.SystemInformation.PrimaryMonitorSize;
+        int segundo = DateTime.Now.Second;
+        int aux = DateTime.Now.Second;
+        int contador = 0;
+        
         /// <summary>
         ///     Se llama cada vez que hay que refrescar la pantalla.
         ///     Escribir aquí todo el código referido al renderizado.
         ///     Borrar todo lo que no haga falta.
         /// </summary>
+        /// 
+
         public override void Render()
         {
             //Inicio el render de la escena, para ejemplos simples. Cuando tenemos postprocesado o shaders es mejor realizar las operaciones según nuestra conveniencia.
@@ -189,16 +254,106 @@ namespace TGC.Group.Model
                 "Con clic izquierdo subimos la camara [Actual]: " + TgcParserUtils.printVector3(Camara.Position) + " - LookAt: " + TgcParserUtils.printVector3(Camara.LookAt), 0, 20,
                 Color.OrangeRed);
 
+
             if (((TgcFpsCamera)Camara).colisiones)
 
                 DrawText.drawText(
-                    "Colisiones activadas (C para desactivar)", 0, 30,
+                    "Colisiones activadas (C para desactivar)", 0, 50,
                     Color.OrangeRed);
             else
                 DrawText.drawText(
-                   "Colisiones desactivadas (C para activar)", 0, 30,
+                   "Colisiones desactivadas (C para activar)", 0, 50,
                    Color.OrangeRed);
-            
+
+            //--------Nuebla---------//
+            //Todavia no la pude hacer funcionar :/
+            var fogShader = true;
+            fog.Enabled = true;
+            fog.StartDistance = 500f;
+            fog.EndDistance = 1000f;
+            fog.Density = 0.0015f;
+            fog.Color = Color.LightGray;
+
+            if (fog.Enabled)
+            {
+                fog.updateValues();
+            }
+
+            //-------Bateria------------//
+            if (Input.keyDown(Key.F)) 
+            {
+                if (contador == intervalo) 
+            {
+                bateria = bateria - porciento;
+                contador = 0;
+            }
+
+            if (segundo != aux)
+            {
+                segundo = DateTime.Now.Second;
+                aux = DateTime.Now.Second;
+                contador++;
+            }
+            else
+            {
+                aux = DateTime.Now.Second;
+            }
+            }
+
+            DrawText.drawText(
+              "BATERIA: " + bateria+"%", resolucionPantalla.Width - 175, 30, Color.OrangeRed);
+
+
+            //----------Sonidos---------//
+
+            //Pisadas
+            sonidoPisadas.FileName = rutaDelRepo+"2016_2C_K3072_KernelPanic\\sonidos\\pasos.mp3";
+            //Contro del reproductor por teclado
+            var currentState = sonidoPisadas.getStatus();
+            if (Input.keyDown(Key.W))
+            {
+                if (currentState == TgcMp3Player.States.Open)
+                {
+                    //Reproducir MP3
+                    sonidoPisadas.play(true);
+                }
+            }
+            if (Input.keyUp(Key.W)) 
+            {
+
+                //Parar y reproducir MP3
+                sonidoPisadas.closeFile();
+            }
+
+            //Entorno
+
+            sonidoEntorno.FileName = rutaDelRepo + "2016_2C_K3072_KernelPanic\\sonidos\\entorno.mp3";
+
+            //Contro del reproductor por teclado
+            if (Input.keyPressed(Key.Y))
+            {
+                if (currentState == TgcMp3Player.States.Open)
+                {
+                    //Reproducir MP3
+                    sonidoEntorno.play(true);
+                }
+                if (currentState == TgcMp3Player.States.Stopped)
+                {
+                    //Parar y reproducir MP3
+                    sonidoEntorno.closeFile();
+                    sonidoEntorno.play(true);
+                }
+            }
+            else if (Input.keyPressed(Key.U))
+            {
+                if (currentState == TgcMp3Player.States.Playing)
+                {
+                    //Pausar el MP3
+                    sonidoEntorno.pause();
+                }
+            }
+
+            //-------------------------//
 
             if (mostrarBloqueado > 0)
             {
@@ -214,6 +369,18 @@ namespace TGC.Group.Model
                 mostrarBloqueado = 0;
             }
             scene.renderAll();
+
+            //-----------------------------//
+            //Efecto niable
+            //Cargar valores de niebla
+
+
+            if (fog.Enabled)
+            {
+                fog.updateValues();
+            }
+            //--------------------------//
+            //Efecto oscuridad
 
 
             //Finaliza el render y presenta en pantalla, al igual que el preRender se debe para casos puntuales es mejor utilizar a mano las operaciones de EndScene y PresentScene
