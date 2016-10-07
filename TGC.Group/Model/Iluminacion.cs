@@ -23,5 +23,40 @@ namespace TGC.Group.Model
 
         public Action posicionarEnMano = null;
 
+        float ultimaReduccion = 0;
+        float ultimaVariacion = 0;
+        float pointLightIntensityOriginal;
+        float pointLightIntensityAgarradaOriginal;
+        public bool variarLuzEnable = false;
+
+        public void variarLuz(float ElpasedTime)
+        {
+            if (variarLuzEnable){
+                ultimaVariacion += ElpasedTime;
+                if (ultimaVariacion > 0.1f)
+                {
+                    if (this.pointLightIntensityOriginal == 0)
+                    {
+                        this.pointLightIntensityOriginal = this.pointLightIntensity;
+                        this.pointLightIntensityAgarradaOriginal = this.pointLightIntensityAgarrada;
+                    }
+                    if (this.pointLightIntensityOriginal != this.pointLightIntensity)
+                    {
+                        this.pointLightIntensity = this.pointLightIntensityOriginal;
+                        this.pointLightIntensityAgarrada = this.pointLightIntensityAgarradaOriginal;
+                    }
+                    else
+                    {
+                        Random rnd = new Random();
+                        float random = rnd.Next(1, 15);
+                        this.pointLightIntensity -= random;
+                        this.pointLightIntensityAgarrada -= random;
+                    }
+
+                    ultimaVariacion = 0;
+                }
+            }
+        }
+
     }
 }

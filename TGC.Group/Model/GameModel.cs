@@ -140,6 +140,9 @@ namespace TGC.Group.Model
             iluminaciones[0].pointLightPosition = iluminaciones[0].mesh.BoundingBox.Position + new Vector3(0f, 25f, 0f);
             iluminaciones[0].pointLightIntensityAgarrada = (float)68;
             iluminaciones[0].pointLightAttenuationAgarrada = (float)0.25;
+            iluminaciones[0].pointLightIntensity = (float)38;
+            iluminaciones[0].pointLightAttenuation = (float)0.5;
+            iluminaciones[0].variarLuzEnable = true;
 
 
             iluminaciones[1] = new Iluminacion();
@@ -155,6 +158,8 @@ namespace TGC.Group.Model
             iluminaciones[1].pointLightPosition = iluminaciones[1].mesh.BoundingBox.Position + new Vector3(30f, 10f, 40f);
             iluminaciones[1].pointLightIntensityAgarrada = (float)108;
             iluminaciones[1].pointLightAttenuationAgarrada = (float)0.25;
+            iluminaciones[1].pointLightIntensity = (float)38;
+            iluminaciones[1].pointLightAttenuation = (float)0.5;
 
             iluminaciones[2] = new Iluminacion();
             iluminaciones[2].mesh = scene.getMeshByName("Farol");
@@ -168,6 +173,8 @@ namespace TGC.Group.Model
             iluminaciones[2].pointLightPosition = iluminaciones[2].mesh.BoundingBox.Position + new Vector3(0f, 25f, 0f);
             iluminaciones[2].pointLightIntensityAgarrada = (float)108;
             iluminaciones[2].pointLightAttenuationAgarrada = (float)0.15;
+            iluminaciones[2].pointLightIntensity = (float)38;
+            iluminaciones[2].pointLightAttenuation = (float)0.5;
 
         }
 
@@ -185,6 +192,15 @@ namespace TGC.Group.Model
             foreach (var enemigo in enemigos)
             {
                 enemigo.actualizarEstado(Camara, ElapsedTime, scene);
+
+            }
+        }
+
+        void ActualizarEstadoLuces()
+        {
+            foreach (var iluminacion in iluminaciones)
+            {
+                iluminacion.variarLuz(ElapsedTime);
 
             }
         }
@@ -267,6 +283,9 @@ namespace TGC.Group.Model
 
             ActualizarEstadoEnemigos();
 
+            ActualizarEstadoLuces();
+
+
         }
 
         /// <summary>
@@ -296,11 +315,12 @@ namespace TGC.Group.Model
             {
 
                 lightColors[i] = ColorValue.FromColor(iluminaciones[i].lightColors);
+                
 
                 if (iluminacionEnMano == iluminaciones[i])
                 {
 
-                    pointLightPositions[i] = TgcParserUtils.vector3ToVector4(Camara.Position + new Vector3(0f, -50f, 0f));
+                    pointLightPositions[i] = TgcParserUtils.vector3ToVector4(Camara.Position);
                     pointLightIntensity[i] = iluminaciones[i].pointLightIntensityAgarrada;
                     pointLightAttenuation[i] = iluminaciones[i].pointLightAttenuationAgarrada;
                     
@@ -324,9 +344,8 @@ namespace TGC.Group.Model
                     
                     pointLightPositions[i] = TgcParserUtils.vector3ToVector4(iluminaciones[i].pointLightPosition);
 
-                    pointLightIntensity[i] = (float)38;
-
-                    pointLightAttenuation[i] = (float)0.5;
+                    pointLightIntensity[i] = iluminaciones[i].pointLightIntensity;
+                    pointLightAttenuation[i] = iluminaciones[i].pointLightAttenuation;
                 }
             }
 

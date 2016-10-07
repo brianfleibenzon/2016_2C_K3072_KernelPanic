@@ -62,7 +62,8 @@ namespace TGC.Group.Model
             {
                 if (TgcCollisionUtils.classifyBoxBox(this.mesh.BoundingBox, ((Camara.TgcFpsCamera)Camara).camaraBox) == TgcCollisionUtils.BoxBoxResult.Atravesando)
                 {
-                    scene.disposeAll();
+                    System.Windows.Forms.MessageBox.Show("Perdiste");
+                    Environment.Exit(0);
                 }
 
                 foreach (var mesh in scene.Meshes)
