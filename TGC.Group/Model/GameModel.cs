@@ -34,7 +34,7 @@ namespace TGC.Group.Model
             Name = Game.Default.Name;
             Description = Game.Default.Description;
         }
-        
+
 
         public TgcScene scene;
 
@@ -75,7 +75,7 @@ namespace TGC.Group.Model
 
             effect = TgcShaders.loadEffect(ShadersDir + "MultiDiffuseLights.fx");
 
-            Camara = new TgcFpsCamera(this, new Vector3(128f, 90f, 51f) , Input);
+            Camara = new TgcFpsCamera(this, new Vector3(128f, 90f, 51f), Input);
 
             pickingRay = new TgcPickingRay(Input);
 
@@ -91,10 +91,10 @@ namespace TGC.Group.Model
 
         void InicializarPuertas()
         {
-            for(int i=0; i<8; i++)
+            for (int i = 0; i < 8; i++)
             {
                 puertas[i] = new Puerta();
-                puertas[i].mesh = scene.getMeshByName("Puerta"+(i+1));
+                puertas[i].mesh = scene.getMeshByName("Puerta" + (i + 1));
             }
 
             puertas[2].estado = Puerta.Estado.BLOQUEADA;
@@ -123,12 +123,12 @@ namespace TGC.Group.Model
 
             interruptores[0].funcion = () => { puertas[2].estado = Puerta.Estado.CERRADA; puertas[3].estado = Puerta.Estado.CERRADA; };
             interruptores[1].funcion = () => { puertas[4].estado = Puerta.Estado.CERRADA; };
-            
+
         }
 
         void InicializarIluminaciones()
         {
-            iluminaciones[0] = new Iluminacion();  
+            iluminaciones[0] = new Iluminacion();
             iluminaciones[0].mesh = scene.getMeshByName("Vela");
             iluminaciones[0].posicionarEnMano = () =>
             {
@@ -136,16 +136,25 @@ namespace TGC.Group.Model
                 iluminacionEnMano.mesh.Position = -iluminacionEnMano.mesh.BoundingBox.Position;
                 iluminacionEnMano.mesh.Position += new Vector3(-0.8f, -0.38f, 1f);
             };
+            iluminaciones[0].lightColors = Color.Orange;
+            iluminaciones[0].pointLightPosition = iluminaciones[0].mesh.BoundingBox.Position + new Vector3(0f, 25f, 0f);
+            iluminaciones[0].pointLightIntensityAgarrada = (float)68;
+            iluminaciones[0].pointLightAttenuationAgarrada = (float)0.25;
+
 
             iluminaciones[1] = new Iluminacion();
             iluminaciones[1].mesh = scene.getMeshByName("Linterna");
             iluminaciones[1].posicionarEnMano = () =>
             {
-                
+
                 iluminacionEnMano.mesh.Scale = new Vector3(0.005f, 0.005f, 0.005f);
                 iluminacionEnMano.mesh.Position = -iluminacionEnMano.mesh.BoundingBox.Position;
-                iluminacionEnMano.mesh.Position += new Vector3(-0.8f, -0.38f, 1f);                
+                iluminacionEnMano.mesh.Position += new Vector3(-0.8f, -0.38f, 1f);
             };
+            iluminaciones[1].lightColors = Color.White;
+            iluminaciones[1].pointLightPosition = iluminaciones[1].mesh.BoundingBox.Position + new Vector3(30f, 10f, 40f);
+            iluminaciones[1].pointLightIntensityAgarrada = (float)108;
+            iluminaciones[1].pointLightAttenuationAgarrada = (float)0.25;
 
             iluminaciones[2] = new Iluminacion();
             iluminaciones[2].mesh = scene.getMeshByName("Farol");
@@ -155,6 +164,10 @@ namespace TGC.Group.Model
                 iluminacionEnMano.mesh.Position = -iluminacionEnMano.mesh.BoundingBox.Position;
                 iluminacionEnMano.mesh.Position += new Vector3(-0.8f, -0.38f, 1f);
             };
+            iluminaciones[2].lightColors = Color.Yellow;
+            iluminaciones[2].pointLightPosition = iluminaciones[2].mesh.BoundingBox.Position + new Vector3(0f, 25f, 0f);
+            iluminaciones[2].pointLightIntensityAgarrada = (float)108;
+            iluminaciones[2].pointLightAttenuationAgarrada = (float)0.15;
 
         }
 
@@ -163,7 +176,7 @@ namespace TGC.Group.Model
             foreach (var puerta in puertas)
             {
                 puerta.actualizarEstado(Camara, ElapsedTime);
-                
+
             }
         }
 
@@ -178,13 +191,13 @@ namespace TGC.Group.Model
 
         public bool VerificarSiMeshEsIluminacion(TgcMesh mesh)
         {
-            foreach(var ilum in iluminaciones)
+            foreach (var ilum in iluminaciones)
             {
-                if(ilum.mesh == mesh)
+                if (ilum.mesh == mesh)
                 {
                     mesh.Enabled = false;
                     iluminacionEnMano = ilum;
-                    iluminacionEnMano.posicionarEnMano();                    
+                    iluminacionEnMano.posicionarEnMano();
                     return true;
                 }
             }
@@ -208,14 +221,15 @@ namespace TGC.Group.Model
                     {
                         if (TgcCollisionUtils.sqDistPointAABB(Camara.Position, puerta.mesh.BoundingBox) < 15000f)
                         {
-                            switch (puerta.estado) {
+                            switch (puerta.estado)
+                            {
                                 case (Puerta.Estado.BLOQUEADA):
                                     mostrarBloqueado = 3f;
                                     break;
                                 case (Puerta.Estado.CERRADA):
                                     puerta.estado = Puerta.Estado.ABRIENDO;
                                     break;
-                            }                            
+                            }
                         }
                         break;
                     }
@@ -232,7 +246,7 @@ namespace TGC.Group.Model
                     {
                         if (TgcCollisionUtils.sqDistPointAABB(Camara.Position, interruptor.mesh.BoundingBox) < 15000f)
                         {
-                            interruptor.activar(puertas, MediaDir);                            
+                            interruptor.activar(puertas, MediaDir);
                         }
                         break;
                     }
@@ -265,41 +279,67 @@ namespace TGC.Group.Model
             //Inicio el render de la escena, para ejemplos simples. Cuando tenemos postprocesado o shaders es mejor realizar las operaciones según nuestra conveniencia.
             PreRender();
 
-            Effect currentShader;
-            string currentTechnique;
 
-            currentShader = effect;
-            currentTechnique = "MultiDiffuseLightsTechnique";
+            var lightColors = new ColorValue[iluminaciones.Length];
+            var pointLightPositions = new Vector4[iluminaciones.Length];
+            var pointLightIntensity = new float[iluminaciones.Length];
+            var pointLightAttenuation = new float[iluminaciones.Length];
 
-            //Aplicar a cada mesh el shader actual
             foreach (var mesh in scene.Meshes)
             {
-                mesh.Effect = currentShader;
-                mesh.Technique = currentTechnique;
+                mesh.Effect = effect;
+                mesh.Technique = "MultiDiffuseLightsTechnique";
             }
 
 
+            for (var i = 0; i < iluminaciones.Length; i++)
+            {
+
+                lightColors[i] = ColorValue.FromColor(iluminaciones[i].lightColors);
+
+                if (iluminacionEnMano == iluminaciones[i])
+                {
+
+                    pointLightPositions[i] = TgcParserUtils.vector3ToVector4(Camara.Position + new Vector3(0f, -50f, 0f));
+                    pointLightIntensity[i] = iluminaciones[i].pointLightIntensityAgarrada;
+                    pointLightAttenuation[i] = iluminaciones[i].pointLightAttenuationAgarrada;
+                    
+
+                    iluminaciones[i].mesh.Effect = TgcShaders.Instance.TgcMeshShader;
+                    iluminaciones[i].mesh.Technique = TgcShaders.Instance.getTgcMeshTechnique(TgcMesh.MeshRenderType.DIFFUSE_MAP);
 
 
-            var lightColors = new ColorValue();
-            var pointLightPositions = new Vector4();
-            var pointLightIntensity = new float();
-            var pointLightAttenuation = new float();
+                }
+                else if(iluminaciones[i].mesh.Enabled == false)
+                {
 
-                var lightMesh = iluminaciones[0].mesh;
-                //lightMesh.Position = origLightPos[i] //+ Vector3.Scale(move, i + 1);
+                    pointLightPositions[i] = TgcParserUtils.vector3ToVector4(iluminaciones[i].pointLightPosition);
 
-                lightColors = ColorValue.FromColor(Color.Orange);
-                pointLightPositions = TgcParserUtils.vector3ToVector4(Camara.Position);
-                pointLightIntensity = (float)38;
-                pointLightAttenuation = (float)0.1;
+                    pointLightIntensity[i] = (float)0;
+
+                    pointLightAttenuation[i] = (float)0;
+                }
+                else
+                {
+                    
+                    pointLightPositions[i] = TgcParserUtils.vector3ToVector4(iluminaciones[i].pointLightPosition);
+
+                    pointLightIntensity[i] = (float)38;
+
+                    pointLightAttenuation[i] = (float)0.5;
+                }
+            }
+
 
 
             //Renderizar meshes
             foreach (var mesh in scene.Meshes)
             {
-                mesh.UpdateMeshTransform();
-    
+                if (iluminacionEnMano == null || mesh != iluminacionEnMano.mesh)
+                {
+
+                    mesh.UpdateMeshTransform();
+
                     //Cargar variables de shader
                     mesh.Effect.SetValue("lightColor", lightColors);
                     mesh.Effect.SetValue("lightPosition", pointLightPositions);
@@ -309,9 +349,8 @@ namespace TGC.Group.Model
                         ColorValue.FromColor((Color.Black)));
                     mesh.Effect.SetValue("materialDiffuseColor",
                         ColorValue.FromColor(Color.White));
-
+                }
                 //Renderizar modelo
-
             }
 
 
@@ -344,7 +383,7 @@ namespace TGC.Group.Model
                 DrawText.drawText(
                    "Colisiones desactivadas (C para activar)", 0, 30,
                    Color.OrangeRed);
-            
+
 
             if (mostrarBloqueado > 0)
             {
@@ -356,11 +395,13 @@ namespace TGC.Group.Model
                 D3DDevice.Instance.Device.Transform.View = matrizView;
                 mostrarBloqueado -= ElapsedTime;
 
-            } else if (mostrarBloqueado < 0) { 
+            }
+            else if (mostrarBloqueado < 0)
+            {
                 mostrarBloqueado = 0;
             }
 
-            if (iluminacionEnMano!=null)
+            if (iluminacionEnMano != null)
             {
 
 
