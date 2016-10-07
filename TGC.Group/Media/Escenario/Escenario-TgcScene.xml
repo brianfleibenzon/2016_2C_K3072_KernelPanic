@@ -1407,7 +1407,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">639.9999 0 639.9999 1360 0 639.9999 1360 200 639.9999 639.9999 200 639.9999 </vertices>
-      <normals count="12">0 0 1 0 0 1 0 0 1 0 0 1 </normals>
+      <normals count="12">0 0 -1 0 0 -1 0 0 -1 0 0 -1 </normals>
       <texCoords count="8">2 2 0 2 0 0 2 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -1482,7 +1482,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">440 0 1560 1360 0 1560 1360 200 1560 440 200 1560 </vertices>
-      <normals count="12">0 0 1 0 0 1 0 0 1 0 0 1 </normals>
+      <normals count="12">0 0 -1 0 0 -1 0 0 -1 0 0 -1 </normals>
       <texCoords count="8">8 2 0 2 0 0 8 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -1587,7 +1587,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">1360 0 1560 1560 0 1560 1560 200 1560 1360 200 1560 </vertices>
-      <normals count="12">0 0 1 0 0 1 0 0 1 0 0 1 </normals>
+      <normals count="12">0 0 -1 0 0 -1 0 0 -1 0 0 -1 </normals>
       <texCoords count="8">2 2 0 2 0 0 2 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -1692,7 +1692,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">200 0 2600 739.9999 0 2600 739.9999 200 2600 200 200 2600 </vertices>
-      <normals count="12">0 0 1 0 0 1 0 0 1 0 0 1 </normals>
+      <normals count="12">0 0 -1 0 0 -1 0 0 -1 0 0 -1 </normals>
       <texCoords count="8">2 2 0 2 0 0 2 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -1797,7 +1797,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">1260 0 2600 1800 0 2600 1800 200 2600 1260 200 2600 </vertices>
-      <normals count="12">0 0 1 0 0 1 0 0 1 0 0 1 </normals>
+      <normals count="12">0 0 -1 0 0 -1 0 0 -1 0 0 -1 </normals>
       <texCoords count="8">2 2 0 2 0 0 2 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -1902,7 +1902,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">2020 0 1620 2600 0 1620 2600 200 1620 2020 200 1620 </vertices>
-      <normals count="12">0 0 1 0 0 1 0 0 1 0 0 1 </normals>
+      <normals count="12">0 0 -1 0 0 -1 0 0 -1 0 0 -1 </normals>
       <texCoords count="8">2 2 0 2 0 0 2 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -2007,7 +2007,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">2020 0 759.9999 2600 0 759.9999 2600 200 759.9999 2020 200 759.9999 </vertices>
-      <normals count="12">0 0 1 0 0 1 0 0 1 0 0 1 </normals>
+      <normals count="12">0 0 -1 0 0 -1 0 0 -1 0 0 -1 </normals>
       <texCoords count="8">2 2 0 2 0 0 2 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
@@ -2112,7 +2112,7 @@
       <textCoordsLightMapIdx count="0">
       </textCoordsLightMapIdx>
       <vertices count="12">659.9999 0 1340 1340 0 1340 1340 200 1340 659.9999 200 1340 </vertices>
-      <normals count="12">0 0 1 0 0 1 0 0 1 0 0 1 </normals>
+      <normals count="12">0 0 -1 0 0 -1 0 0 -1 0 0 -1 </normals>
       <texCoords count="8">4 1 0 1 0 0 4 0 </texCoords>
       <colors count="3">255 255 255 </colors>
       <texCoordsLightMap count="0">
