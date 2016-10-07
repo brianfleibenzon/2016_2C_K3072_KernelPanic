@@ -8,6 +8,9 @@ using TGC.Core.Shaders;
 using TGC.Core.Sound;
 using TGC.Core.Textures;
 using TGC.Group.Model;
+using System.Drawing;
+
+
 
 namespace TGC.Group.Form
 {
@@ -47,17 +50,7 @@ namespace TGC.Group.Form
 
         private void GameForm_Load(object sender, EventArgs e)
         {
-            //Iniciar graficos.
-            InitGraphics();
 
-            //Titulo de la ventana principal.
-            Text = Modelo.Name + " - " + Modelo.Description;
-
-            //Focus panel3D.
-            panel3D.Focus();
-
-            //Inicio el ciclo de Render.
-            InitRenderLoop();
         }
 
         private void GameForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -195,6 +188,65 @@ namespace TGC.Group.Form
             //Liberar Device al finalizar la aplicacion
             D3DDevice.Instance.Dispose();
             TexturesPool.Instance.clearAll();
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close(); 
+        }
+
+        private void panel3D_Paint(object sender, PaintEventArgs e)
+        {
+            //Centra los componentes, adaptandose al tamaño del monitor//
+            Size resolucionPantalla = System.Windows.Forms.SystemInformation.PrimaryMonitorSize;
+
+
+            //Centrar Panel
+            Int32 anchoDePanel = (this.Width - panel1.Width) / 2;
+            Int32 largoDePanel = (this.Height - panel1.Height) / 2;
+            panel1.Location = new Point(anchoDePanel, largoDePanel);
+
+            //Cerrar
+            Int32 anchoDeX = (this.Width - botonx2.Width) - 10;
+           botonx2.Location = new Point(anchoDeX, botonx2.Location.Y);
+
+
+            this.AcceptButton = botonJugar;
+
+            //botonX.Hide();
+
+        }
+
+        private void botonJugar_Click(object sender, EventArgs e)
+        {
+
+            //botonX.Show();
+            botonJugar.Hide();
+            botonSalir.Hide();
+            panel1.Hide();
+           
+
+            //Iniciar graficos.
+            InitGraphics();
+
+            //Titulo de la ventana principal.
+            Text = Modelo.Name + " - " + Modelo.Description;
+
+            //Focus panel3D.
+            panel3D.Focus();
+
+            //Inicio el ciclo de Render.
+            InitRenderLoop();
+        }
+
+        private void botonX_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

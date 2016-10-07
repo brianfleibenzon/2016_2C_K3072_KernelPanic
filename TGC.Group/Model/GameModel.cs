@@ -1,4 +1,5 @@
 using Microsoft.DirectX;
+
 using Microsoft.DirectX.Direct3D;
 using System.Drawing;
 using TGC.Core.Direct3D;
@@ -12,6 +13,16 @@ using TGC.Core.Camara;
 using TGC.Group.Camara;
 using TGC.Core.Collision;
 using TGC.Core.Shaders;
+
+using TGC.Core.Fog;
+using TGC.Core.Sound;
+using System;
+using System.Globalization;
+
+using Microsoft.DirectX.DirectInput;
+
+
+
 
 namespace TGC.Group.Model
 {
@@ -36,6 +47,18 @@ namespace TGC.Group.Model
         }
 
 
+        private Microsoft.DirectX.Direct3D.Effect effectNiebla;
+
+        private TgcFog fog;
+
+        private string currentFile;
+
+        private TgcMp3Player sonidoEntorno;
+
+        private TgcMp3Player sonidoPisadas;
+
+        private TgcMp3Player sonidoLinterna;
+
         public TgcScene scene;
 
         private TgcPickingRay pickingRay;
@@ -56,7 +79,7 @@ namespace TGC.Group.Model
 
         private Iluminacion iluminacionEnMano;
 
-        private Effect effect;
+        private Microsoft.DirectX.Direct3D.Effect effect;
 
 
         /// <summary>
@@ -87,6 +110,12 @@ namespace TGC.Group.Model
             bloqueado = loader.loadSceneFromFile(MediaDir + "Bloqueado\\locked-TgcScene.xml").Meshes[0];
             bloqueado.Scale = new Vector3(0.004f, 0.004f, 0.004f);
             bloqueado.Position = new Vector3(0.65f, -0.38f, 1f);
+
+            fog = new TgcFog();
+
+            sonidoPisadas = new TgcMp3Player();
+            sonidoEntorno = new TgcMp3Player();
+            sonidoLinterna = new TgcMp3Player();
         }
 
         void InicializarPuertas()
@@ -270,6 +299,43 @@ namespace TGC.Group.Model
             }
         }
 
+
+        //VARIABLES DE SONIDO
+        String rutaDelRepo = "C:\\Program Files\\TGC\\";
+        int contador2 = 0;
+        int seg = DateTime.Now.Second;
+        int aux2 = DateTime.Now.Second;
+
+        //VARIABLES DE BATERIA
+
+        int bateria = 100;
+        Size resolucionPantalla = System.Windows.Forms.SystemInformation.PrimaryMonitorSize;
+        int segundo = DateTime.Now.Second;
+        int aux = DateTime.Now.Second;
+        int contador = 0;
+        int j = 0;
+        //Intervalo: Cantidad de bateria que se pierde por intervalo
+        //Porciento: Cantidad de bateria que se pierde por intervalo
+        void contador_bateria(int intervalo, int porciento)
+        {
+            if (contador == intervalo && bateria != 0)
+                        {
+                            bateria = bateria - porciento;
+                            contador = 0;
+                        }
+
+                        if (segundo != aux)
+                        {
+                            segundo = DateTime.Now.Second;
+                            aux = DateTime.Now.Second;
+                            contador++;
+                        }
+                        else
+                        {
+                            aux = DateTime.Now.Second;
+                
+            }
+        }
         /// <summary>
         ///     Se llama en cada frame.
         ///     Se debe escribir toda la lógica de computo del modelo, así como también verificar entradas del usuario y reacciones
@@ -315,15 +381,42 @@ namespace TGC.Group.Model
             {
 
                 lightColors[i] = ColorValue.FromColor(iluminaciones[i].lightColors);
-                
 
-                if (iluminacionEnMano == iluminaciones[i])
+                //Contador de Bateria
+
+                    if (iluminacionEnMano == iluminaciones[i])
                 {
 
+                    if (Input.keyDown(Key.F) && i == 0)
+                    {
+                     contador_bateria(2, 5);
+                    }
+                    if (Input.keyDown(Key.F) && i == 1) 
+                    {
+                        contador_bateria(5, 5);
+                    }
+
+                    if (i != j)
+                    {
+                        bateria = 100;
+                        j = 1;
+                    }
+
+
+                    DrawText.drawText(
+                        "i=" + i + "; j=" + j, 100, 100, Color.OrangeRed);
+                    DrawText.drawText(
+                   "BATERIA: " + bateria + "%", resolucionPantalla.Width - 175, 30, Color.OrangeRed);
+                    DrawText.drawText(
+                  "Precionar F pare encender", 0, 70, Color.OrangeRed);
+                    //-------------------//
+
+                    if (Input.keyDown(Key.F) && bateria != 0)
+                    {
                     pointLightPositions[i] = TgcParserUtils.vector3ToVector4(Camara.Position);
                     pointLightIntensity[i] = iluminaciones[i].pointLightIntensityAgarrada;
                     pointLightAttenuation[i] = iluminaciones[i].pointLightAttenuationAgarrada;
-                    
+                    }
 
                     iluminaciones[i].mesh.Effect = TgcShaders.Instance.TgcMeshShader;
                     iluminaciones[i].mesh.Technique = TgcShaders.Instance.getTgcMeshTechnique(TgcMesh.MeshRenderType.DIFFUSE_MAP);
@@ -347,6 +440,7 @@ namespace TGC.Group.Model
                     pointLightIntensity[i] = iluminaciones[i].pointLightIntensity;
                     pointLightAttenuation[i] = iluminaciones[i].pointLightAttenuation;
                 }
+
             }
 
 
@@ -372,17 +466,74 @@ namespace TGC.Group.Model
                 //Renderizar modelo
             }
 
+            //--------Nuebla---------//
+            var fogShader = true;
+            fog.Enabled = true;
+            fog.StartDistance = 50f;
+            fog.EndDistance = 1000f;
+            fog.Density = 0.0015f;
+            fog.Color = Color.Black;
+
+            if (fog.Enabled)
+            {
+                fog.updateValues();
+            }
+
+           
+            //----------Sonidos---------//
+
+            //Pisadas
+            sonidoPisadas.FileName = rutaDelRepo + "2016_2C_K3072_KernelPanic\\sonidos\\pasos.mp3";
+            //Contro del reproductor por teclado
+            var currentState = sonidoPisadas.getStatus();
+            if (Input.keyDown(Key.W))
+            {
+                if (currentState == TgcMp3Player.States.Open)
+                {
+                    //Reproducir MP3
+                    sonidoPisadas.play(true);
+                }
+            }
+            if (Input.keyUp(Key.W))
+            {
+
+                //Parar y reproducir MP3
+                sonidoPisadas.closeFile();
+            }
+
+            //Entorno
+
+            sonidoEntorno.FileName = rutaDelRepo + "2016_2C_K3072_KernelPanic\\sonidos\\entorno.mp3";
+            var currentState3 = sonidoEntorno.getStatus();
+            //Contro del reproductor por teclado
+            if (Input.keyPressed(Key.Y))
+            {
+                if (currentState3 == TgcMp3Player.States.Open)
+                {
+                    //Reproducir MP3
+                    sonidoEntorno.play(true);
+                }
+                if (currentState3 == TgcMp3Player.States.Stopped)
+                {
+                    //Parar y reproducir MP3
+                    sonidoEntorno.closeFile();
+                    sonidoEntorno.play(true);
+                }
+            }
+            else if (Input.keyPressed(Key.U))
+            {
+                if (currentState3 == TgcMp3Player.States.Playing)
+                {
+                    //Pausar el MP3
+                    sonidoEntorno.pause();
+                }
+            }
+
+            
 
 
 
-
-
-
-
-
-
-
-
+            //-------------------------//
 
 
             VerificarColisionConClick();
@@ -396,11 +547,11 @@ namespace TGC.Group.Model
             if (((TgcFpsCamera)Camara).colisiones)
 
                 DrawText.drawText(
-                    "Colisiones activadas (C para desactivar)", 0, 30,
+                    "Colisiones activadas (C para desactivar)", 0, 50,
                     Color.OrangeRed);
             else
                 DrawText.drawText(
-                   "Colisiones desactivadas (C para activar)", 0, 30,
+                   "Colisiones desactivadas (C para activar)", 0, 50,
                    Color.OrangeRed);
 
 
@@ -420,10 +571,9 @@ namespace TGC.Group.Model
                 mostrarBloqueado = 0;
             }
 
-            if (iluminacionEnMano != null)
+          
+                if (iluminacionEnMano != null)
             {
-
-
                 var matrizView = D3DDevice.Instance.Device.Transform.View;
                 D3DDevice.Instance.Device.Transform.View = Matrix.Identity;
                 iluminacionEnMano.mesh.Enabled = true;
@@ -432,6 +582,16 @@ namespace TGC.Group.Model
                 D3DDevice.Instance.Device.Transform.View = matrizView;
 
             }
+            if (Input.keyDown(Key.F) && bateria == 0)
+            {
+                DrawText.drawText(
+             "SIN BATERIA!", resolucionPantalla.Width / 2, resolucionPantalla.Height /2, Color.OrangeRed);
+            }
+
+            //-------Bateria------------//
+            //(Input.keyDown(Key.F) && iluminacionEnMano.mesh.Enabled)
+
+
 
             scene.renderAll();
 
