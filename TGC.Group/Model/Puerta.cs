@@ -20,13 +20,13 @@ namespace TGC.Group.Model
 
         public TgcMesh mesh;
 
-        public void actualizarEstado(TgcCamera Camara, float ElapsedTime)
+        public void actualizarEstado(TgcCamera Camara, float ElapsedTime, Enemigo[] enemigos)
         {
             switch (this.estado)
             {
 
                 case (Puerta.Estado.ABIERTA):
-                    if (TgcCollisionUtils.sqDistPointAABB(Camara.Position, this.mesh.BoundingBox) > 100000f)
+                    if (TgcCollisionUtils.sqDistPointAABB(Camara.Position, this.mesh.BoundingBox) > 100000f && !colisionConEnemigos(enemigos))
                         this.estado = Puerta.Estado.CERRANDO;
                     break;
 
@@ -49,6 +49,18 @@ namespace TGC.Group.Model
                     break;
 
             }
+        }
+
+        private bool colisionConEnemigos(Enemigo[] enemigos)
+        {
+            foreach(var enemigo in enemigos)
+            {
+                if (TgcCollisionUtils.sqDistPointAABB(enemigo.mesh.Position, this.mesh.BoundingBox) < 80000f)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

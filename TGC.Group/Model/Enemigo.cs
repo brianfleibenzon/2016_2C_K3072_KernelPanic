@@ -135,19 +135,22 @@ namespace TGC.Group.Model
 
                 vector.Normalize();
                 vector.Y = 0;
-                mesh.rotateY((float)Math.Atan2(vector.X, vector.Z) - mesh.Rotation.Y - Geometry.DegreeToRadian(180f));
-
                 mesh.Position += vector * MovementSpeed * ElapsedTime;
+                mesh.rotateY((float)Math.Atan2(vector.X, vector.Z) - mesh.Rotation.Y - Geometry.DegreeToRadian(180f));                
 
                 if (verificarColision(Camara, scene))
                 {
                     mesh.Position = posicionAnterior;
-                    mesh.Position += new Vector3(vector.X, 0, 0) * MovementSpeed * 2f * ElapsedTime;
+                    mesh.Position += new Vector3(vector.X, 0, 0) * MovementSpeed * ElapsedTime;
                     mesh.rotateY((float)Math.Atan2(vector.X, 0) - mesh.Rotation.Y - Geometry.DegreeToRadian(180f));
+
+
+
+
                     if (verificarColision(Camara, scene))
                     {
                         this.mesh.Position = posicionAnterior;
-                        this.mesh.Position += new Vector3(0, 0, vector.Z) * MovementSpeed * 2f * ElapsedTime;
+                        this.mesh.Position += new Vector3(0, 0, vector.Z) * MovementSpeed * ElapsedTime;
                         mesh.rotateY((float)Math.Atan2(0, vector.Z) - mesh.Rotation.Y - Geometry.DegreeToRadian(180f));
                         if (verificarColision(Camara, scene))
                         {

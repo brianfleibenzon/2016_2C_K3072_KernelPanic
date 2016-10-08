@@ -166,10 +166,10 @@ namespace TGC.Group.Model
              * 
              * public Iluminacion(Color unColor, string nombre, TgcScene scene, Vector3 posicionLuz,
             float intensidadAgarrada, float atenuacionAgarrada, float intensidad, float atenuacion,
-            float duracion )
+            float duracion, bool atenunar, bool puedeApagarse )
             
             * */
-            iluminaciones[0] = new Iluminacion(Color.DarkOrange, "Vela", scene, new Vector3(0f, 25f, 0f), 68.0f, 0.25f, 38.0f, 0.5f, 135f, true);
+            iluminaciones[0] = new Iluminacion(Color.DarkOrange, "Vela", scene, new Vector3(0f, 25f, 0f), 68.0f, 0.25f, 38.0f, 0.5f, 135f, true, false);
             iluminaciones[0].posicionarEnMano = () =>
             {
                 iluminacionEnMano.mesh.Scale = new Vector3(0.008f, 0.008f, 0.008f);
@@ -177,7 +177,7 @@ namespace TGC.Group.Model
                 iluminacionEnMano.mesh.Position += new Vector3(-0.05f, -0.38f, 1f);
             };
 
-            iluminaciones[1] = new Iluminacion(Color.Gray, "Linterna", scene, new Vector3(30f, 10f, 40f), 108f, 0.25f, 38f, 0.5f, 240f, false);
+            iluminaciones[1] = new Iluminacion(Color.Gray, "Linterna", scene, new Vector3(30f, 10f, 40f), 108f, 0.25f, 38f, 0.5f, 240f, false, true);
             iluminaciones[1].posicionarEnMano = () =>
             {
 
@@ -186,7 +186,7 @@ namespace TGC.Group.Model
                 iluminacionEnMano.mesh.Position += new Vector3(-0.05f, -0.38f, 1f);
             };
 
-            iluminaciones[2] = new Iluminacion(Color.YellowGreen, "Farol", scene, new Vector3(0f, 25f, 0f), 90f, 0.15f, 38f, 0.5f, 190f, false);
+            iluminaciones[2] = new Iluminacion(Color.YellowGreen, "Farol", scene, new Vector3(0f, 25f, 0f), 90f, 0.15f, 38f, 0.5f, 190f, true, false);
             iluminaciones[2].posicionarEnMano = () =>
             {
                 iluminacionEnMano.mesh.Scale = new Vector3(0.005f, 0.005f, 0.005f);
@@ -200,7 +200,7 @@ namespace TGC.Group.Model
         {
             foreach (var puerta in puertas)
             {
-                puerta.actualizarEstado(Camara, ElapsedTime);
+                puerta.actualizarEstado(Camara, ElapsedTime, enemigos);
 
             }
         }
