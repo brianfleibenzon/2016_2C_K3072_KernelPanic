@@ -236,6 +236,16 @@ namespace TGC.Group.Camara
                         }
                     }
                 }
+
+                foreach (var enemigo in gameModel.enemigos)
+                {
+                    if (TgcCollisionUtils.classifyBoxBox(camaraBox, enemigo.mesh.BoundingBox) == TgcCollisionUtils.BoxBoxResult.Atravesando)
+                    { 
+                        positionEye = lastPositionEye;
+                        break;
+                        
+                    }
+                }
             }
 
 

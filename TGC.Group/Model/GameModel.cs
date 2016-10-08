@@ -58,7 +58,7 @@ namespace TGC.Group.Model
 
         private Iluminacion[] iluminaciones = new Iluminacion[3];
 
-        private Enemigo[] enemigos = new Enemigo[2];
+        public Enemigo[] enemigos = new Enemigo[2];
 
         private Vector3 collisionPoint;
 
@@ -71,10 +71,6 @@ namespace TGC.Group.Model
         private Microsoft.DirectX.Direct3D.Effect effect;
 
         private bool luzActivada = true;
-
-        //VARIABLES DE SONIDO
-        int seg = DateTime.Now.Second;
-        int aux2 = DateTime.Now.Second;
 
         //VARIABLES DE BATERIA
 
@@ -131,17 +127,17 @@ namespace TGC.Group.Model
 
             puertas[2].estado = Puerta.Estado.BLOQUEADA;
             puertas[3].estado = Puerta.Estado.BLOQUEADA;
-            puertas[4].funcion = () => { enemigos[1].desactivar(); enemigos[1].activar(); };
-            puertas[5].funcion = () => { enemigos[0].desactivar(); enemigos[0].activar(); };
+            puertas[4].estado = Puerta.Estado.BLOQUEADA;
+            puertas[4].funcion = () => { enemigos[0].activar(); };
+            puertas[6].funcion = () => { if (interruptores[0].estado == Interruptor.Estado.ACTIVADO) enemigos[1].retornar(); else enemigos[1].activar(); };
+            puertas[7].funcion = () => { if (interruptores[0].estado == Interruptor.Estado.DESACTIVADO) enemigos[1].retornar(); else enemigos[1].activar(); };
         }
 
         void InicializarEnemigos()
         {
-            for (int i = 0; i < 2; i++)
-            {
-                enemigos[i] = new Enemigo();
-                enemigos[i].mesh = scene.getMeshByName("Enemigo" + (i + 1));
-            }
+            enemigos[0] = new Enemigo(new Vector3(318, 2, 1480));
+
+            enemigos[1] = new Enemigo(new Vector3(1460, 2, 1460));
 
         }
 
@@ -155,6 +151,11 @@ namespace TGC.Group.Model
 
             interruptores[0].funcion = () => { puertas[2].estado = Puerta.Estado.CERRADA; puertas[3].estado = Puerta.Estado.CERRADA; };
             interruptores[1].funcion = () => { puertas[4].estado = Puerta.Estado.CERRADA; };
+            interruptores[2].funcion = () =>
+            {
+                System.Windows.Forms.MessageBox.Show("Ganaste");
+                Environment.Exit(0);
+            };
 
         }
 
@@ -363,12 +364,6 @@ namespace TGC.Group.Model
             var pointLightIntensity = new float[iluminaciones.Length];
             var pointLightAttenuation = new float[iluminaciones.Length];
 
-            foreach (var mesh in scene.Meshes)
-            {
-                mesh.Effect = effect;
-                mesh.Technique = "MultiDiffuseLightsTechnique";
-            }
-
 
             for (var i = 0; i < iluminaciones.Length; i++)
             {
@@ -412,12 +407,14 @@ namespace TGC.Group.Model
             }
 
 
-
             //Renderizar meshes
             foreach (var mesh in scene.Meshes)
-            {
+            {               
+
                 if (iluminacionEnMano == null || mesh != iluminacionEnMano.mesh)
                 {
+                    mesh.Effect = effect;
+                    mesh.Technique = "MultiDiffuseLightsTechnique";
 
                     mesh.UpdateMeshTransform();
 
@@ -481,7 +478,6 @@ namespace TGC.Group.Model
             if (mostrarBloqueado > 0)
             {
 
-
                 var matrizView = D3DDevice.Instance.Device.Transform.View;
                 D3DDevice.Instance.Device.Transform.View = Matrix.Identity;
                 bloqueado.render();
@@ -507,8 +503,13 @@ namespace TGC.Group.Model
             }
 
 
-            scene.renderAll();
+            foreach (var enemigo in enemigos)
+            {
 
+                enemigo.render(ElapsedTime);
+
+            }
+            scene.renderAll();
             //Finaliza el render y presenta en pantalla, al igual que el preRender se debe para casos puntuales es mejor utilizar a mano las operaciones de EndScene y PresentScene
             PostRender();
         }
@@ -540,6 +541,10 @@ namespace TGC.Group.Model
         /// </summary>
         public override void Dispose()
         {
+            foreach(var enemigo in enemigos)
+            {
+                enemigo.mesh.dispose();
+            }
             bloqueado.dispose();
             scene.disposeAll();
         }
