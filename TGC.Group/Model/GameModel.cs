@@ -175,7 +175,7 @@ namespace TGC.Group.Model
             iluminaciones[0].pointLightIntensity = (float)38;
             iluminaciones[0].pointLightAttenuation = (float)0.5;
             iluminaciones[0].variarLuzEnable = true;
-            iluminaciones[0].duracion = 20f;
+            iluminaciones[0].duracion = 40f;
 
             iluminaciones[1] = new Iluminacion();
             iluminaciones[1].mesh = scene.getMeshByName("Linterna");
@@ -193,7 +193,7 @@ namespace TGC.Group.Model
             iluminaciones[1].pointLightIntensity = (float)38;
             iluminaciones[1].pointLightAttenuation = (float)0.5;
             iluminaciones[1].puedeApagarse = true;
-            iluminaciones[1].duracion = 30f;
+            iluminaciones[1].duracion = 80f;
 
             iluminaciones[2] = new Iluminacion();
             iluminaciones[2].mesh = scene.getMeshByName("Farol");
@@ -210,7 +210,7 @@ namespace TGC.Group.Model
             iluminaciones[2].pointLightIntensity = (float)38;
             iluminaciones[2].pointLightAttenuation = (float)0.5;
             iluminaciones[2].puedeApagarse = true;
-            iluminaciones[2].duracion = 50f;
+            iluminaciones[2].duracion = 120f;
 
         }
 
