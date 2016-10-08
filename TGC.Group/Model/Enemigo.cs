@@ -135,34 +135,59 @@ namespace TGC.Group.Model
 
                 vector.Normalize();
                 vector.Y = 0;
-                mesh.Position += vector * MovementSpeed * ElapsedTime;
-                mesh.rotateY((float)Math.Atan2(vector.X, vector.Z) - mesh.Rotation.Y - Geometry.DegreeToRadian(180f));                
+
+                Vector3 intento = vector;
+
+                mesh.Position += intento * MovementSpeed * ElapsedTime;
+                
 
                 if (verificarColision(Camara, scene))
                 {
                     mesh.Position = posicionAnterior;
-                    mesh.Position += new Vector3(vector.X, 0, 0) * MovementSpeed * ElapsedTime;
-                    mesh.rotateY((float)Math.Atan2(vector.X, 0) - mesh.Rotation.Y - Geometry.DegreeToRadian(180f));
-
-
+                    intento.X = valorUnitario(vector.X);
+                    intento.Z = 0;
+                    mesh.Position += intento * MovementSpeed * ElapsedTime;                  
 
 
                     if (verificarColision(Camara, scene))
                     {
                         this.mesh.Position = posicionAnterior;
-                        this.mesh.Position += new Vector3(0, 0, vector.Z) * MovementSpeed * ElapsedTime;
-                        mesh.rotateY((float)Math.Atan2(0, vector.Z) - mesh.Rotation.Y - Geometry.DegreeToRadian(180f));
+                        intento.X = 0;
+                        intento.Z = valorUnitario(vector.Z);
+                        this.mesh.Position += intento * MovementSpeed * ElapsedTime;
+                        
                         if (verificarColision(Camara, scene))
                         {
                             mesh.Position = posicionAnterior;
                         }
                     }
                 }
-                
+
+                mesh.rotateY((float)Math.Atan2(intento.X, intento.Z) - mesh.Rotation.Y - Geometry.DegreeToRadian(180f));
+
             }
 
             if ((estado == Estado.Retornando) && TgcCollisionUtils.sqDistPointAABB(posicionInicial, mesh.BoundingBox) < 2f)
                 desactivar();
+        }
+
+        private float valorUnitario(float numero)
+        {
+            if (numero > 0f && numero <= 0.6f)
+            {
+                return 1;
+            }
+            else if(numero < -0f && numero >= -0.6f)
+            {
+                return -1;
+            }
+            else
+            {
+                return numero;
+            }
+
+            
+            
         }
 
 

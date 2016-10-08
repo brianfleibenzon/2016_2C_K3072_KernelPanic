@@ -457,7 +457,6 @@ namespace TGC.Group.Model
                 DrawText.drawText(
           "Precionar F pare encender", 0, 70, Color.OrangeRed);
 
-
             if (mostrarBloqueado > 0)
             {
 
