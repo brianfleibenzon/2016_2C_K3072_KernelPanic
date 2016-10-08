@@ -142,7 +142,7 @@ namespace TGC.Group.Model
                 if (verificarColision(Camara, scene))
                 {
                     mesh.Position = posicionAnterior;
-                    mesh.Position += new Vector3(vector.X, 0, 0) * MovementSpeed * 2f * ElapsedTime;
+                    mesh.Position += new Vector3(vector.X, 0, 0) * MovementSpeed  * ElapsedTime;
                     mesh.rotateY((float)Math.Atan2(vector.X, 0) - mesh.Rotation.Y - Geometry.DegreeToRadian(180f));
                     if (verificarColision(Camara, scene))
                     {
