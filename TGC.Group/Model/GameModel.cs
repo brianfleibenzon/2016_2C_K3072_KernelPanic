@@ -544,7 +544,9 @@ namespace TGC.Group.Model
         /// </summary>
         public override void Dispose()
         {
-            foreach(var enemigo in enemigos)
+            sonidoEntorno.stop();
+            sonidoEntorno.closeFile();
+            foreach (var enemigo in enemigos)
             {
                 enemigo.mesh.dispose();
             }
