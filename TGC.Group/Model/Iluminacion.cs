@@ -31,9 +31,14 @@ namespace TGC.Group.Model
         public bool puedeApagarse = false;
         public float duracion;
 
+        public Iluminacion()
+        {
+
+        }
 
         public Iluminacion(Color unColor, string nombre, TgcScene scene, Vector3 posicionLuz,
-            float intensidadAgarrada, float atenuacionAgarrada, float intensidad, float atenuacion, float duracion )
+            float intensidadAgarrada, float atenuacionAgarrada, float intensidad, float atenuacion,
+            float duracion )
         {
             this.lightColors = unColor;
             this.mesh = scene.getMeshByName(nombre);
@@ -44,6 +49,7 @@ namespace TGC.Group.Model
             this.pointLightAttenuation = atenuacion;
             this.variarLuzEnable = true;
             this.duracion = duracion;
+
         }
 
         public void variarLuz(float ElpasedTime)
