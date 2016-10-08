@@ -52,7 +52,7 @@
             // 
             // botonX
             // 
-            this.botonX.BackColor = System.Drawing.Color.Black;
+            this.botonX.BackColor = System.Drawing.Color.Transparent;
             this.botonX.BackgroundImage = global::TGC.Group.Properties.Resources.botonXx;
             this.botonX.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.botonX.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -119,7 +119,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::TGC.Group.Properties.Resources.fondo;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(784, 561);            
+            this.ClientSize = new System.Drawing.Size(784, 561);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel3D);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;

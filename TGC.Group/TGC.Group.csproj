@@ -167,13 +167,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\imagenCerrar.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\fondo.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\botonX.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\botonXx.png" />

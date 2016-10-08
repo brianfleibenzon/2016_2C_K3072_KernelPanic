@@ -186,9 +186,7 @@ namespace TGC.Group.Model
             else
             {
                 return numero;
-            }
-
-            
+            }            
             
         }
 

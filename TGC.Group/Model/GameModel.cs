@@ -122,7 +122,7 @@ namespace TGC.Group.Model
 
             sonidoEntorno = new TgcMp3Player();
             sonidoEntorno.FileName = MediaDir + "Sonidos\\entorno.mp3";
-            //sonidoEntorno.play(true);
+            sonidoEntorno.play(true);
         }
 
         void InicializarPuertas()
@@ -509,7 +509,9 @@ namespace TGC.Group.Model
                 enemigo.render(ElapsedTime);
 
             }
+
             scene.renderAll();
+
             //Finaliza el render y presenta en pantalla, al igual que el preRender se debe para casos puntuales es mejor utilizar a mano las operaciones de EndScene y PresentScene
             PostRender();
 

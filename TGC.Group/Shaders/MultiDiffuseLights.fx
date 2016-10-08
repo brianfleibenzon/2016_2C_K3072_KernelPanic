@@ -103,6 +103,7 @@ float3 computeDiffuseComponent(float3 surfacePosition, float3 N, int i)
 {
 	//Calcular intensidad de luz, con atenuacion por distancia
 	float distAtten = length(lightPosition[i].xyz - surfacePosition);
+	
 	float3 Ln = (lightPosition[i].xyz - surfacePosition) / distAtten;
 	distAtten = distAtten * lightAttenuation[i];
 	float intensity = lightIntensity[i] / distAtten; //Dividimos intensidad sobre distancia

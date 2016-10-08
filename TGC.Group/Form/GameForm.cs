@@ -48,6 +48,8 @@ namespace TGC.Group.Form
         /// </summary>
         private TgcD3dInput Input { get; set; }
 
+        private bool hayQueReiniciar = false;
+
         private void GameForm_Load(object sender, EventArgs e)
         {
 
@@ -108,8 +110,7 @@ namespace TGC.Group.Form
                     if (ApplicationActive())
                     {
                         Modelo.Update();
-                        if (ApplicationRunning)
-                            Modelo.Render();
+                        Modelo.Render();
                     }
                     else
                     {
@@ -195,7 +196,8 @@ namespace TGC.Group.Form
         {
             lblResultado.ForeColor = Color.Green;
             lblResultado.Text = "Ganaste";
-            this.ShutDown();
+            ApplicationRunning = false;
+            hayQueReiniciar = true;
             panel1.Visible = true;
             botonX.Visible = false;
             panel3D.Visible = false;
@@ -204,7 +206,8 @@ namespace TGC.Group.Form
         {
             lblResultado.ForeColor = Color.Red;
             lblResultado.Text = "Perdiste";
-            this.ShutDown();
+            ApplicationRunning = false;
+            hayQueReiniciar = true;
             panel1.Visible = true;
             botonX.Visible = false;
             panel3D.Visible = false;
@@ -234,6 +237,7 @@ namespace TGC.Group.Form
 
         private void botonJugar_Click(object sender, EventArgs e)
         {
+            botonJugar.Text = "JUGAR";
             lblResultado.Text = "";
             botonX.Visible = true;
             panel3D.Visible = true;
@@ -249,7 +253,17 @@ namespace TGC.Group.Form
             }
             else
             {
-                ApplicationRunning = true;
+                if (hayQueReiniciar)
+                {
+                    this.ShutDown();
+                    InitGraphics();
+                    hayQueReiniciar = false;
+                }
+                else
+                {
+                    ApplicationRunning = true;
+                }
+                
             }
 
             //Inicio el ciclo de Render.
@@ -266,6 +280,7 @@ namespace TGC.Group.Form
 
         private void botonX_Click(object sender, EventArgs e)
         {
+            botonJugar.Text = "CONTINUAR";
             panel3D.Visible = false;
             ApplicationRunning = false;
             panel1.Visible = true;
