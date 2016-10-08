@@ -81,6 +81,17 @@ namespace TGC.Group.Model
 
         private Microsoft.DirectX.Direct3D.Effect effect;
 
+        private bool luzActivada = true;
+
+        //VARIABLES DE SONIDO
+        int seg = DateTime.Now.Second;
+        int aux2 = DateTime.Now.Second;
+
+        //VARIABLES DE BATERIA
+
+        Size resolucionPantalla = System.Windows.Forms.SystemInformation.PrimaryMonitorSize;
+        float contador = 0;
+
 
         /// <summary>
         ///     Se llama una sola vez, al principio cuando se ejecuta el ejemplo.
@@ -172,7 +183,7 @@ namespace TGC.Group.Model
             iluminaciones[0].pointLightIntensity = (float)38;
             iluminaciones[0].pointLightAttenuation = (float)0.5;
             iluminaciones[0].variarLuzEnable = true;
-
+            iluminaciones[0].duracion = 20f;
 
             iluminaciones[1] = new Iluminacion();
             iluminaciones[1].mesh = scene.getMeshByName("Linterna");
@@ -189,6 +200,8 @@ namespace TGC.Group.Model
             iluminaciones[1].pointLightAttenuationAgarrada = (float)0.25;
             iluminaciones[1].pointLightIntensity = (float)38;
             iluminaciones[1].pointLightAttenuation = (float)0.5;
+            iluminaciones[1].puedeApagarse = true;
+            iluminaciones[1].duracion = 30f;
 
             iluminaciones[2] = new Iluminacion();
             iluminaciones[2].mesh = scene.getMeshByName("Farol");
@@ -204,6 +217,8 @@ namespace TGC.Group.Model
             iluminaciones[2].pointLightAttenuationAgarrada = (float)0.15;
             iluminaciones[2].pointLightIntensity = (float)38;
             iluminaciones[2].pointLightAttenuation = (float)0.5;
+            iluminaciones[2].puedeApagarse = true;
+            iluminaciones[2].duracion = 50f;
 
         }
 
@@ -242,6 +257,8 @@ namespace TGC.Group.Model
                 {
                     mesh.Enabled = false;
                     iluminacionEnMano = ilum;
+                    contador = 0;
+                    luzActivada = true;
                     iluminacionEnMano.posicionarEnMano();
                     return true;
                 }
@@ -300,39 +317,19 @@ namespace TGC.Group.Model
         }
 
 
-        //VARIABLES DE SONIDO
-        String rutaDelRepo = "C:\\Program Files\\TGC\\";
-        int contador2 = 0;
-        int seg = DateTime.Now.Second;
-        int aux2 = DateTime.Now.Second;
-
-        //VARIABLES DE BATERIA
-
-        int bateria = 100;
-        Size resolucionPantalla = System.Windows.Forms.SystemInformation.PrimaryMonitorSize;
-        int segundo = DateTime.Now.Second;
-        int aux = DateTime.Now.Second;
-        int contador = 0;
-        int j = 0;
         //Intervalo: Cantidad de bateria que se pierde por intervalo
         //Porciento: Cantidad de bateria que se pierde por intervalo
-        void contador_bateria(int intervalo, int porciento)
+        void reducirBateria()
         {
-            if (contador == intervalo && bateria != 0)
-                        {
-                            bateria = bateria - porciento;
-                            contador = 0;
-                        }
+            if (iluminacionEnMano!=null && luzActivada)
+            {
+                contador += ElapsedTime;
 
-                        if (segundo != aux)
-                        {
-                            segundo = DateTime.Now.Second;
-                            aux = DateTime.Now.Second;
-                            contador++;
-                        }
-                        else
-                        {
-                            aux = DateTime.Now.Second;
+                if (contador > iluminacionEnMano.duracion)
+                {
+                    iluminacionEnMano = null;
+                    contador = 0;                 
+                }              
                 
             }
         }
@@ -344,6 +341,10 @@ namespace TGC.Group.Model
         public override void Update()
         {
             PreUpdate();
+
+            escucharTeclas();
+
+            reducirBateria();
 
             ActualizarEstadoPuertas();
 
@@ -384,38 +385,16 @@ namespace TGC.Group.Model
 
                 //Contador de Bateria
 
-                    if (iluminacionEnMano == iluminaciones[i])
-                {
-
-                    if (Input.keyDown(Key.F) && i == 0)
-                    {
-                     contador_bateria(2, 5);
-                    }
-                    if (Input.keyDown(Key.F) && i == 1) 
-                    {
-                        contador_bateria(5, 5);
-                    }
-
-                    if (i != j)
-                    {
-                        bateria = 100;
-                        j = 1;
-                    }
-
-
-                    DrawText.drawText(
-                        "i=" + i + "; j=" + j, 100, 100, Color.OrangeRed);
-                    DrawText.drawText(
-                   "BATERIA: " + bateria + "%", resolucionPantalla.Width - 175, 30, Color.OrangeRed);
-                    DrawText.drawText(
-                  "Precionar F pare encender", 0, 70, Color.OrangeRed);
+               if (iluminacionEnMano == iluminaciones[i])
+               {                   
+                    
                     //-------------------//
 
-                    if (Input.keyDown(Key.F) && bateria != 0)
+                    if (luzActivada)
                     {
-                    pointLightPositions[i] = TgcParserUtils.vector3ToVector4(Camara.Position);
-                    pointLightIntensity[i] = iluminaciones[i].pointLightIntensityAgarrada;
-                    pointLightAttenuation[i] = iluminaciones[i].pointLightAttenuationAgarrada;
+                        pointLightPositions[i] = TgcParserUtils.vector3ToVector4(Camara.Position);
+                        pointLightIntensity[i] = iluminaciones[i].pointLightIntensityAgarrada;
+                        pointLightAttenuation[i] = iluminaciones[i].pointLightAttenuationAgarrada;
                     }
 
                     iluminaciones[i].mesh.Effect = TgcShaders.Instance.TgcMeshShader;
@@ -467,7 +446,6 @@ namespace TGC.Group.Model
             }
 
             //--------Nuebla---------//
-            var fogShader = true;
             fog.Enabled = true;
             fog.StartDistance = 50f;
             fog.EndDistance = 1000f;
@@ -483,7 +461,7 @@ namespace TGC.Group.Model
             //----------Sonidos---------//
 
             //Pisadas
-            sonidoPisadas.FileName = rutaDelRepo + "2016_2C_K3072_KernelPanic\\sonidos\\pasos.mp3";
+            sonidoPisadas.FileName = MediaDir + "Sonidos\\pasos.mp3";
             //Contro del reproductor por teclado
             var currentState = sonidoPisadas.getStatus();
             if (Input.keyDown(Key.W))
@@ -503,7 +481,7 @@ namespace TGC.Group.Model
 
             //Entorno
 
-            sonidoEntorno.FileName = rutaDelRepo + "2016_2C_K3072_KernelPanic\\sonidos\\entorno.mp3";
+            sonidoEntorno.FileName = MediaDir + "Sonidos\\entorno.mp3";
             var currentState3 = sonidoEntorno.getStatus();
             //Contro del reproductor por teclado
             if (Input.keyPressed(Key.Y))
@@ -554,6 +532,17 @@ namespace TGC.Group.Model
                    "Colisiones desactivadas (C para activar)", 0, 50,
                    Color.OrangeRed);
 
+            if (iluminacionEnMano != null)
+                DrawText.drawText(
+                   "BATERIA: " + getBateria() + "%", resolucionPantalla.Width - 175, 30, Color.OrangeRed);
+
+            if (luzActivada && iluminacionEnMano!=null && iluminacionEnMano.puedeApagarse)
+                DrawText.drawText(
+          "Precionar F pare apagar", 0, 70, Color.OrangeRed);
+            else if (!luzActivada && iluminacionEnMano != null && iluminacionEnMano.puedeApagarse)
+                DrawText.drawText(
+          "Precionar F pare encender", 0, 70, Color.OrangeRed);
+
 
             if (mostrarBloqueado > 0)
             {
@@ -572,7 +561,7 @@ namespace TGC.Group.Model
             }
 
           
-                if (iluminacionEnMano != null)
+            if (iluminacionEnMano != null)
             {
                 var matrizView = D3DDevice.Instance.Device.Transform.View;
                 D3DDevice.Instance.Device.Transform.View = Matrix.Identity;
@@ -582,15 +571,6 @@ namespace TGC.Group.Model
                 D3DDevice.Instance.Device.Transform.View = matrizView;
 
             }
-            if (Input.keyDown(Key.F) && bateria == 0)
-            {
-                DrawText.drawText(
-             "SIN BATERIA!", resolucionPantalla.Width / 2, resolucionPantalla.Height /2, Color.OrangeRed);
-            }
-
-            //-------Bateria------------//
-            //(Input.keyDown(Key.F) && iluminacionEnMano.mesh.Enabled)
-
 
 
             scene.renderAll();
@@ -598,6 +578,21 @@ namespace TGC.Group.Model
             //Finaliza el render y presenta en pantalla, al igual que el preRender se debe para casos puntuales es mejor utilizar a mano las operaciones de EndScene y PresentScene
             PostRender();
         }
+
+        private int getBateria()
+        {
+            return 100 - (int)Math.Ceiling((contador / iluminacionEnMano.duracion) * 100);
+        }
+
+        private void escucharTeclas()
+        {
+            if (Input.keyPressed(Key.F) && iluminacionEnMano!=null && iluminacionEnMano.puedeApagarse)
+            {
+                luzActivada = !luzActivada;
+            }
+          
+        }
+
 
         /// <summary>
         ///     Se llama cuando termina la ejecución del ejemplo.

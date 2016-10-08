@@ -29,6 +29,9 @@ namespace TGC.Group.Model
         float pointLightIntensityAgarradaOriginal;
         public bool variarLuzEnable = false;
 
+        public bool puedeApagarse = false;
+        public float duracion;
+
         public void variarLuz(float ElpasedTime)
         {
             if (variarLuzEnable){
