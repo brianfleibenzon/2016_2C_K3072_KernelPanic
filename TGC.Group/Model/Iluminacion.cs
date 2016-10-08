@@ -1,6 +1,7 @@
 ﻿using Microsoft.DirectX;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,6 +30,21 @@ namespace TGC.Group.Model
 
         public bool puedeApagarse = false;
         public float duracion;
+
+
+        public Iluminacion(Color unColor, string nombre, TgcScene scene, Vector3 posicionLuz,
+            float intensidadAgarrada, float atenuacionAgarrada, float intensidad, float atenuacion, float duracion )
+        {
+            this.lightColors = unColor;
+            this.mesh = scene.getMeshByName(nombre);
+            this.pointLightPosition = this.mesh.BoundingBox.Position + posicionLuz;
+            this.pointLightIntensityAgarrada = intensidadAgarrada;
+            this.pointLightAttenuationAgarrada = atenuacionAgarrada;
+            this.pointLightIntensity = intensidad;
+            this.pointLightAttenuation = atenuacion;
+            this.variarLuzEnable = true;
+            this.duracion = duracion;
+        }
 
         public void variarLuz(float ElpasedTime)
         {

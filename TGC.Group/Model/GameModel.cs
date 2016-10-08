@@ -161,25 +161,17 @@ namespace TGC.Group.Model
 
         void InicializarIluminaciones()
         {
-            iluminaciones[0] = new Iluminacion();
-            iluminaciones[0].mesh = scene.getMeshByName("Vela");
+            iluminaciones[0] = new Iluminacion(Color.DarkOrange, "vela",scene, new Vector3(0f, 25f, 0f), 68.0f,0.25f
+                38.0f,0.5f,135f);
             iluminaciones[0].posicionarEnMano = () =>
             {
                 iluminacionEnMano.mesh.Scale = new Vector3(0.008f, 0.008f, 0.008f);
                 iluminacionEnMano.mesh.Position = -iluminacionEnMano.mesh.BoundingBox.Position;
                 iluminacionEnMano.mesh.Position += new Vector3(-0.05f, -0.38f, 1f);
             };
-            iluminaciones[0].lightColors = Color.Orange;
-            iluminaciones[0].pointLightPosition = iluminaciones[0].mesh.BoundingBox.Position + new Vector3(0f, 25f, 0f);
-            iluminaciones[0].pointLightIntensityAgarrada = (float)68;
-            iluminaciones[0].pointLightAttenuationAgarrada = (float)0.25;
-            iluminaciones[0].pointLightIntensity = (float)38;
-            iluminaciones[0].pointLightAttenuation = (float)0.5;
-            iluminaciones[0].variarLuzEnable = true;
-            iluminaciones[0].duracion = 40f;
 
-            iluminaciones[1] = new Iluminacion();
-            iluminaciones[1].mesh = scene.getMeshByName("Linterna");
+            iluminaciones[1] = new Iluminacion(Color.Gray, "linterna", scene, new Vector3(30f, 10f, 40f),
+                108f, 0.25f, 38f, 0.5f,240f,);
             iluminaciones[1].posicionarEnMano = () =>
             {
 
@@ -187,31 +179,15 @@ namespace TGC.Group.Model
                 iluminacionEnMano.mesh.Position = -iluminacionEnMano.mesh.BoundingBox.Position;
                 iluminacionEnMano.mesh.Position += new Vector3(-0.05f, -0.38f, 1f);
             };
-            iluminaciones[1].lightColors = Color.White;
-            iluminaciones[1].pointLightPosition = iluminaciones[1].mesh.BoundingBox.Position + new Vector3(30f, 10f, 40f);
-            iluminaciones[1].pointLightIntensityAgarrada = (float)108;
-            iluminaciones[1].pointLightAttenuationAgarrada = (float)0.25;
-            iluminaciones[1].pointLightIntensity = (float)38;
-            iluminaciones[1].pointLightAttenuation = (float)0.5;
-            iluminaciones[1].puedeApagarse = true;
-            iluminaciones[1].duracion = 80f;
 
-            iluminaciones[2] = new Iluminacion();
-            iluminaciones[2].mesh = scene.getMeshByName("Farol");
+            iluminaciones[2] = new Iluminacion(Color.YellowGreen, "Farol",scene, new Vector3(0f, 25f, 0f),
+                90f, 0.15f, 38f, 0.5f, 190f);
             iluminaciones[2].posicionarEnMano = () =>
             {
                 iluminacionEnMano.mesh.Scale = new Vector3(0.005f, 0.005f, 0.005f);
                 iluminacionEnMano.mesh.Position = -iluminacionEnMano.mesh.BoundingBox.Position;
                 iluminacionEnMano.mesh.Position += new Vector3(-0.05f, -0.38f, 1f);
             };
-            iluminaciones[2].lightColors = Color.Yellow;
-            iluminaciones[2].pointLightPosition = iluminaciones[2].mesh.BoundingBox.Position + new Vector3(0f, 25f, 0f);
-            iluminaciones[2].pointLightIntensityAgarrada = (float)108;
-            iluminaciones[2].pointLightAttenuationAgarrada = (float)0.15;
-            iluminaciones[2].pointLightIntensity = (float)38;
-            iluminaciones[2].pointLightAttenuation = (float)0.5;
-            iluminaciones[2].puedeApagarse = true;
-            iluminaciones[2].duracion = 120f;
 
         }
 
@@ -314,6 +290,7 @@ namespace TGC.Group.Model
         //Porciento: Cantidad de bateria que se pierde por intervalo
         void reducirBateria()
         {
+
             if (iluminacionEnMano!=null && luzActivada)
             {
                 contador += ElapsedTime;
