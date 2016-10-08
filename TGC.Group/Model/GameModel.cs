@@ -109,7 +109,7 @@ namespace TGC.Group.Model
 
             bloqueado = loader.loadSceneFromFile(MediaDir + "Bloqueado\\locked-TgcScene.xml").Meshes[0];
             bloqueado.Scale = new Vector3(0.004f, 0.004f, 0.004f);
-            bloqueado.Position = new Vector3(0.65f, -0.38f, 1f);
+            bloqueado.Position = new Vector3(-0.05f, 0.20f, 1f);
 
             fog = new TgcFog();
 
@@ -166,7 +166,7 @@ namespace TGC.Group.Model
             {
                 iluminacionEnMano.mesh.Scale = new Vector3(0.008f, 0.008f, 0.008f);
                 iluminacionEnMano.mesh.Position = -iluminacionEnMano.mesh.BoundingBox.Position;
-                iluminacionEnMano.mesh.Position += new Vector3(-0.8f, -0.38f, 1f);
+                iluminacionEnMano.mesh.Position += new Vector3(-0.05f, -0.38f, 1f);
             };
             iluminaciones[0].lightColors = Color.Orange;
             iluminaciones[0].pointLightPosition = iluminaciones[0].mesh.BoundingBox.Position + new Vector3(0f, 25f, 0f);
@@ -184,7 +184,7 @@ namespace TGC.Group.Model
 
                 iluminacionEnMano.mesh.Scale = new Vector3(0.005f, 0.005f, 0.005f);
                 iluminacionEnMano.mesh.Position = -iluminacionEnMano.mesh.BoundingBox.Position;
-                iluminacionEnMano.mesh.Position += new Vector3(-0.8f, -0.38f, 1f);
+                iluminacionEnMano.mesh.Position += new Vector3(-0.05f, -0.38f, 1f);
             };
             iluminaciones[1].lightColors = Color.White;
             iluminaciones[1].pointLightPosition = iluminaciones[1].mesh.BoundingBox.Position + new Vector3(30f, 10f, 40f);
@@ -201,7 +201,7 @@ namespace TGC.Group.Model
             {
                 iluminacionEnMano.mesh.Scale = new Vector3(0.005f, 0.005f, 0.005f);
                 iluminacionEnMano.mesh.Position = -iluminacionEnMano.mesh.BoundingBox.Position;
-                iluminacionEnMano.mesh.Position += new Vector3(-0.8f, -0.38f, 1f);
+                iluminacionEnMano.mesh.Position += new Vector3(-0.05f, -0.38f, 1f);
             };
             iluminaciones[2].lightColors = Color.Yellow;
             iluminaciones[2].pointLightPosition = iluminaciones[2].mesh.BoundingBox.Position + new Vector3(0f, 25f, 0f);
