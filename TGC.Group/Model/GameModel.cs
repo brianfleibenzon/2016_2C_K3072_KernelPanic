@@ -17,6 +17,7 @@ using TGC.Core.Sound;
 using System;
 using System.Globalization;
 using Microsoft.DirectX.DirectInput;
+using TGC.Group.Form;
 
 namespace TGC.Group.Model
 {
@@ -33,12 +34,19 @@ namespace TGC.Group.Model
         /// </summary>
         /// <param name="mediaDir">Ruta donde esta la carpeta con los assets</param>
         /// <param name="shadersDir">Ruta donde esta la carpeta con los shaders</param>
-        public GameModel(string mediaDir, string shadersDir) : base(mediaDir, shadersDir)
+        /// 
+        private GameForm formulario;
+
+
+        public GameModel(string mediaDir, string shadersDir, GameForm formulario) : base(mediaDir, shadersDir)
         {
             Category = Game.Default.Category;
             Name = Game.Default.Name;
             Description = Game.Default.Description;
-        }
+
+            this.formulario = formulario;
+            
+        }       
 
         private TgcFog fog;
 
@@ -135,9 +143,9 @@ namespace TGC.Group.Model
 
         void InicializarEnemigos()
         {
-            enemigos[0] = new Enemigo(new Vector3(318, 2, 1480));
+            enemigos[0] = new Enemigo(this, new Vector3(318, 2, 1480));
 
-            enemigos[1] = new Enemigo(new Vector3(1460, 2, 1460));
+            enemigos[1] = new Enemigo(this, new Vector3(1460, 2, 1460));
 
         }
 
@@ -153,10 +161,20 @@ namespace TGC.Group.Model
             interruptores[1].funcion = () => { puertas[4].estado = Puerta.Estado.CERRADA; };
             interruptores[2].funcion = () =>
             {
-                System.Windows.Forms.MessageBox.Show("Ganaste");
-                Environment.Exit(0);
+                this.ganar();
             };
 
+        }
+
+
+        public void ganar()
+        {
+            formulario.ganar();
+        }
+
+        public void perder()
+        {
+            formulario.perder();
         }
 
         void InicializarIluminaciones()
@@ -494,6 +512,7 @@ namespace TGC.Group.Model
             scene.renderAll();
             //Finaliza el render y presenta en pantalla, al igual que el preRender se debe para casos puntuales es mejor utilizar a mano las operaciones de EndScene y PresentScene
             PostRender();
+
         }
 
         private int getBateria()

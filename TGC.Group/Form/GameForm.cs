@@ -88,7 +88,7 @@ namespace TGC.Group.Form
 
             //Juego a ejecutar, si quisiéramos tener diferentes modelos aquí podemos cambiar la instancia e invocar a otra clase.
             Modelo = new GameModel(currentDirectory + Game.Default.MediaDirectory,
-                currentDirectory + Game.Default.ShadersDirectory);
+                currentDirectory + Game.Default.ShadersDirectory, this);
 
             //Cargar juego.
             ExecuteModel();
@@ -108,7 +108,8 @@ namespace TGC.Group.Form
                     if (ApplicationActive())
                     {
                         Modelo.Update();
-                        Modelo.Render();
+                        if (ApplicationRunning)
+                            Modelo.Render();
                     }
                     else
                     {
@@ -190,14 +191,23 @@ namespace TGC.Group.Form
             TexturesPool.Instance.clearAll();
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
+        public void ganar()
         {
-
+            lblResultado.ForeColor = Color.Green;
+            lblResultado.Text = "Ganaste";
+            this.ShutDown();
+            panel1.Visible = true;
+            botonX.Visible = false;
+            panel3D.Visible = false;
         }
-
-        private void button1_Click(object sender, EventArgs e)
+        public void perder()
         {
-            this.Close(); 
+            lblResultado.ForeColor = Color.Red;
+            lblResultado.Text = "Perdiste";
+            this.ShutDown();
+            panel1.Visible = true;
+            botonX.Visible = false;
+            panel3D.Visible = false;
         }
 
         private void panel3D_Paint(object sender, PaintEventArgs e)
@@ -212,8 +222,8 @@ namespace TGC.Group.Form
             panel1.Location = new Point(anchoDePanel, largoDePanel);
 
             //Cerrar
-            Int32 anchoDeX = (this.Width - botonx2.Width) - 10;
-           botonx2.Location = new Point(anchoDeX, botonx2.Location.Y);
+            Int32 anchoDeX = (this.Width - botonX.Width) - 10;
+            botonX.Location = new Point(anchoDeX, botonX.Location.Y);
 
 
             this.AcceptButton = botonJugar;
@@ -224,29 +234,43 @@ namespace TGC.Group.Form
 
         private void botonJugar_Click(object sender, EventArgs e)
         {
-
-            //botonX.Show();
-            botonJugar.Hide();
-            botonSalir.Hide();
+            lblResultado.Text = "";
+            botonX.Visible = true;
+            panel3D.Visible = true;
             panel1.Hide();
-           
 
-            //Iniciar graficos.
-            InitGraphics();
+            if (Modelo == null)
+            {      
+                //Iniciar graficos.
+                InitGraphics();
 
-            //Titulo de la ventana principal.
-            Text = Modelo.Name + " - " + Modelo.Description;
-
-            //Focus panel3D.
-            panel3D.Focus();
+                //Titulo de la ventana principal.
+                //Text = Modelo.Name + " - " + Modelo.Description;                
+            }
+            else
+            {
+                ApplicationRunning = true;
+            }
 
             //Inicio el ciclo de Render.
             InitRenderLoop();
+
+            //Focus panel3D.
+            panel3D.Focus();
+        }
+
+        private void botonSalir_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
         private void botonX_Click(object sender, EventArgs e)
         {
-            this.Close();
+            panel3D.Visible = false;
+            ApplicationRunning = false;
+            panel1.Visible = true;
+            panel3D.Visible = false;
+            botonX.Visible = false;
         }
     }
 }

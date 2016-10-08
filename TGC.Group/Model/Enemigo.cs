@@ -23,14 +23,14 @@ namespace TGC.Group.Model
         protected string[] animationList;
         protected string[] animationsPath;
         protected string selectedAnim;
-        protected const float VELOCIDAD_MOVIMIËNTO = 50f;
-        protected const float VELOCIDAD_MOVIMIENTO_CORRER = 150f;
 
         private float MovementSpeed = 150f;
 
         protected Estado estado;
 
         public Vector3 posicionInicial;
+
+        GameModel gameModel;
 
         public enum Estado
         {
@@ -39,8 +39,10 @@ namespace TGC.Group.Model
             Retornando = 2
         }
 
-        public Enemigo(Vector3 posicionInicial)
+        public Enemigo(GameModel gameModel, Vector3 posicionInicial)
         {
+            this.gameModel = gameModel;
+
             //Paths para archivo XML de la malla
             pathMesh = mediaDir + "SkeletalAnimations\\Robot\\Robot-TgcSkeletalMesh.xml";
 
@@ -173,11 +175,11 @@ namespace TGC.Group.Model
 
         private float valorUnitario(float numero)
         {
-            if (numero > 0f && numero <= 0.6f)
+            if (numero >= 0f && numero <= 0.6f)
             {
                 return 1;
             }
-            else if(numero < -0f && numero >= -0.6f)
+            else if(numero <= -0f && numero >= -0.6f)
             {
                 return -1;
             }
@@ -199,8 +201,7 @@ namespace TGC.Group.Model
 
                 if (TgcCollisionUtils.classifyBoxBox(this.mesh.BoundingBox, ((Camara.TgcFpsCamera)Camara).camaraBox) == TgcCollisionUtils.BoxBoxResult.Atravesando)
                 {
-                    System.Windows.Forms.MessageBox.Show("Perdiste");
-                    Environment.Exit(0);
+                    gameModel.perder();
                 }
 
 
