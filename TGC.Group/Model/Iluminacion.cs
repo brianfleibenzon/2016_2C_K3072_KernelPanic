@@ -26,19 +26,14 @@ namespace TGC.Group.Model
         float ultimaVariacion = 0;
         float pointLightIntensityOriginal;
         float pointLightIntensityAgarradaOriginal;
-        public bool variarLuzEnable = false;
+        public bool variarLuzEnabled = false;
 
         public bool puedeApagarse = false;
         public float duracion;
 
-        public Iluminacion()
-        {
-
-        }
-
         public Iluminacion(Color unColor, string nombre, TgcScene scene, Vector3 posicionLuz,
             float intensidadAgarrada, float atenuacionAgarrada, float intensidad, float atenuacion,
-            float duracion )
+            float duracion, bool variarLuz)
         {
             this.lightColors = unColor;
             this.mesh = scene.getMeshByName(nombre);
@@ -47,14 +42,14 @@ namespace TGC.Group.Model
             this.pointLightAttenuationAgarrada = atenuacionAgarrada;
             this.pointLightIntensity = intensidad;
             this.pointLightAttenuation = atenuacion;
-            this.variarLuzEnable = true;
+            this.variarLuzEnabled = variarLuz;
             this.duracion = duracion;
 
         }
 
         public void variarLuz(float ElpasedTime)
         {
-            if (variarLuzEnable){
+            if (variarLuzEnabled){
                 ultimaVariacion += ElpasedTime;
                 if (ultimaVariacion > 0.1f)
                 {
