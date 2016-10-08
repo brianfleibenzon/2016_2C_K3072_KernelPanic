@@ -19,11 +19,9 @@ namespace TGC.Group.Model
 
         public float pointLightIntensityAgarrada;
         public float pointLightAttenuationAgarrada;
-        public Vector3 pointLightPositionAgarrada;
 
         public Action posicionarEnMano = null;
 
-        float ultimaReduccion = 0;
         float ultimaVariacion = 0;
         float pointLightIntensityOriginal;
         float pointLightIntensityAgarradaOriginal;

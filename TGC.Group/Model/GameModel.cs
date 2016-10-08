@@ -1,5 +1,4 @@
 using Microsoft.DirectX;
-
 using Microsoft.DirectX.Direct3D;
 using System.Drawing;
 using TGC.Core.Direct3D;
@@ -13,16 +12,11 @@ using TGC.Core.Camara;
 using TGC.Group.Camara;
 using TGC.Core.Collision;
 using TGC.Core.Shaders;
-
 using TGC.Core.Fog;
 using TGC.Core.Sound;
 using System;
 using System.Globalization;
-
 using Microsoft.DirectX.DirectInput;
-
-
-
 
 namespace TGC.Group.Model
 {
@@ -46,18 +40,13 @@ namespace TGC.Group.Model
             Description = Game.Default.Description;
         }
 
-
-        private Microsoft.DirectX.Direct3D.Effect effectNiebla;
-
         private TgcFog fog;
-
-        private string currentFile;
 
         private TgcMp3Player sonidoEntorno;
 
-        private TgcMp3Player sonidoPisadas;
+        private Tgc3dSound sonidoPisadas;
 
-        private TgcMp3Player sonidoLinterna;
+        private Tgc3dSound sonidoLinterna;
 
         public TgcScene scene;
 
@@ -124,9 +113,12 @@ namespace TGC.Group.Model
 
             fog = new TgcFog();
 
-            sonidoPisadas = new TgcMp3Player();
+            sonidoPisadas = new Tgc3dSound(MediaDir + "Sonidos\\pasos.wav", Camara.Position, DirectSound.DsDevice);
+            sonidoPisadas.MinDistance = 30f;
+
             sonidoEntorno = new TgcMp3Player();
-            sonidoLinterna = new TgcMp3Player();
+            sonidoEntorno.FileName = MediaDir + "Sonidos\\entorno.mp3";
+            sonidoEntorno.play(true);
         }
 
         void InicializarPuertas()
@@ -383,13 +375,10 @@ namespace TGC.Group.Model
 
                 lightColors[i] = ColorValue.FromColor(iluminaciones[i].lightColors);
 
-                //Contador de Bateria
 
                if (iluminacionEnMano == iluminaciones[i])
                {                   
                     
-                    //-------------------//
-
                     if (luzActivada)
                     {
                         pointLightPositions[i] = TgcParserUtils.vector3ToVector4(Camara.Position);
@@ -458,61 +447,6 @@ namespace TGC.Group.Model
             }
 
            
-            //----------Sonidos---------//
-
-            //Pisadas
-            sonidoPisadas.FileName = MediaDir + "Sonidos\\pasos.mp3";
-            //Contro del reproductor por teclado
-            var currentState = sonidoPisadas.getStatus();
-            if (Input.keyDown(Key.W))
-            {
-                if (currentState == TgcMp3Player.States.Open)
-                {
-                    //Reproducir MP3
-                    sonidoPisadas.play(true);
-                }
-            }
-            if (Input.keyUp(Key.W))
-            {
-
-                //Parar y reproducir MP3
-                sonidoPisadas.closeFile();
-            }
-
-            //Entorno
-
-            sonidoEntorno.FileName = MediaDir + "Sonidos\\entorno.mp3";
-            var currentState3 = sonidoEntorno.getStatus();
-            //Contro del reproductor por teclado
-            if (Input.keyPressed(Key.Y))
-            {
-                if (currentState3 == TgcMp3Player.States.Open)
-                {
-                    //Reproducir MP3
-                    sonidoEntorno.play(true);
-                }
-                if (currentState3 == TgcMp3Player.States.Stopped)
-                {
-                    //Parar y reproducir MP3
-                    sonidoEntorno.closeFile();
-                    sonidoEntorno.play(true);
-                }
-            }
-            else if (Input.keyPressed(Key.U))
-            {
-                if (currentState3 == TgcMp3Player.States.Playing)
-                {
-                    //Pausar el MP3
-                    sonidoEntorno.pause();
-                }
-            }
-
-            
-
-
-
-            //-------------------------//
-
 
             VerificarColisionConClick();
 
@@ -590,7 +524,12 @@ namespace TGC.Group.Model
             {
                 luzActivada = !luzActivada;
             }
-          
+            if (Input.keyDown(Key.W) || Input.keyDown(Key.S) || Input.keyDown(Key.A) || Input.keyDown(Key.D))
+            {
+
+                sonidoPisadas.play(false);
+            }
+
         }
 
 
@@ -601,6 +540,7 @@ namespace TGC.Group.Model
         /// </summary>
         public override void Dispose()
         {
+            bloqueado.dispose();
             scene.disposeAll();
         }
     }

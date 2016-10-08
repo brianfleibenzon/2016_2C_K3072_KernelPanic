@@ -259,8 +259,7 @@ namespace TGC.Group.Camara
         public override void SetCamera(Vector3 position, Vector3 directionView)
         {
 
-            positionEye = position;       
-            
+            positionEye = position;
             this.directionView = directionView;
         }
 
