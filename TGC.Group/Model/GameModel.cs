@@ -114,7 +114,7 @@ namespace TGC.Group.Model
 
             sonidoEntorno = new TgcMp3Player();
             sonidoEntorno.FileName = MediaDir + "Sonidos\\entorno.mp3";
-            sonidoEntorno.play(true);
+            //sonidoEntorno.play(true);
         }
 
         void InicializarPuertas()
@@ -169,15 +169,16 @@ namespace TGC.Group.Model
             float duracion, bool atenunar, bool puedeApagarse )
             
             * */
-            iluminaciones[0] = new Iluminacion(Color.DarkOrange, "Vela", scene, new Vector3(0f, 25f, 0f), 68.0f, 0.25f, 38.0f, 0.5f, 135f, true, false);
+            iluminaciones[0] = new Iluminacion(Color.DarkOrange, "Vela", scene, new Vector3(0f, 25f, 0f), 
+                68.0f, 0.25f, 38.0f, 0.5f, 135f, true, false);
             iluminaciones[0].posicionarEnMano = () =>
             {
                 iluminacionEnMano.mesh.Scale = new Vector3(0.008f, 0.008f, 0.008f);
                 iluminacionEnMano.mesh.Position = -iluminacionEnMano.mesh.BoundingBox.Position;
                 iluminacionEnMano.mesh.Position += new Vector3(-0.05f, -0.38f, 1f);
             };
-
-            iluminaciones[1] = new Iluminacion(Color.Gray, "Linterna", scene, new Vector3(30f, 10f, 40f), 108f, 0.25f, 38f, 0.5f, 240f, false, true);
+            iluminaciones[1] = new Iluminacion(Color.Gray, "Linterna", scene, new Vector3(30f, 10f, 40f),
+                108f, 0.25f, 38f, 0.5f, 240f, false, true);
             iluminaciones[1].posicionarEnMano = () =>
             {
 
@@ -185,8 +186,8 @@ namespace TGC.Group.Model
                 iluminacionEnMano.mesh.Position = -iluminacionEnMano.mesh.BoundingBox.Position;
                 iluminacionEnMano.mesh.Position += new Vector3(-0.05f, -0.38f, 1f);
             };
-
-            iluminaciones[2] = new Iluminacion(Color.YellowGreen, "Farol", scene, new Vector3(0f, 25f, 0f), 90f, 0.15f, 38f, 0.5f, 190f, true, false);
+            iluminaciones[2] = new Iluminacion(Color.YellowGreen, "Farol", scene, new Vector3(0f, 25f, 0f), 
+                90f, 0.15f, 38f, 0.5f, 190f, false, false);
             iluminaciones[2].posicionarEnMano = () =>
             {
                 iluminacionEnMano.mesh.Scale = new Vector3(0.005f, 0.005f, 0.005f);
