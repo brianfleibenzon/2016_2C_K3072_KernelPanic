@@ -268,12 +268,23 @@ namespace TGC.Group.Form
 
         private void botonSalir_Click(object sender, EventArgs e)
         {
-            this.Close();
+            if (ApplicationRunning == false && Modelo!=null && !hayQueReiniciar)
+            {
+                this.ShutDown();
+                botonJugar.Text = "Jugar";
+                botonSalir.Text = "Salir";
+            }
+            else
+            {
+                this.Close();
+            }
+            
         }
 
         private void botonX_Click(object sender, EventArgs e)
-        {
+        {            
             botonJugar.Text = "Reanudar";
+            botonSalir.Text = "Rendirse";
             panel3D.Visible = false;
             ApplicationRunning = false;            
             panel3D.Visible = false;
