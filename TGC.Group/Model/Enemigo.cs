@@ -17,12 +17,8 @@ namespace TGC.Group.Model
     {
         public TgcSkeletalMesh mesh;
 
-        protected string mediaDir = Environment.CurrentDirectory + "\\" + Game.Default.MediaDirectory;
-        protected string pathMesh;
-        protected string mediaPath;
-        protected string[] animationList;
-        protected string[] animationsPath;
-        protected string selectedAnim;
+        protected string mediaDir = Environment.CurrentDirectory + "\\" + Game.Default.MediaDirectory;        
+        protected string[] animationList;        
 
         private float MovementSpeed = 150f;
 
@@ -44,10 +40,10 @@ namespace TGC.Group.Model
             this.gameModel = gameModel;
 
             //Paths para archivo XML de la malla
-            pathMesh = mediaDir + "SkeletalAnimations\\Robot\\Robot-TgcSkeletalMesh.xml";
+            string pathMesh = mediaDir + "SkeletalAnimations\\Robot\\Robot-TgcSkeletalMesh.xml";
 
             //Path para carpeta de texturas de la malla
-            mediaPath = mediaDir + "SkeletalAnimations\\Robot\\";
+            string mediaPath = mediaDir + "SkeletalAnimations\\Robot\\";
 
             //Lista de animaciones disponibles
             animationList = new string[]{
@@ -63,7 +59,8 @@ namespace TGC.Group.Model
             };
 
             //Crear rutas con cada animacion
-            animationsPath = new string[animationList.Length];
+            string[] animationsPath = new string[animationList.Length];
+
             for (int i = 0; i < animationList.Length; i++)
             {
                 animationsPath[i] = mediaPath + animationList[i] + "-TgcSkeletalAnim.xml";
@@ -91,6 +88,7 @@ namespace TGC.Group.Model
         public void setEstado(Estado estado)
         {
             this.estado = estado;
+            String selectedAnim = animationList[0];
             switch (estado)
             {
                 case Estado.Parado:

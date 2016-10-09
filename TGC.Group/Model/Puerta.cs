@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using TGC.Core.Camara;
 using TGC.Core.Collision;
 using TGC.Core.SceneLoader;
+using TGC.Core.Sound;
 
 namespace TGC.Group.Model
 {
@@ -20,14 +21,18 @@ namespace TGC.Group.Model
 
         public TgcMesh mesh;
 
+        public Tgc3dSound sonido;
+
         public void actualizarEstado(TgcCamera Camara, float ElapsedTime, Enemigo[] enemigos)
         {
             switch (this.estado)
             {
 
                 case (Puerta.Estado.ABIERTA):
-                    if (TgcCollisionUtils.sqDistPointAABB(Camara.Position, this.mesh.BoundingBox) > 100000f && !colisionConEnemigos(enemigos))
+                    if (TgcCollisionUtils.sqDistPointAABB(Camara.Position, this.mesh.BoundingBox) > 100000f && !colisionConEnemigos(enemigos)) { 
                         this.estado = Puerta.Estado.CERRANDO;
+                        this.sonido.play(true);
+                     }
                     break;
 
                 case (Puerta.Estado.ABRIENDO):
@@ -36,6 +41,7 @@ namespace TGC.Group.Model
                     else
                     {
                         this.estado = Puerta.Estado.ABIERTA;
+                        this.sonido.stop();
                         //if (funcion != null)
                             //funcion();
                     }
@@ -45,10 +51,21 @@ namespace TGC.Group.Model
                     if (this.mesh.Position.Y > 0)
                         this.mesh.move(new Vector3(0, -80f * ElapsedTime, 0));
                     else
+                    {
                         this.estado = Puerta.Estado.CERRADA;
+                        this.sonido.stop();
+                    }                        
                     break;
 
             }
+        }
+
+        public void abrir()
+        {
+            if (funcion != null)
+                funcion();      
+            this.estado = Estado.ABRIENDO;
+            this.sonido.play();
         }
 
         private bool colisionConEnemigos(Enemigo[] enemigos)

@@ -138,6 +138,8 @@ namespace TGC.Group.Model
             {
                 puertas[i] = new Puerta();
                 puertas[i].mesh = scene.getMeshByName("Puerta" + (i + 1));
+                puertas[i].sonido = new Tgc3dSound(MediaDir + "Sonidos\\puerta.wav", puertas[i].mesh.BoundingBox.Position, DirectSound.DsDevice);
+                puertas[i].sonido.MinDistance = 1000f;
             }
 
             puertas[0].funcion = () => { this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona6); this.meshesARenderizar.AddRange(SepararZonas.zona1); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
@@ -307,9 +309,7 @@ namespace TGC.Group.Model
                                     mostrarBloqueado = 3f;
                                     break;
                                 case (Puerta.Estado.CERRADA):
-                                    if(puerta.funcion != null)
-                                        puerta.funcion();
-                                    puerta.estado = Puerta.Estado.ABRIENDO;
+                                    puerta.abrir();
                                     break;
                             }
                         }
