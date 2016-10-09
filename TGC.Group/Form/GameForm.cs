@@ -273,6 +273,7 @@ namespace TGC.Group.Form
                 this.ShutDown();
                 botonJugar.Text = "Jugar";
                 botonSalir.Text = "Salir";
+                botonJugar.Focus();
             }
             else
             {
@@ -282,11 +283,16 @@ namespace TGC.Group.Form
         }
 
         private void botonX_Click(object sender, EventArgs e)
-        {            
+        {
+            pausar();
+        }
+
+        public void pausar()
+        {
             botonJugar.Text = "Reanudar";
             botonSalir.Text = "Rendirse";
             panel3D.Visible = false;
-            ApplicationRunning = false;            
+            ApplicationRunning = false;
             panel3D.Visible = false;
             botonX.Visible = false;
             panel1.Visible = true;

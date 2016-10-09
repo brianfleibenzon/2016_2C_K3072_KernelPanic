@@ -59,7 +59,6 @@ namespace TGC.Group.Camara
             JumpSpeed = 500f;
             directionView = new Vector3(0, 0, -1);
             leftrightRot = FastMath.PI;
-            //updownRot = -FastMath.PI / 10.0f;
             cameraRotationParcial = Matrix.RotationY(leftrightRot);
             cameraRotation = Matrix.RotationX(updownRot) * Matrix.RotationY(leftrightRot);
         }
@@ -184,10 +183,10 @@ namespace TGC.Group.Camara
             }
 
 
-            if (Input.keyPressed(Key.L) || Input.keyPressed(Key.Escape))
+            /*if (Input.keyPressed(Key.L) || Input.keyPressed(Key.Escape))
             {
                 LockCam = !lockCam;
-            }
+            }*/
 
             //Solo rotar si se esta aprentando el boton izq del mouse
             if (lockCam || Input.buttonDown(TgcD3dInput.MouseButtons.BUTTON_LEFT))

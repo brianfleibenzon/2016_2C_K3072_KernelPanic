@@ -130,6 +130,8 @@ namespace TGC.Group.Model
             SepararZonas.separar(scene);
             meshesARenderizar.AddRange(SepararZonas.zona1);
             meshesARenderizar.AddRange(SepararZonas.comunes);
+
+            this.AxisLinesEnable = false;
         }
 
         void InicializarPuertas()
@@ -563,6 +565,12 @@ namespace TGC.Group.Model
             {
 
                 sonidoPisadas.play(false);
+            }
+
+            if (Input.keyPressed(Key.Escape))
+            {
+
+                formulario.pausar();
             }
 
         }
