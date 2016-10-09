@@ -52,7 +52,22 @@ namespace TGC.Group.Form
 
         private void GameForm_Load(object sender, EventArgs e)
         {
+            //Centra los componentes, adaptandose al tamaño del monitor//
+            Size resolucionPantalla = System.Windows.Forms.SystemInformation.PrimaryMonitorSize;
 
+
+            //Centrar Panel
+            Int32 anchoDePanel = (this.Width - panel1.Width) / 2;
+            Int32 largoDePanel = (this.Height - panel1.Height) / 2;
+            panel1.Location = new Point(anchoDePanel, largoDePanel);
+            panel2.Location = new Point(anchoDePanel, largoDePanel);
+
+            //Cerrar
+            Int32 anchoDeX = (this.Width - botonX.Width) - 10;
+            botonX.Location = new Point(anchoDeX, botonX.Location.Y);
+
+
+            this.AcceptButton = botonJugar;
         }
 
         private void GameForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -195,7 +210,7 @@ namespace TGC.Group.Form
         public void ganar()
         {
             lblResultado.ForeColor = Color.Green;
-            lblResultado.Text = "Ganaste";
+            lblResultado.Text = "GANASTE";
             ApplicationRunning = false;
             hayQueReiniciar = true;
             panel1.Visible = true;
@@ -205,7 +220,7 @@ namespace TGC.Group.Form
         public void perder()
         {
             lblResultado.ForeColor = Color.Red;
-            lblResultado.Text = "Perdiste";
+            lblResultado.Text = "PERDISTE";
             ApplicationRunning = false;
             hayQueReiniciar = true;
             panel1.Visible = true;
@@ -213,35 +228,13 @@ namespace TGC.Group.Form
             panel3D.Visible = false;
         }
 
-        private void panel3D_Paint(object sender, PaintEventArgs e)
-        {
-            //Centra los componentes, adaptandose al tamaño del monitor//
-            Size resolucionPantalla = System.Windows.Forms.SystemInformation.PrimaryMonitorSize;
-
-
-            //Centrar Panel
-            Int32 anchoDePanel = (this.Width - panel1.Width) / 2;
-            Int32 largoDePanel = (this.Height - panel1.Height) / 2;
-            panel1.Location = new Point(anchoDePanel, largoDePanel);
-
-            //Cerrar
-            Int32 anchoDeX = (this.Width - botonX.Width) - 10;
-            botonX.Location = new Point(anchoDeX, botonX.Location.Y);
-
-
-            this.AcceptButton = botonJugar;
-
-            //botonX.Hide();
-
-        }
-
         private void botonJugar_Click(object sender, EventArgs e)
         {
-            botonJugar.Text = "JUGAR";
+            botonJugar.Text = "Jugar";
             lblResultado.Text = "";
             botonX.Visible = true;
             panel3D.Visible = true;
-            panel1.Hide();
+            panel1.Visible = false;
 
             if (Modelo == null)
             {      
@@ -280,12 +273,25 @@ namespace TGC.Group.Form
 
         private void botonX_Click(object sender, EventArgs e)
         {
-            botonJugar.Text = "CONTINUAR";
+            botonJugar.Text = "Reanudar";
             panel3D.Visible = false;
-            ApplicationRunning = false;
-            panel1.Visible = true;
+            ApplicationRunning = false;            
             panel3D.Visible = false;
             botonX.Visible = false;
+            panel1.Visible = true;
         }
+
+        private void btnVolver_Click(object sender, EventArgs e)
+        {
+            panel2.Visible = false;
+            panel1.Visible = true;
+        }
+
+        private void btnControles_Click(object sender, EventArgs e)
+        {
+            panel1.Visible = false;
+            panel2.Visible = true;
+        }
+
     }
 }

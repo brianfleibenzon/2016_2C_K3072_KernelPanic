@@ -31,12 +31,18 @@
             this.panel3D = new System.Windows.Forms.Panel();
             this.botonX = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnControles = new System.Windows.Forms.Button();
             this.lblResultado = new System.Windows.Forms.Label();
             this.botonSalir = new System.Windows.Forms.Button();
             this.botonJugar = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.btnVolver = new System.Windows.Forms.Button();
             this.panel3D.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.botonX)).BeginInit();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel3D
@@ -48,7 +54,7 @@
             this.panel3D.Name = "panel3D";
             this.panel3D.Size = new System.Drawing.Size(784, 561);
             this.panel3D.TabIndex = 0;
-            this.panel3D.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3D_Paint);
+            this.panel3D.Visible = false;
             // 
             // botonX
             // 
@@ -68,6 +74,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Transparent;
+            this.panel1.Controls.Add(this.btnControles);
             this.panel1.Controls.Add(this.lblResultado);
             this.panel1.Controls.Add(this.botonSalir);
             this.panel1.Controls.Add(this.botonJugar);
@@ -77,13 +84,26 @@
             this.panel1.Size = new System.Drawing.Size(524, 444);
             this.panel1.TabIndex = 22;
             // 
+            // btnControles
+            // 
+            this.btnControles.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 26.25F);
+            this.btnControles.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnControles.Location = new System.Drawing.Point(151, 298);
+            this.btnControles.Margin = new System.Windows.Forms.Padding(2);
+            this.btnControles.Name = "btnControles";
+            this.btnControles.Size = new System.Drawing.Size(236, 54);
+            this.btnControles.TabIndex = 1;
+            this.btnControles.Text = "Controles";
+            this.btnControles.UseVisualStyleBackColor = true;
+            this.btnControles.Click += new System.EventHandler(this.btnControles_Click);
+            // 
             // lblResultado
             // 
-            this.lblResultado.Font = new System.Drawing.Font("Microsoft Sans Serif", 72F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblResultado.Font = new System.Drawing.Font("Tahoma", 60F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblResultado.ForeColor = System.Drawing.Color.Red;
-            this.lblResultado.Location = new System.Drawing.Point(28, 12);
+            this.lblResultado.Location = new System.Drawing.Point(3, 12);
             this.lblResultado.Name = "lblResultado";
-            this.lblResultado.Size = new System.Drawing.Size(469, 114);
+            this.lblResultado.Size = new System.Drawing.Size(518, 114);
             this.lblResultado.TabIndex = 23;
             this.lblResultado.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
@@ -91,12 +111,12 @@
             // 
             this.botonSalir.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 26.25F);
             this.botonSalir.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.botonSalir.Location = new System.Drawing.Point(151, 342);
+            this.botonSalir.Location = new System.Drawing.Point(151, 356);
             this.botonSalir.Margin = new System.Windows.Forms.Padding(2);
             this.botonSalir.Name = "botonSalir";
-            this.botonSalir.Size = new System.Drawing.Size(236, 73);
-            this.botonSalir.TabIndex = 22;
-            this.botonSalir.Text = "SALIR";
+            this.botonSalir.Size = new System.Drawing.Size(236, 54);
+            this.botonSalir.TabIndex = 2;
+            this.botonSalir.Text = "Salir";
             this.botonSalir.UseVisualStyleBackColor = true;
             this.botonSalir.Click += new System.EventHandler(this.botonSalir_Click);
             // 
@@ -107,11 +127,59 @@
             this.botonJugar.Location = new System.Drawing.Point(151, 240);
             this.botonJugar.Margin = new System.Windows.Forms.Padding(2);
             this.botonJugar.Name = "botonJugar";
-            this.botonJugar.Size = new System.Drawing.Size(236, 73);
-            this.botonJugar.TabIndex = 21;
-            this.botonJugar.Text = "JUGAR";
+            this.botonJugar.Size = new System.Drawing.Size(236, 54);
+            this.botonJugar.TabIndex = 0;
+            this.botonJugar.Text = "Jugar";
             this.botonJugar.UseVisualStyleBackColor = true;
             this.botonJugar.Click += new System.EventHandler(this.botonJugar_Click);
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.Transparent;
+            this.panel2.Controls.Add(this.label2);
+            this.panel2.Controls.Add(this.label1);
+            this.panel2.Controls.Add(this.btnVolver);
+            this.panel2.Location = new System.Drawing.Point(148, 44);
+            this.panel2.Margin = new System.Windows.Forms.Padding(2);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(524, 444);
+            this.panel2.TabIndex = 24;
+            this.panel2.Visible = false;
+            // 
+            // label2
+            // 
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(119, 12);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(363, 325);
+            this.label2.TabIndex = 24;
+            this.label2.Text = "- Mover hacia adelante\r\n- Mover hacia la izquierda\r\n- Mover hacia atras\r\n- Mover " +
+    "hacia la derecha\r\n- Encender / Apagar iluminación\r\n- Agacharse";
+            // 
+            // label1
+            // 
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(62, 12);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(51, 325);
+            this.label1.TabIndex = 23;
+            this.label1.Text = "W\r\nA\r\nS\r\nD\r\nF\r\nCtrl";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // btnVolver
+            // 
+            this.btnVolver.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 26.25F);
+            this.btnVolver.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnVolver.Location = new System.Drawing.Point(151, 356);
+            this.btnVolver.Margin = new System.Windows.Forms.Padding(2);
+            this.btnVolver.Name = "btnVolver";
+            this.btnVolver.Size = new System.Drawing.Size(236, 54);
+            this.btnVolver.TabIndex = 0;
+            this.btnVolver.Text = "Volver";
+            this.btnVolver.UseVisualStyleBackColor = true;
+            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // 
             // GameForm
             // 
@@ -122,6 +190,7 @@
             this.ClientSize = new System.Drawing.Size(784, 561);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel3D);
+            this.Controls.Add(this.panel2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "GameForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -132,6 +201,7 @@
             this.panel3D.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.botonX)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -144,6 +214,11 @@
         private System.Windows.Forms.Button botonJugar;
         private System.Windows.Forms.PictureBox botonX;
         private System.Windows.Forms.Label lblResultado;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnVolver;
+        private System.Windows.Forms.Button btnControles;
     }
 }
 

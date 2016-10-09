@@ -497,10 +497,10 @@ namespace TGC.Group.Model
 
             if (luzActivada && iluminacionEnMano!=null && iluminacionEnMano.puedeApagarse)
                 DrawText.drawText(
-          "Precionar F pare apagar", 0, 70, Color.OrangeRed);
+          "Presionar F pare apagar", 0, 70, Color.OrangeRed);
             else if (!luzActivada && iluminacionEnMano != null && iluminacionEnMano.puedeApagarse)
                 DrawText.drawText(
-          "Precionar F pare encender", 0, 70, Color.OrangeRed);
+          "Presionar F pare encender", 0, 70, Color.OrangeRed);
 
             if (mostrarBloqueado > 0)
             {
