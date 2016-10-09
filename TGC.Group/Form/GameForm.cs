@@ -8,6 +8,9 @@ using TGC.Core.Shaders;
 using TGC.Core.Sound;
 using TGC.Core.Textures;
 using TGC.Group.Model;
+using System.Drawing;
+
+
 
 namespace TGC.Group.Form
 {
@@ -45,19 +48,26 @@ namespace TGC.Group.Form
         /// </summary>
         private TgcD3dInput Input { get; set; }
 
+        private bool hayQueReiniciar = false;
+
         private void GameForm_Load(object sender, EventArgs e)
         {
-            //Iniciar graficos.
-            InitGraphics();
+            //Centra los componentes, adaptandose al tamaño del monitor//
+            Size resolucionPantalla = System.Windows.Forms.SystemInformation.PrimaryMonitorSize;
 
-            //Titulo de la ventana principal.
-            Text = Modelo.Name + " - " + Modelo.Description;
 
-            //Focus panel3D.
-            panel3D.Focus();
+            //Centrar Panel
+            Int32 anchoDePanel = (this.Width - panel1.Width) / 2;
+            Int32 largoDePanel = (this.Height - panel1.Height) / 2;
+            panel1.Location = new Point(anchoDePanel, largoDePanel);
+            panel2.Location = new Point(anchoDePanel, largoDePanel);
 
-            //Inicio el ciclo de Render.
-            InitRenderLoop();
+            //Cerrar
+            Int32 anchoDeX = (this.Width - botonX.Width) - 10;
+            botonX.Location = new Point(anchoDeX, botonX.Location.Y);
+
+
+            this.AcceptButton = botonJugar;
         }
 
         private void GameForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -95,7 +105,7 @@ namespace TGC.Group.Form
 
             //Juego a ejecutar, si quisiéramos tener diferentes modelos aquí podemos cambiar la instancia e invocar a otra clase.
             Modelo = new GameModel(currentDirectory + Game.Default.MediaDirectory,
-                currentDirectory + Game.Default.ShadersDirectory);
+                currentDirectory + Game.Default.ShadersDirectory, this);
 
             //Cargar juego.
             ExecuteModel();
@@ -196,5 +206,109 @@ namespace TGC.Group.Form
             D3DDevice.Instance.Dispose();
             TexturesPool.Instance.clearAll();
         }
+
+        public void ganar()
+        {
+            lblResultado.ForeColor = Color.Green;
+            lblResultado.Text = "GANASTE";
+            ApplicationRunning = false;
+            hayQueReiniciar = true;
+            panel1.Visible = true;
+            botonX.Visible = false;
+            panel3D.Visible = false;
+        }
+        public void perder()
+        {
+            lblResultado.ForeColor = Color.Red;
+            lblResultado.Text = "PERDISTE";
+            ApplicationRunning = false;
+            hayQueReiniciar = true;
+            panel1.Visible = true;
+            botonX.Visible = false;
+            panel3D.Visible = false;
+        }
+
+        private void botonJugar_Click(object sender, EventArgs e)
+        {
+            botonJugar.Text = "Jugar";
+            lblResultado.Text = "";
+            botonX.Visible = true;
+            panel3D.Visible = true;
+            panel1.Visible = false;
+
+            if (Modelo == null)
+            {      
+                //Iniciar graficos.
+                InitGraphics();
+
+                //Titulo de la ventana principal.
+                //Text = Modelo.Name + " - " + Modelo.Description;                
+            }
+            else
+            {
+                if (hayQueReiniciar)
+                {
+                    this.ShutDown();
+                    InitGraphics();
+                    hayQueReiniciar = false;
+                }
+                else
+                {
+                    ApplicationRunning = true;
+                }
+                
+            }
+
+            //Inicio el ciclo de Render.
+            InitRenderLoop();
+
+            //Focus panel3D.
+            panel3D.Focus();
+        }
+
+        private void botonSalir_Click(object sender, EventArgs e)
+        {
+            if (ApplicationRunning == false && Modelo!=null && !hayQueReiniciar)
+            {
+                this.ShutDown();
+                botonJugar.Text = "Jugar";
+                botonSalir.Text = "Salir";
+                botonJugar.Focus();
+            }
+            else
+            {
+                this.Close();
+            }
+            
+        }
+
+        private void botonX_Click(object sender, EventArgs e)
+        {
+            pausar();
+        }
+
+        public void pausar()
+        {
+            botonJugar.Text = "Reanudar";
+            botonSalir.Text = "Rendirse";
+            panel3D.Visible = false;
+            ApplicationRunning = false;
+            panel3D.Visible = false;
+            botonX.Visible = false;
+            panel1.Visible = true;
+        }
+
+        private void btnVolver_Click(object sender, EventArgs e)
+        {
+            panel2.Visible = false;
+            panel1.Visible = true;
+        }
+
+        private void btnControles_Click(object sender, EventArgs e)
+        {
+            panel1.Visible = false;
+            panel2.Visible = true;
+        }
+
     }
 }

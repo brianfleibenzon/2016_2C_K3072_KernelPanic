@@ -10,6 +10,8 @@ using TGC.Core.SceneLoader;
 using TGC.Core.Collision;
 using TGC.Core.BoundingVolumes;
 using System.Collections.Generic;
+using TGC.Core.Geometry;
+using TGC.Group.Model;
 
 namespace TGC.Group.Camara
 {
@@ -25,6 +27,8 @@ namespace TGC.Group.Camara
         //Se mantiene la matriz rotacion para no hacer este calculo cada vez.
         private Matrix cameraRotation;
 
+        private Matrix cameraRotationParcial;
+
         //Direction view se calcula a partir de donde se quiere ver con la camara inicialmente. por defecto se ve en -Z.
         private Vector3 directionView;        
 
@@ -37,7 +41,11 @@ namespace TGC.Group.Camara
 
         public bool colisiones = true;
 
-        TgcScene scene;
+        public bool agachado = false;
+
+        GameModel gameModel;
+
+        public TgcBoundingAxisAlignBox camaraBox = new TgcBoundingAxisAlignBox();
 
         public TgcFpsCamera(TgcD3dInput input)
         {
@@ -51,7 +59,7 @@ namespace TGC.Group.Camara
             JumpSpeed = 500f;
             directionView = new Vector3(0, 0, -1);
             leftrightRot = FastMath.PI;
-            //updownRot = -FastMath.PI / 10.0f;
+            cameraRotationParcial = Matrix.RotationY(leftrightRot);
             cameraRotation = Matrix.RotationX(updownRot) * Matrix.RotationY(leftrightRot);
         }
 
@@ -61,9 +69,9 @@ namespace TGC.Group.Camara
             this.positionEye = positionEye;
         }
 
-        public TgcFpsCamera(TgcScene scene, Vector3 positionEye, TgcD3dInput input) : this(positionEye, input)
+        public TgcFpsCamera(GameModel gameModel, Vector3 positionEye, TgcD3dInput input) : this(positionEye, input)
         {
-            this.scene = scene;
+            this.gameModel = gameModel;
         }
 
         public TgcFpsCamera(Vector3 positionEye, float moveSpeed, float jumpSpeed, TgcD3dInput input)
@@ -152,20 +160,41 @@ namespace TGC.Group.Camara
                 /* SI ROTA LA CAMARA*/
                 /*leftrightRot -= 0.1f * RotationSpeed;
                 cameraRotation = Matrix.RotationX(updownRot) * Matrix.RotationY(leftrightRot);*/
-            }   
+            }
+
+            if (Input.keyPressed(Key.LeftControl))
+            {
+                if (agachado)
+                {
+                    
+                    lastPositionEye.Y = 90f;
+                    positionEye.Y = 90f;
+                    //moveVector += new Vector3(0, 8000f, 0);
+                    MovementSpeed = 250f;
+                }
+                else
+                {
+                    lastPositionEye.Y = 40f;
+                    positionEye.Y = 40f;
+                    //moveVector += new Vector3(0, -8000f, 0);
+                    MovementSpeed = 80f;
+                }
+                agachado = !agachado;
+            }
 
 
-            if (Input.keyPressed(Key.L) || Input.keyPressed(Key.Escape))
+            /*if (Input.keyPressed(Key.L) || Input.keyPressed(Key.Escape))
             {
                 LockCam = !lockCam;
-            }
+            }*/
 
             //Solo rotar si se esta aprentando el boton izq del mouse
             if (lockCam || Input.buttonDown(TgcD3dInput.MouseButtons.BUTTON_LEFT))
             {
                 leftrightRot -= -Input.XposRelative * RotationSpeed;
-                //updownRot -= Input.YposRelative * RotationSpeed;
+                updownRot -= Input.YposRelative * RotationSpeed;
                 //Se actualiza matrix de rotacion, para no hacer este calculo cada vez y solo cuando en verdad es necesario.
+                cameraRotationParcial = Matrix.RotationY(leftrightRot);
                 cameraRotation = Matrix.RotationX(updownRot) * Matrix.RotationY(leftrightRot);
             }
 
@@ -178,8 +207,46 @@ namespace TGC.Group.Camara
             }
 
             //Calculamos la nueva posicion del ojo segun la rotacion actual de la camara.
-            var cameraRotatedPositionEye = Vector3.TransformNormal(moveVector * elapsedTime, cameraRotation);
+            //var cameraRotatedPositionEye = Vector3.TransformNormal(moveVector * elapsedTime, cameraRotation);
+            //Uso cameraRotationPacial para que no pueda moverse para arriba y para abajo
+            var cameraRotatedPositionEye = Vector3.TransformNormal(moveVector * elapsedTime, cameraRotationParcial);
             positionEye += cameraRotatedPositionEye;
+
+            if (colisiones)
+            {
+                Vector3 pMin = new Vector3(positionEye.X - 10f, 10f, positionEye.Z - 10f);
+                Vector3 pMax = new Vector3(positionEye.X + 10f, positionEye.Y + 5f, positionEye.Z + 10f);
+                
+                camaraBox.setExtremes(pMin, pMax);
+                
+                foreach (var mesh in gameModel.meshesARenderizar)
+                {
+                    /* COLISIONES POR RAYOS*/
+                    /*if (TgcCollisionUtils.sqDistPointAABB(positionEye, mesh.BoundingBox) < 100f)
+                    {
+                        colision = true;
+                        break;
+                    }*/
+                    if (TgcCollisionUtils.classifyBoxBox(camaraBox, mesh.BoundingBox) == TgcCollisionUtils.BoxBoxResult.Atravesando)
+                    {
+                        if (!gameModel.VerificarSiMeshEsIluminacion(mesh)){
+                            positionEye = lastPositionEye;
+                            break;
+                        }
+                    }
+                }
+
+                foreach (var enemigo in gameModel.enemigos)
+                {
+                    if (TgcCollisionUtils.classifyBoxBox(camaraBox, enemigo.mesh.BoundingBox) == TgcCollisionUtils.BoxBoxResult.Atravesando)
+                    { 
+                        positionEye = lastPositionEye;
+                        break;
+                        
+                    }
+                }
+            }
+
 
             //Calculamos el target de la camara, segun su direccion inicial y las rotaciones en screen space x,y.
             var cameraRotatedTarget = Vector3.TransformNormal(directionView, cameraRotation);
@@ -188,27 +255,9 @@ namespace TGC.Group.Camara
             var cameraOriginalUpVector = DEFAULT_UP_VECTOR;
             var cameraRotatedUpVector = Vector3.TransformNormal(cameraOriginalUpVector, cameraRotation);
 
-
-
-
-            bool colision = false;
-
-            if (colisiones)
-            {
-                foreach (var mesh in scene.Meshes)
-                {
-                    if (TgcCollisionUtils.sqDistPointAABB(positionEye, mesh.BoundingBox) < 100f)
-                    {
-                        colision = true;
-                        break;
-                    }
-                }
-            }
-            if (colision)
-                positionEye = lastPositionEye;
-            else
-                base.SetCamera(positionEye, cameraFinalTarget, cameraRotatedUpVector);
             
+            base.SetCamera(positionEye, cameraFinalTarget, cameraRotatedUpVector);
+
         }
 
         /// <summary>
@@ -219,8 +268,7 @@ namespace TGC.Group.Camara
         public override void SetCamera(Vector3 position, Vector3 directionView)
         {
 
-            positionEye = position;       
-            
+            positionEye = position;
             this.directionView = directionView;
         }
 
