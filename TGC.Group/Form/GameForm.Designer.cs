@@ -150,22 +150,23 @@
             // 
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(119, 12);
+            this.label2.Location = new System.Drawing.Point(122, 12);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(363, 325);
+            this.label2.Size = new System.Drawing.Size(360, 325);
             this.label2.TabIndex = 24;
-            this.label2.Text = "- Mover hacia adelante\r\n- Mover hacia la izquierda\r\n- Mover hacia atras\r\n- Mover " +
-    "hacia la derecha\r\n- Encender / Apagar iluminación\r\n- Agacharse";
+            this.label2.Text = "- Mover la cámara\r\n- Mover hacia adelante\r\n- Mover hacia la izquierda\r\n- Mover ha" +
+    "cia atras\r\n- Mover hacia la derecha\r\n- Encender / Apagar iluminación\r\n- Agachars" +
+    "e\r\n- Pausa";
             // 
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(62, 12);
+            this.label1.Location = new System.Drawing.Point(30, 12);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(51, 325);
+            this.label1.Size = new System.Drawing.Size(86, 325);
             this.label1.TabIndex = 23;
-            this.label1.Text = "W\r\nA\r\nS\r\nD\r\nF\r\nCtrl";
+            this.label1.Text = "Mouse\r\nW\r\nA\r\nS\r\nD\r\nF\r\nCtrl\r\nEsc";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // btnVolver
