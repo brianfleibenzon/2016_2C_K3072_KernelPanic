@@ -95,6 +95,7 @@
     <Compile Include="Model\Iluminacion.cs" />
     <Compile Include="Model\Interruptor.cs" />
     <Compile Include="Model\Puerta.cs" />
+    <Compile Include="Model\SepararZonas.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form\GameForm.resx">

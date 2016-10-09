@@ -18,6 +18,7 @@ using System;
 using System.Globalization;
 using Microsoft.DirectX.DirectInput;
 using TGC.Group.Form;
+using System.Collections.Generic;
 
 namespace TGC.Group.Model
 {
@@ -80,6 +81,8 @@ namespace TGC.Group.Model
 
         private bool luzActivada = true;
 
+        public List<TgcMesh> meshesARenderizar = new List<TgcMesh>();
+
         //VARIABLES DE BATERIA
 
         Size resolucionPantalla = System.Windows.Forms.SystemInformation.PrimaryMonitorSize;
@@ -104,7 +107,7 @@ namespace TGC.Group.Model
 
             Camara = new TgcFpsCamera(this, new Vector3(128f, 90f, 51f), Input);
 
-            pickingRay = new TgcPickingRay(Input);
+            pickingRay = new TgcPickingRay(Input);            
 
             InicializarEnemigos();
             InicializarPuertas();
@@ -123,6 +126,10 @@ namespace TGC.Group.Model
             sonidoEntorno = new TgcMp3Player();
             sonidoEntorno.FileName = MediaDir + "Sonidos\\entorno.mp3";
             sonidoEntorno.play(true);
+
+            SepararZonas.separar(scene);
+            meshesARenderizar.AddRange(SepararZonas.zona1);
+            meshesARenderizar.AddRange(SepararZonas.comunes);
         }
 
         void InicializarPuertas()
@@ -133,12 +140,25 @@ namespace TGC.Group.Model
                 puertas[i].mesh = scene.getMeshByName("Puerta" + (i + 1));
             }
 
+            puertas[0].funcion = () => { this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona6); this.meshesARenderizar.AddRange(SepararZonas.zona1); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
+
+            puertas[1].funcion = () => { this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona7); this.meshesARenderizar.AddRange(SepararZonas.zona1); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
+
             puertas[2].estado = Puerta.Estado.BLOQUEADA;
+            puertas[2].funcion = () => { this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona8); this.meshesARenderizar.AddRange(SepararZonas.zona1); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
+        
             puertas[3].estado = Puerta.Estado.BLOQUEADA;
+            puertas[3].funcion = () => { this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona9); this.meshesARenderizar.AddRange(SepararZonas.zona1); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
+
             puertas[4].estado = Puerta.Estado.BLOQUEADA;
-            puertas[4].funcion = () => { enemigos[0].activar(); };
-            puertas[6].funcion = () => { if (interruptores[0].estado == Interruptor.Estado.ACTIVADO) enemigos[1].retornar(); else enemigos[1].activar(); };
-            puertas[7].funcion = () => { if (interruptores[0].estado == Interruptor.Estado.DESACTIVADO) enemigos[1].retornar(); else enemigos[1].activar(); };
+            puertas[4].funcion = () => { enemigos[0].activar(); this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona2); this.meshesARenderizar.AddRange(SepararZonas.zona1); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
+
+            puertas[5].funcion = () => { this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona1); this.meshesARenderizar.AddRange(SepararZonas.zona3); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
+
+            puertas[6].funcion = () => { if (interruptores[0].estado == Interruptor.Estado.ACTIVADO) enemigos[1].retornar(); else enemigos[1].activar(); this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona3); this.meshesARenderizar.AddRange(SepararZonas.zona4); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
+
+            puertas[7].funcion = () => { if (interruptores[0].estado == Interruptor.Estado.DESACTIVADO) enemigos[1].retornar(); else enemigos[1].activar(); this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona4); this.meshesARenderizar.AddRange(SepararZonas.zona5); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
+
         }
 
         void InicializarEnemigos()
@@ -282,6 +302,8 @@ namespace TGC.Group.Model
                                     mostrarBloqueado = 3f;
                                     break;
                                 case (Puerta.Estado.CERRADA):
+                                    if(puerta.funcion != null)
+                                        puerta.funcion();
                                     puerta.estado = Puerta.Estado.ABRIENDO;
                                     break;
                             }
@@ -409,7 +431,7 @@ namespace TGC.Group.Model
 
 
             //Renderizar meshes
-            foreach (var mesh in scene.Meshes)
+            foreach (var mesh in meshesARenderizar)
             {               
 
                 if (iluminacionEnMano == null || mesh != iluminacionEnMano.mesh)
@@ -510,7 +532,11 @@ namespace TGC.Group.Model
 
             }
 
-            scene.renderAll();
+            foreach (var mesh in meshesARenderizar)
+            {
+                mesh.render();
+            }
+            //scene.renderAll();
 
             //Finaliza el render y presenta en pantalla, al igual que el preRender se debe para casos puntuales es mejor utilizar a mano las operaciones de EndScene y PresentScene
             PostRender();

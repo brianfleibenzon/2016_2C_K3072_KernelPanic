@@ -36,8 +36,8 @@ namespace TGC.Group.Model
                     else
                     {
                         this.estado = Puerta.Estado.ABIERTA;
-                        if (funcion != null)
-                            funcion();
+                        //if (funcion != null)
+                            //funcion();
                     }
                     break;
 

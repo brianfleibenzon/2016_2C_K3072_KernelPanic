@@ -220,7 +220,7 @@ namespace TGC.Group.Camara
                 
                 camaraBox.setExtremes(pMin, pMax);
                 
-                foreach (var mesh in gameModel.scene.Meshes)
+                foreach (var mesh in gameModel.meshesARenderizar)
                 {
                     /* COLISIONES POR RAYOS*/
                     /*if (TgcCollisionUtils.sqDistPointAABB(positionEye, mesh.BoundingBox) < 100f)
