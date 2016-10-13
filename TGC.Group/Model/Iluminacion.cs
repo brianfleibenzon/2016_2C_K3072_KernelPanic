@@ -31,9 +31,11 @@ namespace TGC.Group.Model
         public bool puedeApagarse = false;
         public float duracion;
 
+        public bool usarFog;
+
         public Iluminacion(Color unColor, string nombre, TgcScene scene, Vector3 posicionLuz,
             float intensidadAgarrada, float atenuacionAgarrada, float intensidad, float atenuacion,
-            float duracion, bool variarLuz, bool puedeApagarse)
+            float duracion, bool variarLuz, bool puedeApagarse, bool usarFog)
         {
             this.lightColors = unColor;
             this.mesh = scene.getMeshByName(nombre);
@@ -45,7 +47,7 @@ namespace TGC.Group.Model
             this.variarLuzEnabled = variarLuz;
             this.duracion = duracion;
             this.puedeApagarse = puedeApagarse;
-
+            this.usarFog = usarFog;
         }
 
         public void variarLuz(float ElpasedTime)
