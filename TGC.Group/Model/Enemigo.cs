@@ -156,22 +156,23 @@ namespace TGC.Group.Model
                         intento.Z = valorUnitario(vector.Z);
                         this.mesh.Position += intento * MovementSpeed * ElapsedTime;
                        
-                        if (valorUnitario(vector.Z)<0.02f)
+                     /*   if (valorUnitario(vector.Z)<0.02f && verificarColision(Camara, scene))
                         {
                             this.mesh.Position = posicionAnterior;
                             intento.X = 0;
                             intento.Z = 1;
                             this.mesh.Position += intento * MovementSpeed * ElapsedTime;
-                        }
-                        if (valorUnitario(vector.X) < 0.02f)
-                        {
-                            this.mesh.Position = posicionAnterior;
-                            intento.X = 1;
-                            intento.Z = 0;
-                            this.mesh.Position += intento * MovementSpeed * ElapsedTime;
-                        }
-                        if (verificarColision(Camara, scene))
-                            mesh.Position = posicionAnterior;
+                            if(valorUnitario(vector.X) < 0.02f && verificarColision(Camara, scene))
+                            {
+                                this.mesh.Position = posicionAnterior;
+                                intento.X = 1;
+                                intento.Z = 0;
+                                this.mesh.Position += intento * MovementSpeed * ElapsedTime; */
+                                if (verificarColision(Camara, scene))
+                                    mesh.Position = posicionAnterior;
+                           // }
+                       // }
+                        
                         
                     }
                 }

@@ -19,6 +19,8 @@ using System.Globalization;
 using Microsoft.DirectX.DirectInput;
 using TGC.Group.Form;
 using System.Collections.Generic;
+using TGC.Core.UserControls;
+using TGC.Core.UserControls.Modifier;
 
 namespace TGC.Group.Model
 {
@@ -79,9 +81,25 @@ namespace TGC.Group.Model
 
         private Microsoft.DirectX.Direct3D.Effect effect;
 
+        private Microsoft.DirectX.Direct3D.Effect effectShadow;
+
         private bool luzActivada = true;
 
         public List<TgcMesh> meshesARenderizar = new List<TgcMesh>();
+
+        private readonly float far_plane = 1500f;
+
+        private readonly float near_plane = 2f;
+
+        private Matrix g_mShadowProj; // Projection matrix for shadow map
+
+        private Surface g_pDSShadow; // Depth-stencil buffer for rendering to shadow map
+
+        private Matrix g_LightView;
+
+        private Texture g_pShadowMap; // Texture to which the shadow map is rendered
+
+        private readonly int SHADOWMAP_SIZE = 1024;
 
         //VARIABLES DE BATERIA
 
@@ -104,16 +122,41 @@ namespace TGC.Group.Model
             scene = loader.loadSceneFromFile(MediaDir + "Escenario\\Escenario-TgcScene.xml");
 
             effect = TgcShaders.loadEffect(ShadersDir + "MultiDiffuseLights.fx");
-
             Camara = new TgcFpsCamera(this, new Vector3(128f, 90f, 51f), Input);
+            pickingRay = new TgcPickingRay(Input);
 
-            pickingRay = new TgcPickingRay(Input);            
+            // empieza sombras
+          /*  effectShadow = TgcShaders.loadEffect(ShadersDir + "ShadowMap.fx");//cargo el efecto de sombras
+
+            g_pShadowMap = new Texture(D3DDevice.Instance.Device, SHADOWMAP_SIZE, SHADOWMAP_SIZE,
+               1, Usage.RenderTarget, Format.R32F,
+               Pool.Default);
+
+            g_pDSShadow = D3DDevice.Instance.Device.CreateDepthStencilSurface(SHADOWMAP_SIZE,
+                SHADOWMAP_SIZE,
+                DepthFormat.D24S8,
+                MultiSampleType.None,
+                0,
+                true);
+    
+            var aspectRatio = D3DDevice.Instance.AspectRatio;
+            g_mShadowProj = Matrix.PerspectiveFovLH(Geometry.DegreeToRadian(80), aspectRatio, 50, 5000);
+            D3DDevice.Instance.Device.Transform.Projection =
+                Matrix.PerspectiveFovLH(Geometry.DegreeToRadian(45.0f), aspectRatio, near_plane, far_plane);
+*/
+            //termina sombras 
 
             InicializarEnemigos();
             InicializarPuertas();
             InicializarInterruptores();
             InicializarIluminaciones();
-          
+            /*
+            foreach (var T in meshesARenderizar)//asigno sombras
+            {
+                T.Scale = new Vector3(1f, 1f, 1f);
+                T.Effect = effectShadow;
+            }*/
+
             bloqueado = loader.loadSceneFromFile(MediaDir + "Bloqueado\\locked-TgcScene.xml").Meshes[0];
             bloqueado.Scale = new Vector3(0.004f, 0.004f, 0.004f);
             bloqueado.Position = new Vector3(-0.05f, 0.20f, 1f);
@@ -337,11 +380,11 @@ namespace TGC.Group.Model
                 }
             }
         }
+ 
 
-
-        //Intervalo: Cantidad de bateria que se pierde por intervalo
-        //Porciento: Cantidad de bateria que se pierde por intervalo
-        void reducirBateria()
+    //Intervalo: Cantidad de bateria que se pierde por intervalo
+    //Porciento: Cantidad de bateria que se pierde por intervalo
+    void reducirBateria()
         {
 
             if (iluminacionEnMano!=null && luzActivada)
@@ -547,11 +590,82 @@ namespace TGC.Group.Model
                 mesh.render();
             }
             //scene.renderAll();
+            /*
+            D3DDevice.Instance.Device.EndScene(); // termino el thread anterior
 
-            //Finaliza el render y presenta en pantalla, al igual que el preRender se debe para casos puntuales es mejor utilizar a mano las operaciones de EndScene y PresentScene
+            Camara.UpdateCamera(ElapsedTime);
+            D3DDevice.Instance.Device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.Black, 1.0f, 0);
+
+            //Genero el shadow map
+            RenderShadowMap();
+
+            D3DDevice.Instance.Device.BeginScene();
+            // dibujo la escena pp dicha
+            D3DDevice.Instance.Device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.Black, 1.0f, 0);
+            RenderScene(false);
+*/
             PostRender();
+         //   D3DDevice.Instance.Device.Present();
+        }
+
+        /*
+        public void RenderShadowMap()
+        {
+            if (iluminacionEnMano != null)
+            {
+                // Calculo la matriz de view de la luz
+                effectShadow.SetValue("g_vLightPos", new Vector4(iluminacionEnMano.pointLightPosition.X, iluminacionEnMano.pointLightPosition.Y, iluminacionEnMano.pointLightPosition.Z, 1));
+                effectShadow.SetValue("g_vLightDir", new Vector4(Camara.Position.X, Camara.Position.Y, Camara.Position.Z, 1));
+                g_LightView = Matrix.LookAtLH(iluminacionEnMano.pointLightPosition, iluminacionEnMano.pointLightPosition + Camara.Position, new Vector3(0, 0, 1));
+
+                // inicializacion standard:
+                effectShadow.SetValue("g_mProjLight", g_mShadowProj);
+                effectShadow.SetValue("g_mViewLightProj", g_LightView * g_mShadowProj);
+            }
+            // Primero genero el shadow map, para ello dibujo desde el pto de vista de luz
+            // a una textura, con el VS y PS que generan un mapa de profundidades.
+            var pOldRT = D3DDevice.Instance.Device.GetRenderTarget(0);
+            var pShadowSurf = g_pShadowMap.GetSurfaceLevel(0);
+            D3DDevice.Instance.Device.SetRenderTarget(0, pShadowSurf);
+            var pOldDS = D3DDevice.Instance.Device.DepthStencilSurface;
+            D3DDevice.Instance.Device.DepthStencilSurface = g_pDSShadow;
+            D3DDevice.Instance.Device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.Black, 1.0f, 0);
+            D3DDevice.Instance.Device.BeginScene();
+
+            // Hago el render de la escena pp dicha
+            effectShadow.SetValue("g_txShadow", g_pShadowMap);
+            RenderScene(true);
+
+            // Termino
+            D3DDevice.Instance.Device.EndScene();
+
+            //TextureLoader.Save("shadowmap.bmp", ImageFileFormat.Bmp, g_pShadowMap);
+
+            // restuaro el render target y el stencil
+            D3DDevice.Instance.Device.DepthStencilSurface = pOldDS;
+            D3DDevice.Instance.Device.SetRenderTarget(0, pOldRT);
+        }
+
+
+
+        public void RenderScene(bool shadow)
+        {
+            foreach (var T in meshesARenderizar)
+            {
+                if (shadow)
+                {
+                    T.Technique = "RenderShadow";
+                }
+                else
+                {
+                    T.Technique = "RenderScene";
+                }
+
+                T.render();
+            }
 
         }
+        */
 
         private int getBateria()
         {
