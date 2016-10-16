@@ -47,6 +47,7 @@ namespace TGC.Group.Camara
 
         public TgcBoundingAxisAlignBox camaraBox = new TgcBoundingAxisAlignBox();
 
+
         public TgcFpsCamera(TgcD3dInput input)
         {
             Input = input;

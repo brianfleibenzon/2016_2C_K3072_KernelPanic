@@ -155,14 +155,27 @@ namespace TGC.Group.Model
                         intento.X = 0;
                         intento.Z = valorUnitario(vector.Z);
                         this.mesh.Position += intento * MovementSpeed * ElapsedTime;
-                        
-                        if (verificarColision(Camara, scene))
+                       
+                        if (valorUnitario(vector.Z)<0.02f)
                         {
-                            mesh.Position = posicionAnterior;
+                            this.mesh.Position = posicionAnterior;
+                            intento.X = 0;
+                            intento.Z = 1;
+                            this.mesh.Position += intento * MovementSpeed * ElapsedTime;
                         }
+                        if (valorUnitario(vector.X) < 0.02f)
+                        {
+                            this.mesh.Position = posicionAnterior;
+                            intento.X = 1;
+                            intento.Z = 0;
+                            this.mesh.Position += intento * MovementSpeed * ElapsedTime;
+                        }
+                        if (verificarColision(Camara, scene))
+                            mesh.Position = posicionAnterior;
+                        
                     }
                 }
-
+ 
                 mesh.rotateY((float)Math.Atan2(intento.X, intento.Z) - mesh.Rotation.Y - Geometry.DegreeToRadian(180f));
 
             }

@@ -113,7 +113,7 @@ namespace TGC.Group.Model
             InicializarPuertas();
             InicializarInterruptores();
             InicializarIluminaciones();
-
+          
             bloqueado = loader.loadSceneFromFile(MediaDir + "Bloqueado\\locked-TgcScene.xml").Meshes[0];
             bloqueado.Scale = new Vector3(0.004f, 0.004f, 0.004f);
             bloqueado.Position = new Vector3(-0.05f, 0.20f, 1f);
@@ -440,7 +440,7 @@ namespace TGC.Group.Model
             //Renderizar meshes
             foreach (var mesh in meshesARenderizar)
             {               
-
+                
                 if (iluminacionEnMano == null || mesh != iluminacionEnMano.mesh)
                 {
                     mesh.Effect = effect;

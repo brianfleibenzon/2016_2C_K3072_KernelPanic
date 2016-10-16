@@ -27,7 +27,7 @@ namespace TGC.Group.Model
         {
             switch (this.estado)
             {
-
+                
                 case (Puerta.Estado.ABIERTA):
                     if (TgcCollisionUtils.sqDistPointAABB(Camara.Position, this.mesh.BoundingBox) > 100000f && !colisionConEnemigos(enemigos)) { 
                         this.estado = Puerta.Estado.CERRANDO;
@@ -36,6 +36,7 @@ namespace TGC.Group.Model
                     break;
 
                 case (Puerta.Estado.ABRIENDO):
+                    
                     if (this.mesh.Position.Y < 195)
                         this.mesh.move(new Vector3(0, 80f * ElapsedTime, 0));
                     else
