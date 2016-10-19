@@ -486,7 +486,7 @@ namespace TGC.Group.Model
                 
                 if (iluminacionEnMano == null || mesh != iluminacionEnMano.mesh)
                 {
-                    mesh.Effect = effect;
+                    /*mesh.Effect = effect;
                     mesh.Technique = "MultiDiffuseLightsTechnique";
 
                     mesh.UpdateMeshTransform();
@@ -499,7 +499,7 @@ namespace TGC.Group.Model
                     mesh.Effect.SetValue("materialEmissiveColor",
                         ColorValue.FromColor((Color.Black)));
                     mesh.Effect.SetValue("materialDiffuseColor",
-                        ColorValue.FromColor(Color.White));
+                        ColorValue.FromColor(Color.White));*/
                 }
                 //Renderizar modelo
             }
@@ -589,6 +589,7 @@ namespace TGC.Group.Model
             {
                 mesh.render();
             }
+
             //scene.renderAll();
             /*
             D3DDevice.Instance.Device.EndScene(); // termino el thread anterior
