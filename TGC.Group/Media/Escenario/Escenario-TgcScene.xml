@@ -521,7 +521,7 @@
       <bitmap uvTiling="[1,1]" uvOffset="[1,1]">wastelt1_ed.jpg</bitmap>
     </m>
   </materials>
-  <meshes count="174">
+  <meshes count="173">
     <mesh name="Room-1-Roof-0" layer="" type="Original" matId="0" color="[1,1,1]" visibility="1.0" lightmap="">
       <boundingBox min="[0,200,0]" max="[1800,200,200]" />
       <coordinatesIdx count="6">0 1 2 0 2 3 </coordinatesIdx>
@@ -3053,7 +3053,7 @@
       <texCoordsLightMap count="0">
       </texCoordsLightMap>
     </mesh>
-    <mesh name="Box_1" layer="Default" type="Original" matId="28" color="[1,1,1]" visibility="1.0" lightmap="">
+    <mesh name="LuzEstatica1" layer="Default" type="Original" matId="28" color="[1,1,1]" visibility="1.0" lightmap="">
       <boundingBox min="[736.2533,147.0141,2265.504]" max="[739.2749,175.6381,2339.448]" />
       <coordinatesIdx count="36">0 1 2 1 3 2 4 5 6 6 5 7 0 5 4 0 2 5 1 6 7 1 7 3 0 6 1 4 6 0 2 3 7 5 2 7 </coordinatesIdx>
       <textCoordsIdx count="36">0 1 2 1 3 2 0 2 1 1 2 3 0 3 1 0 2 3 0 1 3 0 3 2 0 3 1 2 3 0 0 1 3 2 0 3 </textCoordsIdx>
@@ -3069,7 +3069,7 @@
       </texCoordsLightMap>
       <userProps count="0" />
     </mesh>
-    <mesh name="Box_1" layer="Default" type="Original" matId="28" color="[1,1,1]" visibility="1.0" lightmap="">
+    <mesh name="LuzEstatica2" layer="Default" type="Original" matId="28" color="[1,1,1]" visibility="1.0" lightmap="">
       <boundingBox min="[2216.028,126.1068,756.8024]" max="[2326.943,169.0429,759.824]" />
       <coordinatesIdx count="36">0 1 2 1 3 2 4 5 6 6 5 7 0 5 4 0 2 5 1 6 7 1 7 3 0 6 1 4 6 0 2 3 7 5 2 7 </coordinatesIdx>
       <textCoordsIdx count="36">0 1 2 1 3 2 0 2 1 1 2 3 0 3 1 0 2 3 0 1 3 0 3 2 0 3 1 2 3 0 0 1 3 2 0 3 </textCoordsIdx>
@@ -3085,7 +3085,7 @@
       </texCoordsLightMap>
       <userProps count="0" />
     </mesh>
-    <mesh name="Box_1" layer="Default" type="Original" matId="28" color="[1,1,1]" visibility="1.0" lightmap="">
+    <mesh name="LuzEstatica3" layer="Default" type="Original" matId="28" color="[1,1,1]" visibility="1.0" lightmap="">
       <boundingBox min="[1195.005,196,722.7035]" max="[1223.629,199.0216,796.647]" />
       <coordinatesIdx count="36">0 1 2 1 3 2 4 5 6 6 5 7 0 5 4 0 2 5 1 6 7 1 7 3 0 6 1 4 6 0 2 3 7 5 2 7 </coordinatesIdx>
       <textCoordsIdx count="36">0 1 2 1 3 2 0 2 1 1 2 3 0 3 1 0 2 3 0 1 3 0 3 2 0 3 1 2 3 0 0 1 3 2 0 3 </textCoordsIdx>
@@ -3101,7 +3101,7 @@
       </texCoordsLightMap>
       <userProps count="0" />
     </mesh>
-    <mesh name="Box_1" layer="Default" type="Original" matId="28" color="[1,1,1]" visibility="1.0" lightmap="">
+    <mesh name="LuzEstatica4" layer="Default" type="Original" matId="28" color="[1,1,1]" visibility="1.0" lightmap="">
       <boundingBox min="[1495.206,196.736,1460.703]" max="[1523.83,199.7576,1534.647]" />
       <coordinatesIdx count="36">0 1 2 1 3 2 4 5 6 6 5 7 0 5 4 0 2 5 1 6 7 1 7 3 0 6 1 4 6 0 2 3 7 5 2 7 </coordinatesIdx>
       <textCoordsIdx count="36">0 1 2 1 3 2 0 2 1 1 2 3 0 3 1 0 2 3 0 1 3 0 3 2 0 3 1 2 3 0 0 1 3 2 0 3 </textCoordsIdx>
@@ -3117,23 +3117,7 @@
       </texCoordsLightMap>
       <userProps count="0" />
     </mesh>
-    <mesh name="Box_1" layer="Default" type="Original" matId="28" color="[1,1,1]" visibility="1.0" lightmap="">
-      <boundingBox min="[483.5113,90,11508.76]" max="[555.0714,93.0216,11693.62]" />
-      <coordinatesIdx count="36">0 1 2 1 3 2 4 5 6 6 5 7 0 5 4 0 2 5 1 6 7 1 7 3 0 6 1 4 6 0 2 3 7 5 2 7 </coordinatesIdx>
-      <textCoordsIdx count="36">0 1 2 1 3 2 0 2 1 1 2 3 0 3 1 0 2 3 0 1 3 0 3 2 0 3 1 2 3 0 0 1 3 2 0 3 </textCoordsIdx>
-      <colorsIdx count="36">0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 </colorsIdx>
-      <matIds count="1">0 </matIds>
-      <textCoordsLightMapIdx count="0">
-      </textCoordsLightMapIdx>
-      <vertices count="24">483.5113 93.0216 11693.62 483.5113 90 11693.62 555.0714 93.0216 11693.62 555.0714 90 11693.62 483.5113 93.0216 11508.76 555.0714 93.0216 11508.76 483.5113 90 11508.76 555.0714 90 11508.76 </vertices>
-      <normals count="24">0 0 1 0 0 1 0 0 1 0 0 1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 </normals>
-      <texCoords count="8">0 0 0 1 1 0 1 1 </texCoords>
-      <colors count="3">255 255 255 </colors>
-      <texCoordsLightMap count="0">
-      </texCoordsLightMap>
-      <userProps count="0" />
-    </mesh>
-    <mesh name="Box_1" layer="Default" type="Original" matId="28" color="[1,1,1]" visibility="1.0" lightmap="">
+    <mesh name="LuzEstatica5" layer="Default" type="Original" matId="28" color="[1,1,1]" visibility="1.0" lightmap="">
       <boundingBox min="[220.4708,196.8001,1625.825]" max="[256.2509,199.8217,1718.254]" />
       <coordinatesIdx count="36">0 1 2 1 3 2 4 5 6 6 5 7 0 5 4 0 2 5 1 6 7 1 7 3 0 6 1 4 6 0 2 3 7 5 2 7 </coordinatesIdx>
       <textCoordsIdx count="36">0 1 2 1 3 2 0 2 1 1 2 3 0 3 1 0 2 3 0 1 3 0 3 2 0 3 1 2 3 0 0 1 3 2 0 3 </textCoordsIdx>

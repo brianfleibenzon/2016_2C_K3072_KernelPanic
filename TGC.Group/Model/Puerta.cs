@@ -43,8 +43,6 @@ namespace TGC.Group.Model
                     {
                         this.estado = Puerta.Estado.ABIERTA;
                         this.sonido.stop();
-                        //if (funcion != null)
-                            //funcion();
                     }
                     break;
 

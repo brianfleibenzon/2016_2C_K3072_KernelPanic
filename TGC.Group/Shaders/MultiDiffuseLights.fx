@@ -41,10 +41,10 @@ float3 materialEmissiveColor; //Color RGB
 float3 materialDiffuseColor; //Color RGB
 
 //Variables de las luces
-float3 lightColor[3]; //Color RGB de las luces
-float4 lightPosition[3]; //Posicion de las luces
-float lightIntensity[3]; //Intensidad de las luces
-float lightAttenuation[3]; //Factor de atenuacion de las luces
+float3 lightColor[4]; //Color RGB de las luces
+float4 lightPosition[4]; //Posicion de las luces
+float lightIntensity[4]; //Intensidad de las luces
+float lightAttenuation[4]; //Factor de atenuacion de las luces
 
 /**************************************************************************************/
 /* MultiDiffuseLightsTechnique */
@@ -128,6 +128,9 @@ float4 point_light_ps(PS_INPUT input) : COLOR0
 
 	//Diffuse 2
 	diffuseLighting += computeDiffuseComponent(input.WorldPosition, Nn, 2);
+	
+	//Diffuse 3
+	diffuseLighting += computeDiffuseComponent(input.WorldPosition, Nn, 3);
 
 
 	//Obtener texel de la textura

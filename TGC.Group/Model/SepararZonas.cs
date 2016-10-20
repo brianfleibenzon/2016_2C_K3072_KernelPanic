@@ -38,12 +38,14 @@ namespace TGC.Group.Model
             zona3.AddRange(obtenerHabitacion(scene, "Room-8"));
             zona3.AddRange(obtenerHabitacion(scene, "Room-11"));
             zona3.Add(scene.getMeshByName("Contenedor3"));
+            zona3.Add(scene.getMeshByName("LuzEstatica5"));
 
             zona4.AddRange(obtenerHabitacion(scene, "Room-12"));
             zona4.AddRange(obtenerHabitacion(scene, "Room-13"));
             zona4.AddRange(obtenerHabitacion(scene, "Room-14"));
             zona4.AddRange(obtenerHabitacion(scene, "Room-15"));
             zona4.Add(scene.getMeshByName("Contenedor2"));
+            zona4.Add(scene.getMeshByName("LuzEstatica4"));
 
             zona5.AddRange(obtenerHabitacion(scene, "Room-35"));
             zona5.Add(scene.getMeshByName("Interruptor1"));
@@ -52,11 +54,13 @@ namespace TGC.Group.Model
             zona5.Add(scene.getMeshByName("BarrilPolvora2"));
             zona5.Add(scene.getMeshByName("Esqueleto1"));
             zona5.Add(scene.getMeshByName("Contenedor1"));
+            zona5.Add(scene.getMeshByName("LuzEstatica3"));
 
             zona6.AddRange(obtenerHabitacion(scene, "Room-31"));
             zona6.Add(scene.getMeshByName("Esqueleto3"));
             zona6.Add(scene.getMeshByName("Guillotina"));
             zona6.Add(scene.getMeshByName("SogaEnrollada"));
+            zona6.Add(scene.getMeshByName("LuzEstatica1"));
 
             zona7.AddRange(obtenerHabitacion(scene, "Room-32"));
             zona7.Add(scene.getMeshByName("Linterna"));
@@ -69,6 +73,7 @@ namespace TGC.Group.Model
             zona9.AddRange(obtenerHabitacion(scene, "Room-34"));
             zona9.Add(scene.getMeshByName("MesaTortura"));
             zona9.Add(scene.getMeshByName("Esqueleto4"));
+            zona9.Add(scene.getMeshByName("LuzEstatica2"));
 
             comunes.AddRange(obtenerHabitacion(scene, "Room-37"));
             comunes.AddRange(obtenerHabitacion(scene, "Room-38"));

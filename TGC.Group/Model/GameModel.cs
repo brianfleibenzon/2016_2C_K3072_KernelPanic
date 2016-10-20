@@ -67,7 +67,7 @@ namespace TGC.Group.Model
 
         private Interruptor[] interruptores = new Interruptor[3];
 
-        private Iluminacion[] iluminaciones = new Iluminacion[3];
+        private Iluminacion[] iluminaciones = new Iluminacion[8];
 
         public Enemigo[] enemigos = new Enemigo[2];
 
@@ -285,6 +285,20 @@ namespace TGC.Group.Model
                 iluminacionEnMano.mesh.Position += new Vector3(x, -0.38f, 1f);
             };
 
+
+            // ILUMINACIONES ESTATICAS
+            iluminaciones[3] = new Iluminacion(Color.DarkOrange, "LuzEstatica1", scene, new Vector3(0f, 25f, 0f),
+                90f, 0.15f, 38f, 0.5f, 190f, false, false, true);
+            iluminaciones[4] = new Iluminacion(Color.DarkOrange, "LuzEstatica2", scene, new Vector3(0f, 25f, 0f),
+                90f, 0.15f, 38f, 0.5f, 190f, false, false, true);
+            iluminaciones[5] = new Iluminacion(Color.DarkOrange, "LuzEstatica3", scene, new Vector3(0f, 25f, 0f),
+                90f, 0.15f, 38f, 0.5f, 190f, false, false, true);
+            iluminaciones[6] = new Iluminacion(Color.DarkOrange, "LuzEstatica4", scene, new Vector3(0f, 25f, 0f),
+                90f, 0.15f, 38f, 0.5f, 190f, false, false, true);
+            iluminaciones[7] = new Iluminacion(Color.DarkOrange, "LuzEstatica5", scene, new Vector3(0f, 25f, 0f),
+                90f, 0.15f, 38f, 0.5f, 190f, false, false, true);
+
+
         }
 
         void ActualizarEstadoPuertas()
@@ -431,52 +445,50 @@ namespace TGC.Group.Model
             //Inicio el render de la escena, para ejemplos simples. Cuando tenemos postprocesado o shaders es mejor realizar las operaciones según nuestra conveniencia.
             PreRender();
 
+            var lightColors = new ColorValue[4];
+            var pointLightPositions = new Vector4[4];
+            var pointLightIntensity = new float[4];
+            var pointLightAttenuation = new float[4];
 
-            var lightColors = new ColorValue[iluminaciones.Length];
-            var pointLightPositions = new Vector4[iluminaciones.Length];
-            var pointLightIntensity = new float[iluminaciones.Length];
-            var pointLightAttenuation = new float[iluminaciones.Length];
-
+            int j = 0;
 
             for (var i = 0; i < iluminaciones.Length; i++)
             {
 
-                lightColors[i] = ColorValue.FromColor(iluminaciones[i].lightColors);
-
-
-               if (iluminacionEnMano == iluminaciones[i])
-               {                   
+                if (meshesARenderizar.Contains(iluminaciones[i].mesh))
+                {
                     
-                    if (luzActivada)
+
+                    if (iluminacionEnMano != iluminaciones[i] && iluminaciones[i].mesh.Enabled)
                     {
-                        pointLightPositions[i] = TgcParserUtils.vector3ToVector4(Camara.Position);
-                        pointLightIntensity[i] = iluminaciones[i].pointLightIntensityAgarrada;
-                        pointLightAttenuation[i] = iluminaciones[i].pointLightAttenuationAgarrada;
+                        lightColors[j] = ColorValue.FromColor(iluminaciones[i].lightColors);
+                        pointLightPositions[j] = TgcParserUtils.vector3ToVector4(iluminaciones[i].pointLightPosition);
+                        pointLightIntensity[j] = iluminaciones[i].pointLightIntensity;
+                        pointLightAttenuation[j] = iluminaciones[i].pointLightAttenuation;
+                        j++;
                     }
 
-                    iluminaciones[i].mesh.Effect = TgcShaders.Instance.TgcMeshShader;
-                    iluminaciones[i].mesh.Technique = TgcShaders.Instance.getTgcMeshTechnique(TgcMesh.MeshRenderType.DIFFUSE_MAP);
+
+                }             
 
 
-                }
-                else if(iluminaciones[i].mesh.Enabled == false)
+               
+
+            }
+
+            if (iluminacionEnMano!=null)
+            {
+
+                if (luzActivada)
                 {
-
-                    pointLightPositions[i] = TgcParserUtils.vector3ToVector4(iluminaciones[i].pointLightPosition);
-
-                    pointLightIntensity[i] = (float)0;
-
-                    pointLightAttenuation[i] = (float)0;
-                }
-                else
-                {
-                    
-                    pointLightPositions[i] = TgcParserUtils.vector3ToVector4(iluminaciones[i].pointLightPosition);
-
-                    pointLightIntensity[i] = iluminaciones[i].pointLightIntensity;
-                    pointLightAttenuation[i] = iluminaciones[i].pointLightAttenuation;
+                    lightColors[j] = ColorValue.FromColor(iluminacionEnMano.lightColors);
+                    pointLightPositions[j] = TgcParserUtils.vector3ToVector4(Camara.Position);
+                    pointLightIntensity[j] = iluminacionEnMano.pointLightIntensityAgarrada;
+                    pointLightAttenuation[j] = iluminacionEnMano.pointLightAttenuationAgarrada;
                 }
 
+                iluminacionEnMano.mesh.Effect = TgcShaders.Instance.TgcMeshShader;
+                iluminacionEnMano.mesh.Technique = TgcShaders.Instance.getTgcMeshTechnique(TgcMesh.MeshRenderType.DIFFUSE_MAP);
             }
 
 
@@ -589,6 +601,8 @@ namespace TGC.Group.Model
             {
                 mesh.render();
             }
+
+
 
             //scene.renderAll();
             /*
