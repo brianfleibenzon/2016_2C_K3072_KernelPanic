@@ -56,7 +56,7 @@ namespace TGC.Group.Camara
                 D3DDevice.Instance.Device.Viewport.Width / 2,
                 D3DDevice.Instance.Device.Viewport.Height / 2);
             RotationSpeed = 0.1f;
-            MovementSpeed = 550f;
+            MovementSpeed = 250f;
             JumpSpeed = 500f;
             directionView = new Vector3(0, 0, -1);
             leftrightRot = FastMath.PI;
