@@ -57,8 +57,6 @@ namespace TGC.Group.Model
 
         private Tgc3dSound sonidoPisadas;
 
-        private Tgc3dSound sonidoLinterna;
-
         public TgcScene scene;
 
         private TgcPickingRay pickingRay;
@@ -81,25 +79,9 @@ namespace TGC.Group.Model
 
         private Microsoft.DirectX.Direct3D.Effect effect;
 
-        private Microsoft.DirectX.Direct3D.Effect effectShadow;
-
         private bool luzActivada = true;
 
         public List<TgcMesh> meshesARenderizar = new List<TgcMesh>();
-
-        private readonly float far_plane = 1500f;
-
-        private readonly float near_plane = 2f;
-
-        private Matrix g_mShadowProj; // Projection matrix for shadow map
-
-        private Surface g_pDSShadow; // Depth-stencil buffer for rendering to shadow map
-
-        private Matrix g_LightView;
-
-        private Texture g_pShadowMap; // Texture to which the shadow map is rendered
-
-        private readonly int SHADOWMAP_SIZE = 1024;
 
         //VARIABLES DE BATERIA
 
@@ -125,37 +107,10 @@ namespace TGC.Group.Model
             Camara = new TgcFpsCamera(this, new Vector3(128f, 90f, 51f), Input);
             pickingRay = new TgcPickingRay(Input);
 
-            // empieza sombras
-          /*  effectShadow = TgcShaders.loadEffect(ShadersDir + "ShadowMap.fx");//cargo el efecto de sombras
-
-            g_pShadowMap = new Texture(D3DDevice.Instance.Device, SHADOWMAP_SIZE, SHADOWMAP_SIZE,
-               1, Usage.RenderTarget, Format.R32F,
-               Pool.Default);
-
-            g_pDSShadow = D3DDevice.Instance.Device.CreateDepthStencilSurface(SHADOWMAP_SIZE,
-                SHADOWMAP_SIZE,
-                DepthFormat.D24S8,
-                MultiSampleType.None,
-                0,
-                true);
-    
-            var aspectRatio = D3DDevice.Instance.AspectRatio;
-            g_mShadowProj = Matrix.PerspectiveFovLH(Geometry.DegreeToRadian(80), aspectRatio, 50, 5000);
-            D3DDevice.Instance.Device.Transform.Projection =
-                Matrix.PerspectiveFovLH(Geometry.DegreeToRadian(45.0f), aspectRatio, near_plane, far_plane);
-*/
-            //termina sombras 
-
             InicializarEnemigos();
             InicializarPuertas();
             InicializarInterruptores();
             InicializarIluminaciones();
-            /*
-            foreach (var T in meshesARenderizar)//asigno sombras
-            {
-                T.Scale = new Vector3(1f, 1f, 1f);
-                T.Effect = effectShadow;
-            }*/
 
             bloqueado = loader.loadSceneFromFile(MediaDir + "Bloqueado\\locked-TgcScene.xml").Meshes[0];
             bloqueado.Scale = new Vector3(0.004f, 0.004f, 0.004f);
@@ -260,7 +215,7 @@ namespace TGC.Group.Model
 
 
             iluminaciones[0] = new Iluminacion(Color.DarkOrange, "Vela", scene, new Vector3(0f, 25f, 0f), 
-                68.0f, 0.25f, 38.0f, 0.5f, 135f, true, false, true);
+                68.0f, 0.25f, 38.0f, 0.5f, 100f, true, false, true);
             iluminaciones[0].posicionarEnMano = () =>
             {
                 iluminacionEnMano.mesh.Scale = new Vector3(0.008f, 0.008f, 0.008f);
@@ -287,16 +242,16 @@ namespace TGC.Group.Model
 
 
             // ILUMINACIONES ESTATICAS
-            iluminaciones[3] = new Iluminacion(Color.DarkOrange, "LuzEstatica1", scene, new Vector3(0f, 25f, 0f),
-                90f, 0.15f, 38f, 0.5f, 190f, false, false, true);
-            iluminaciones[4] = new Iluminacion(Color.DarkOrange, "LuzEstatica2", scene, new Vector3(0f, 25f, 0f),
-                90f, 0.15f, 38f, 0.5f, 190f, false, false, true);
-            iluminaciones[5] = new Iluminacion(Color.DarkOrange, "LuzEstatica3", scene, new Vector3(0f, 25f, 0f),
-                90f, 0.15f, 38f, 0.5f, 190f, false, false, true);
-            iluminaciones[6] = new Iluminacion(Color.DarkOrange, "LuzEstatica4", scene, new Vector3(0f, 25f, 0f),
-                90f, 0.15f, 38f, 0.5f, 190f, false, false, true);
-            iluminaciones[7] = new Iluminacion(Color.DarkOrange, "LuzEstatica5", scene, new Vector3(0f, 25f, 0f),
-                90f, 0.15f, 38f, 0.5f, 190f, false, false, true);
+            iluminaciones[3] = new Iluminacion(Color.DarkRed, "LuzEstatica1", scene, new Vector3(-40f, 25f, 8f),
+                0f, 0f, 100f, 0.5f, 0f, false, false, true);
+            iluminaciones[4] = new Iluminacion(Color.DarkRed, "LuzEstatica2", scene, new Vector3(0f, 25f, 0f),
+                0f, 0f, 100f, 0.5f, 0f, false, false, true);
+            iluminaciones[5] = new Iluminacion(Color.DarkRed, "LuzEstatica3", scene, new Vector3(0f, 25f, 0f),
+                0f, 0f, 100f, 0.5f, 0f, false, false, true);
+            iluminaciones[6] = new Iluminacion(Color.DarkRed, "LuzEstatica4", scene, new Vector3(0f, 25f, 0f),
+                0f, 0f, 100f, 0.5f, 0f, false, false, true);
+            iluminaciones[7] = new Iluminacion(Color.DarkRed, "LuzEstatica5", scene, new Vector3(0f, 25f, 0f),
+                0f, 0f, 100f, 0.5f, 0f, false, false, true);
 
 
         }
