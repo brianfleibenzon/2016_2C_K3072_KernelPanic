@@ -83,7 +83,7 @@ namespace TGC.Group.Model
 
         public List<TgcMesh> meshesARenderizar = new List<TgcMesh>();
 
-        private readonly float far_plane = 1500f;
+        private readonly float far_plane = 2500f;
 
         private readonly float near_plane = 0.5f;
 
@@ -136,7 +136,7 @@ namespace TGC.Group.Model
                 true);
 
             var aspectRatio = D3DDevice.Instance.AspectRatio;
-            g_mShadowProj = Matrix.PerspectiveFovLH(Geometry.DegreeToRadian(110), aspectRatio, 50, 5000);
+            g_mShadowProj = Matrix.PerspectiveFovLH(Geometry.DegreeToRadian(45f), aspectRatio, 50, 5000);
             D3DDevice.Instance.Device.Transform.Projection =
                 Matrix.PerspectiveFovLH(Geometry.DegreeToRadian(45.0f), aspectRatio, near_plane, far_plane);
 
@@ -166,6 +166,8 @@ namespace TGC.Group.Model
             meshesARenderizar.AddRange(SepararZonas.comunes);
 
             this.AxisLinesEnable = false;
+
+            
         }
 
         void InicializarPuertas()
@@ -719,15 +721,16 @@ namespace TGC.Group.Model
 
         public void RenderShadowMap()
         {
-
-            Vector3 direccion = Camara.LookAt - Camara.Position - new Vector3(0f, 25f, 0f);
+            Vector3 posicion = Camara.Position + new Vector3(0.00001f, 0.00001f, 0.00001f);
+            Vector3 direccion = Camara.LookAt - posicion;
+            direccion.Normalize();
 
 
 
             // Calculo la matriz de view de la luz
-            effect.SetValue("g_vLightPos", new Vector4(Camara.Position.X - 10f, Camara.Position.Y, Camara.Position.Z - 10f, 1));
+            effect.SetValue("g_vLightPos", new Vector4(posicion.X, posicion.Y, posicion.Z, 1));
             effect.SetValue("g_vLightDir", new Vector4(direccion.X, direccion.Y, direccion.Z, 1));
-            g_LightView = Matrix.LookAtLH(Camara.Position, direccion + Camara.Position, new Vector3(0, 0, 1));
+            g_LightView = Matrix.LookAtLH(posicion, direccion + posicion, new Vector3(0, 0, 1));
 
             // inicializacion standard:
             effect.SetValue("g_mProjLight", g_mShadowProj);
