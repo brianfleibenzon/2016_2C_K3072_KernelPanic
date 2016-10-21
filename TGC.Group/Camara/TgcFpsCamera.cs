@@ -41,11 +41,11 @@ namespace TGC.Group.Camara
 
         public bool colisiones = true;
 
-        public bool agachado = false;
-
         GameModel gameModel;
 
         public TgcBoundingAxisAlignBox camaraBox = new TgcBoundingAxisAlignBox();
+
+        public bool moverse = true;
 
 
         public TgcFpsCamera(TgcD3dInput input)
@@ -127,62 +127,47 @@ namespace TGC.Group.Camara
             Vector3 lastPositionEye = positionEye;
 
             var moveVector = new Vector3(0, 0, 0);
-            //Forward
-            if (Input.keyDown(Key.W))
-            {
-                moveVector += new Vector3(0, 0, -1) * MovementSpeed;
-            }
 
-            //Backward
-            if (Input.keyDown(Key.S))
-            {
-                moveVector += new Vector3(0, 0, 1) * MovementSpeed;
-            }
-
-            //Strafe right
-            if (Input.keyDown(Key.D))
+            if (moverse)
             {
 
-                /* SI MUEVE LA POSICION*/
-                moveVector += new Vector3(-1, 0, 0) * MovementSpeed;
-
-                /* SI ROTA LA CAMARA*/
-                /*leftrightRot += 0.1f * RotationSpeed;
-                cameraRotation = Matrix.RotationX(updownRot) * Matrix.RotationY(leftrightRot);*/
-            }
-
-            //Strafe left
-            if (Input.keyDown(Key.A))
-            {
-                /* SI MUEVE LA POSICION*/
-
-                moveVector += new Vector3(1, 0, 0) * MovementSpeed;
-
-                /* SI ROTA LA CAMARA*/
-                /*leftrightRot -= 0.1f * RotationSpeed;
-                cameraRotation = Matrix.RotationX(updownRot) * Matrix.RotationY(leftrightRot);*/
-            }
-
-            if (Input.keyPressed(Key.LeftControl))
-            {
-                if (agachado)
+                //Forward
+                if (Input.keyDown(Key.W))
                 {
-                    
-                    lastPositionEye.Y = 90f;
-                    positionEye.Y = 90f;
-                    //moveVector += new Vector3(0, 8000f, 0);
-                    MovementSpeed = 250f;
+                    moveVector += new Vector3(0, 0, -1) * MovementSpeed;
                 }
-                else
-                {
-                    lastPositionEye.Y = 40f;
-                    positionEye.Y = 40f;
-                    //moveVector += new Vector3(0, -8000f, 0);
-                    MovementSpeed = 80f;
-                }
-                agachado = !agachado;
-            }
 
+                //Backward
+                if (Input.keyDown(Key.S))
+                {
+                    moveVector += new Vector3(0, 0, 1) * MovementSpeed;
+                }
+
+                //Strafe right
+                if (Input.keyDown(Key.D))
+                {
+
+                    /* SI MUEVE LA POSICION*/
+                    moveVector += new Vector3(-1, 0, 0) * MovementSpeed;
+
+                    /* SI ROTA LA CAMARA*/
+                    /*leftrightRot += 0.1f * RotationSpeed;
+                    cameraRotation = Matrix.RotationX(updownRot) * Matrix.RotationY(leftrightRot);*/
+                }
+            
+
+                //Strafe left
+                if (Input.keyDown(Key.A))
+                {
+                    /* SI MUEVE LA POSICION*/
+
+                    moveVector += new Vector3(1, 0, 0) * MovementSpeed;
+
+                    /* SI ROTA LA CAMARA*/
+                    /*leftrightRot -= 0.1f * RotationSpeed;
+                    cameraRotation = Matrix.RotationX(updownRot) * Matrix.RotationY(leftrightRot);*/
+                }
+            }
 
             /*if (Input.keyPressed(Key.L) || Input.keyPressed(Key.Escape))
             {
@@ -271,6 +256,29 @@ namespace TGC.Group.Camara
 
             positionEye = position;
             this.directionView = directionView;
+        }
+
+
+        public void invertirSentido(Vector3 posicion)
+        {
+            leftrightRot *= -1;
+            //Se actualiza matrix de rotacion, para no hacer este calculo cada vez y solo cuando en verdad es necesario.
+            cameraRotationParcial = Matrix.RotationY(leftrightRot);
+            cameraRotation = Matrix.RotationX(updownRot) * Matrix.RotationY(leftrightRot);
+
+            positionEye = posicion;
+
+            var cameraRotatedPositionEye = Vector3.TransformNormal(new Vector3(), cameraRotationParcial);
+            positionEye += cameraRotatedPositionEye;
+
+            var cameraRotatedTarget = Vector3.TransformNormal(directionView, cameraRotation);
+            var cameraFinalTarget = positionEye + cameraRotatedTarget;
+
+            var cameraOriginalUpVector = DEFAULT_UP_VECTOR;
+            var cameraRotatedUpVector = Vector3.TransformNormal(cameraOriginalUpVector, cameraRotation);
+
+
+            base.SetCamera(positionEye, cameraFinalTarget, cameraRotatedUpVector);
         }
 
     }

@@ -48,8 +48,8 @@ namespace TGC.Group.Model
             Description = Game.Default.Description;
 
             this.formulario = formulario;
-            
-        }       
+
+        }
 
         private TgcFog fog;
 
@@ -102,6 +102,11 @@ namespace TGC.Group.Model
         Size resolucionPantalla = System.Windows.Forms.SystemInformation.PrimaryMonitorSize;
         float contador = 0;
 
+        //ECONDIDAS
+
+        public Contenedor[] contenedores = new Contenedor[3];
+
+        private Contenedor enTacho = null;
 
         /// <summary>
         ///     Se llama una sola vez, al principio cuando se ejecuta el ejemplo.
@@ -147,6 +152,7 @@ namespace TGC.Group.Model
             InicializarPuertas();
             InicializarInterruptores();
             InicializarIluminaciones();
+            InicializarContenedores();
 
             bloqueado = loader.loadSceneFromFile(MediaDir + "Bloqueado\\locked-TgcScene.xml").Meshes[0];
             bloqueado.Scale = new Vector3(0.004f, 0.004f, 0.004f);
@@ -166,8 +172,18 @@ namespace TGC.Group.Model
             meshesARenderizar.AddRange(SepararZonas.comunes);
 
             this.AxisLinesEnable = false;
+        }
 
-            
+        void InicializarContenedores()
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                contenedores[i] = new Contenedor(scene.getMeshByName("Contenedor" + (i + 1)));
+
+            }
+            contenedores[0].definirPosiciones(new Vector3(1260f, 80f, 725f), new Vector3(1040f, 90f, 725f));
+            contenedores[1].definirPosiciones(new Vector3(1520f, 70f, 1495f), new Vector3(1520f, 90f, 1340f));
+            contenedores[2].definirPosiciones(new Vector3(245f, 70f, 1674f), new Vector3(373f, 90f, 1674f));
         }
 
         void InicializarPuertas()
@@ -186,7 +202,7 @@ namespace TGC.Group.Model
 
             puertas[2].estado = Puerta.Estado.BLOQUEADA;
             puertas[2].funcion = () => { this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona8); this.meshesARenderizar.AddRange(SepararZonas.zona1); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
-        
+
             puertas[3].estado = Puerta.Estado.BLOQUEADA;
             puertas[3].funcion = () => { this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona9); this.meshesARenderizar.AddRange(SepararZonas.zona1); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
 
@@ -252,7 +268,7 @@ namespace TGC.Group.Model
             float x = -0.001f * resolucionPantalla.Width / 2;
 
 
-            iluminaciones[0] = new Iluminacion(Color.DarkOrange, "Vela", scene, new Vector3(0f, 25f, 0f), 
+            iluminaciones[0] = new Iluminacion(Color.DarkOrange, "Vela", scene, new Vector3(0f, 25f, 0f),
                 68.0f, 0.25f, 38.0f, 0.5f, 100f, true, false, true);
             iluminaciones[0].posicionarEnMano = () =>
             {
@@ -269,7 +285,7 @@ namespace TGC.Group.Model
                 iluminacionEnMano.mesh.Position = -iluminacionEnMano.mesh.BoundingBox.Position;
                 iluminacionEnMano.mesh.Position += new Vector3(x, -0.38f, 1f);
             };
-            iluminaciones[2] = new Iluminacion(Color.YellowGreen, "Farol", scene, new Vector3(0f, 25f, 0f), 
+            iluminaciones[2] = new Iluminacion(Color.YellowGreen, "Farol", scene, new Vector3(0f, 25f, 0f),
                 90f, 0.15f, 38f, 0.5f, 190f, false, false, true);
             iluminaciones[2].posicionarEnMano = () =>
             {
@@ -385,25 +401,26 @@ namespace TGC.Group.Model
                         break;
                     }
                 }
+                
             }
         }
- 
 
-    //Intervalo: Cantidad de bateria que se pierde por intervalo
-    //Porciento: Cantidad de bateria que se pierde por intervalo
-    void reducirBateria()
+
+        //Intervalo: Cantidad de bateria que se pierde por intervalo
+        //Porciento: Cantidad de bateria que se pierde por intervalo
+        void reducirBateria()
         {
 
-            if (iluminacionEnMano!=null && luzActivada)
+            if (iluminacionEnMano != null && luzActivada)
             {
                 contador += ElapsedTime;
 
                 if (contador > iluminacionEnMano.duracion)
                 {
                     iluminacionEnMano = null;
-                    contador = 0;                 
-                }              
-                
+                    contador = 0;
+                }
+
             }
         }
         /// <summary>
@@ -507,6 +524,8 @@ namespace TGC.Group.Model
                 DrawText.drawText(
           "Presionar F pare encender", 0, 70, Color.OrangeRed);
 
+
+
             if (mostrarBloqueado > 0)
             {
 
@@ -545,7 +564,7 @@ namespace TGC.Group.Model
             }
 
             D3DDevice.Instance.Device.EndScene();
-            D3DDevice.Instance.Device.Present();            
+            D3DDevice.Instance.Device.Present();
 
         }
 
@@ -645,11 +664,11 @@ namespace TGC.Group.Model
 
             foreach (var mesh in meshesARenderizar)
             {
-              
+
                 if (shadow)
                 {
                     mesh.Effect = effect;
-                    mesh.Technique = "RenderShadow";                    
+                    mesh.Technique = "RenderShadow";
                 }
                 else
                 {
@@ -685,7 +704,7 @@ namespace TGC.Group.Model
 
         private void escucharTeclas()
         {
-            if (Input.keyPressed(Key.F) && iluminacionEnMano!=null && iluminacionEnMano.puedeApagarse)
+            if (Input.keyPressed(Key.F) && iluminacionEnMano != null && iluminacionEnMano.puedeApagarse)
             {
                 luzActivada = !luzActivada;
             }
@@ -694,6 +713,32 @@ namespace TGC.Group.Model
 
                 sonidoPisadas.play(false);
             }
+
+            if (Input.keyPressed(Key.LeftControl))
+            {
+                if (enTacho != null)
+                {
+                    enTacho.salir((TgcFpsCamera)Camara);
+                    enTacho = null;
+                }
+                else
+                {
+                    foreach (var contenedor in contenedores)
+                    {
+                        if (TgcCollisionUtils.sqDistPointAABB(Camara.Position, contenedor.mesh.BoundingBox) < 5000f)
+                        {
+  
+                            contenedor.esconderse(((TgcFpsCamera)Camara));
+
+                            enTacho = contenedor;                                
+
+                        }                        
+                    }
+                
+                }
+            }
+
+
 
             if (Input.keyPressed(Key.Escape))
             {

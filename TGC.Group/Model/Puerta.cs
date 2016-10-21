@@ -8,6 +8,7 @@ using TGC.Core.Camara;
 using TGC.Core.Collision;
 using TGC.Core.SceneLoader;
 using TGC.Core.Sound;
+using TGC.Group.Camara;
 
 namespace TGC.Group.Model
 {
@@ -36,13 +37,17 @@ namespace TGC.Group.Model
                     break;
 
                 case (Puerta.Estado.ABRIENDO):
-                    
+
                     if (this.mesh.Position.Y < 195)
+                    {
                         this.mesh.move(new Vector3(0, 80f * ElapsedTime, 0));
+                        ((TgcFpsCamera)Camara).moverse = false;
+                    }
                     else
                     {
                         this.estado = Puerta.Estado.ABIERTA;
                         this.sonido.stop();
+                        ((TgcFpsCamera)Camara).moverse = true;
                     }
                     break;
 

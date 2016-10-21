@@ -90,6 +90,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Game.settings</DependentUpon>
     </Compile>
+    <Compile Include="Model\Contenedor.cs" />
     <Compile Include="Model\Enemigo.cs" />
     <Compile Include="Model\GameModel.cs" />
     <Compile Include="Model\Iluminacion.cs" />

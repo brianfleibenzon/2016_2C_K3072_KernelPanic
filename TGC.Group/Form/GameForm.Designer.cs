@@ -155,8 +155,8 @@
             this.label2.Size = new System.Drawing.Size(360, 325);
             this.label2.TabIndex = 24;
             this.label2.Text = "- Mover la cámara\r\n- Mover hacia adelante\r\n- Mover hacia la izquierda\r\n- Mover ha" +
-    "cia atras\r\n- Mover hacia la derecha\r\n- Encender / Apagar iluminación\r\n- Agachars" +
-    "e\r\n- Pausa";
+    "cia atras\r\n- Mover hacia la derecha\r\n- Encender / Apagar iluminación\r\n- Esconder" +
+    "se\r\n- Pausa";
             // 
             // label1
             // 
