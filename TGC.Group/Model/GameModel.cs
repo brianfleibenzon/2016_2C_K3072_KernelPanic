@@ -83,6 +83,20 @@ namespace TGC.Group.Model
 
         public List<TgcMesh> meshesARenderizar = new List<TgcMesh>();
 
+        private readonly float far_plane = 1500f;
+
+        private readonly float near_plane = 0.5f;
+
+        private Matrix g_mShadowProj; // Projection matrix for shadow map
+
+        private Surface g_pDSShadow; // Depth-stencil buffer for rendering to shadow map
+
+        private Matrix g_LightView;
+
+        private Texture g_pShadowMap; // Texture to which the shadow map is rendered
+
+        private readonly int SHADOWMAP_SIZE = 1024;
+
         //VARIABLES DE BATERIA
 
         Size resolucionPantalla = System.Windows.Forms.SystemInformation.PrimaryMonitorSize;
@@ -103,9 +117,31 @@ namespace TGC.Group.Model
             var loader = new TgcSceneLoader();
             scene = loader.loadSceneFromFile(MediaDir + "Escenario\\Escenario-TgcScene.xml");
 
-            effect = TgcShaders.loadEffect(ShadersDir + "MultiDiffuseLights.fx");
+            effect = TgcShaders.loadEffect(ShadersDir + "LuzYSombra.fx");
             Camara = new TgcFpsCamera(this, new Vector3(128f, 90f, 51f), Input);
             pickingRay = new TgcPickingRay(Input);
+
+
+            // empieza sombras
+
+            g_pShadowMap = new Texture(D3DDevice.Instance.Device, SHADOWMAP_SIZE, SHADOWMAP_SIZE,
+               1, Usage.RenderTarget, Format.R32F,
+               Pool.Default);
+
+            g_pDSShadow = D3DDevice.Instance.Device.CreateDepthStencilSurface(SHADOWMAP_SIZE,
+                SHADOWMAP_SIZE,
+                DepthFormat.D24S8,
+                MultiSampleType.None,
+                0,
+                true);
+
+            var aspectRatio = D3DDevice.Instance.AspectRatio;
+            g_mShadowProj = Matrix.PerspectiveFovLH(Geometry.DegreeToRadian(110), aspectRatio, 50, 5000);
+            D3DDevice.Instance.Device.Transform.Projection =
+                Matrix.PerspectiveFovLH(Geometry.DegreeToRadian(45.0f), aspectRatio, near_plane, far_plane);
+
+            //termina sombras 
+
 
             InicializarEnemigos();
             InicializarPuertas();
@@ -398,7 +434,128 @@ namespace TGC.Group.Model
         public override void Render()
         {
             //Inicio el render de la escena, para ejemplos simples. Cuando tenemos postprocesado o shaders es mejor realizar las operaciones según nuestra conveniencia.
-            PreRender();
+            //PreRender();
+
+
+            ClearTextures();
+
+            D3DDevice.Instance.Device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.Black, 1.0f, 0);
+            D3DDevice.Instance.Device.BeginScene();
+
+
+
+
+            D3DDevice.Instance.Device.EndScene(); // termino el thread anterior
+
+            D3DDevice.Instance.Device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.Black, 1.0f, 0);
+
+
+            //Genero el shadow map
+
+
+            RenderShadowMap();
+
+            D3DDevice.Instance.Device.BeginScene();
+            // dibujo la escena pp dicha
+            D3DDevice.Instance.Device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.Black, 1.0f, 0);
+            RenderScene(false);
+
+            //--------Niebla---------//            
+            fog.StartDistance = 50f;
+            fog.EndDistance = 1000f;
+            fog.Density = 0.0015f;
+            fog.Color = Color.Black;
+
+            if (iluminacionEnMano == null || iluminacionEnMano.usarFog)
+            {
+                fog.Enabled = true;
+            }
+            else
+            {
+                fog.Enabled = false;
+            }
+            fog.updateValues();
+
+            VerificarColisionConClick();
+
+
+            //Dibuja un texto por pantalla
+            DrawText.drawText(
+                "Con clic izquierdo subimos la camara [Actual]: " + TgcParserUtils.printVector3(Camara.Position) + " - LookAt: " + TgcParserUtils.printVector3(Camara.LookAt), 0, 20,
+                Color.OrangeRed);
+
+            if (((TgcFpsCamera)Camara).colisiones)
+
+                DrawText.drawText(
+                    "Colisiones activadas (C para desactivar)", 0, 50,
+                    Color.OrangeRed);
+            else
+                DrawText.drawText(
+                   "Colisiones desactivadas (C para activar)", 0, 50,
+                   Color.OrangeRed);
+
+            if (iluminacionEnMano != null)
+                DrawText.drawText(
+                   "BATERIA: " + getBateria() + "%", resolucionPantalla.Width - 175, 30, Color.OrangeRed);
+
+            if (luzActivada && iluminacionEnMano != null && iluminacionEnMano.puedeApagarse)
+                DrawText.drawText(
+          "Presionar F pare apagar", 0, 70, Color.OrangeRed);
+            else if (!luzActivada && iluminacionEnMano != null && iluminacionEnMano.puedeApagarse)
+                DrawText.drawText(
+          "Presionar F pare encender", 0, 70, Color.OrangeRed);
+
+            if (mostrarBloqueado > 0)
+            {
+
+                var matrizView = D3DDevice.Instance.Device.Transform.View;
+                D3DDevice.Instance.Device.Transform.View = Matrix.Identity;
+                bloqueado.render();
+                D3DDevice.Instance.Device.Transform.View = matrizView;
+                mostrarBloqueado -= ElapsedTime;
+
+            }
+            else if (mostrarBloqueado < 0)
+            {
+                mostrarBloqueado = 0;
+            }
+
+
+            if (iluminacionEnMano != null)
+            {
+                iluminacionEnMano.mesh.Effect = TgcShaders.Instance.TgcMeshShader;
+                iluminacionEnMano.mesh.Technique = TgcShaders.Instance.getTgcMeshTechnique(TgcMesh.MeshRenderType.DIFFUSE_MAP);
+                var matrizView = D3DDevice.Instance.Device.Transform.View;
+                D3DDevice.Instance.Device.Transform.View = Matrix.Identity;
+                iluminacionEnMano.mesh.Enabled = true;
+                iluminacionEnMano.mesh.render();
+                iluminacionEnMano.mesh.Enabled = false;
+                D3DDevice.Instance.Device.Transform.View = matrizView;
+
+            }
+
+
+            foreach (var enemigo in enemigos)
+            {
+
+                enemigo.render(ElapsedTime);
+
+            }
+
+            D3DDevice.Instance.Device.EndScene();
+            D3DDevice.Instance.Device.Present();
+
+
+
+
+
+
+
+
+
+
+
+            /*
 
             var lightColors = new ColorValue[4];
             var pointLightPositions = new Vector4[4];
@@ -556,42 +713,26 @@ namespace TGC.Group.Model
             {
                 mesh.render();
             }
+            */
 
-
-
-            //scene.renderAll();
-            /*
-            D3DDevice.Instance.Device.EndScene(); // termino el thread anterior
-
-            Camara.UpdateCamera(ElapsedTime);
-            D3DDevice.Instance.Device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.Black, 1.0f, 0);
-
-            //Genero el shadow map
-            RenderShadowMap();
-
-            D3DDevice.Instance.Device.BeginScene();
-            // dibujo la escena pp dicha
-            D3DDevice.Instance.Device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.Black, 1.0f, 0);
-            RenderScene(false);
-*/
-            PostRender();
-         //   D3DDevice.Instance.Device.Present();
         }
 
-        /*
         public void RenderShadowMap()
         {
-            if (iluminacionEnMano != null)
-            {
-                // Calculo la matriz de view de la luz
-                effectShadow.SetValue("g_vLightPos", new Vector4(iluminacionEnMano.pointLightPosition.X, iluminacionEnMano.pointLightPosition.Y, iluminacionEnMano.pointLightPosition.Z, 1));
-                effectShadow.SetValue("g_vLightDir", new Vector4(Camara.Position.X, Camara.Position.Y, Camara.Position.Z, 1));
-                g_LightView = Matrix.LookAtLH(iluminacionEnMano.pointLightPosition, iluminacionEnMano.pointLightPosition + Camara.Position, new Vector3(0, 0, 1));
 
-                // inicializacion standard:
-                effectShadow.SetValue("g_mProjLight", g_mShadowProj);
-                effectShadow.SetValue("g_mViewLightProj", g_LightView * g_mShadowProj);
-            }
+            Vector3 direccion = Camara.LookAt - Camara.Position - new Vector3(0f, 25f, 0f);
+
+
+
+            // Calculo la matriz de view de la luz
+            effect.SetValue("g_vLightPos", new Vector4(Camara.Position.X - 10f, Camara.Position.Y, Camara.Position.Z - 10f, 1));
+            effect.SetValue("g_vLightDir", new Vector4(direccion.X, direccion.Y, direccion.Z, 1));
+            g_LightView = Matrix.LookAtLH(Camara.Position, direccion + Camara.Position, new Vector3(0, 0, 1));
+
+            // inicializacion standard:
+            effect.SetValue("g_mProjLight", g_mShadowProj);
+            effect.SetValue("g_mViewLightProj", g_LightView * g_mShadowProj);
+
             // Primero genero el shadow map, para ello dibujo desde el pto de vista de luz
             // a una textura, con el VS y PS que generan un mapa de profundidades.
             var pOldRT = D3DDevice.Instance.Device.GetRenderTarget(0);
@@ -603,7 +744,7 @@ namespace TGC.Group.Model
             D3DDevice.Instance.Device.BeginScene();
 
             // Hago el render de la escena pp dicha
-            effectShadow.SetValue("g_txShadow", g_pShadowMap);
+            effect.SetValue("g_txShadow", g_pShadowMap);
             RenderScene(true);
 
             // Termino
@@ -620,22 +761,89 @@ namespace TGC.Group.Model
 
         public void RenderScene(bool shadow)
         {
-            foreach (var T in meshesARenderizar)
+            var lightColors = new ColorValue[4];
+            var pointLightPositions = new Vector4[4];
+            var pointLightIntensity = new float[4];
+            var pointLightAttenuation = new float[4];
+
+            int j = 0;
+
+            for (var i = 0; i < iluminaciones.Length; i++)
             {
+
+                if (meshesARenderizar.Contains(iluminaciones[i].mesh))
+                {
+
+
+                    if (iluminacionEnMano != iluminaciones[i] && iluminaciones[i].mesh.Enabled)
+                    {
+                        lightColors[j] = ColorValue.FromColor(iluminaciones[i].lightColors);
+                        pointLightPositions[j] = TgcParserUtils.vector3ToVector4(iluminaciones[i].pointLightPosition);
+                        pointLightIntensity[j] = iluminaciones[i].pointLightIntensity;
+                        pointLightAttenuation[j] = iluminaciones[i].pointLightAttenuation;
+                        j++;
+                    }
+
+
+                }
+
+
+
+
+            }
+
+            if (iluminacionEnMano != null)
+            {
+
+                if (luzActivada)
+                {
+                    lightColors[j] = ColorValue.FromColor(iluminacionEnMano.lightColors);
+                    pointLightPositions[j] = TgcParserUtils.vector3ToVector4(Camara.Position);
+                    pointLightIntensity[j] = iluminacionEnMano.pointLightIntensityAgarrada;
+                    pointLightAttenuation[j] = iluminacionEnMano.pointLightAttenuationAgarrada;
+                }
+
+                iluminacionEnMano.mesh.Effect = TgcShaders.Instance.TgcMeshShader;
+                iluminacionEnMano.mesh.Technique = TgcShaders.Instance.getTgcMeshTechnique(TgcMesh.MeshRenderType.DIFFUSE_MAP);
+            }
+
+
+
+
+            foreach (var mesh in meshesARenderizar)
+            {
+              
                 if (shadow)
                 {
-                    T.Technique = "RenderShadow";
+                    mesh.Effect = effect;
+                    mesh.Technique = "RenderShadow";                    
                 }
                 else
                 {
-                    T.Technique = "RenderScene";
+                    mesh.Effect = effect;
+                    mesh.Technique = "RenderScene";
+
+                    if (iluminacionEnMano == null || mesh != iluminacionEnMano.mesh)
+                    {
+
+                        mesh.UpdateMeshTransform();
+
+                        //Cargar variables de shader
+                        mesh.Effect.SetValue("lightColor", lightColors);
+                        mesh.Effect.SetValue("lightPosition", pointLightPositions);
+                        mesh.Effect.SetValue("lightIntensity", pointLightIntensity);
+                        mesh.Effect.SetValue("lightAttenuation", pointLightAttenuation);
+                        mesh.Effect.SetValue("materialEmissiveColor",
+                            ColorValue.FromColor((Color.Black)));
+                        mesh.Effect.SetValue("materialDiffuseColor",
+                            ColorValue.FromColor(Color.White));
+                    }
                 }
 
-                T.render();
+                mesh.render();
             }
 
         }
-        */
 
         private int getBateria()
         {
