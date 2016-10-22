@@ -119,9 +119,10 @@ namespace TGC.Group.Model
             this.setEstado(Estado.Retornando);
         }
 
-        public void actualizarEstado(TgcCamera Camara, float ElapsedTime, TgcScene scene)
-        {            
-
+        public void actualizarEstado(TgcCamera Camara, float ElapsedTime, TgcScene scene,bool enemigoEnTacho)
+        {
+            if (enemigoEnTacho)
+                estado = Estado.Retornando;
             if (estado != Estado.Parado)
             {
                 Vector3 posicionAnterior = mesh.Position;
@@ -132,7 +133,6 @@ namespace TGC.Group.Model
                     vector = Camara.Position - mesh.Position;
                 else
                     vector = posicionInicial - mesh.Position;
-
                 vector.Normalize();
                 vector.Y = 0;
 

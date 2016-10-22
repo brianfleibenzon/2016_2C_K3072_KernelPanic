@@ -322,8 +322,12 @@ namespace TGC.Group.Model
         void ActualizarEstadoEnemigos()
         {
             foreach (var enemigo in enemigos)
-            {
-                enemigo.actualizarEstado(Camara, ElapsedTime, scene);
+            {   
+                if (enTacho!= null)
+                    enemigo.actualizarEstado(Camara, ElapsedTime, scene, true);
+                else
+                    enemigo.actualizarEstado(Camara, ElapsedTime, scene, false);
+
 
             }
         }
