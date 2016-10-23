@@ -142,29 +142,13 @@ struct PS_INPUT_VERTEX_COLOR
 };
 
 //Funcion para calcular color RGB de Diffuse
-float3 computeDiffuseComponent(float3 surfacePosition, float3 Nn, float3 Ln, float3 Hn, int i)
+float computeDiffuseComponent(float3 surfacePosition, int i)
 {
 	//Calcular intensidad de luz, con atenuacion por distancia
 	float distAtten = length(lightPosition[i].xyz - surfacePosition) * lightAttenuation[i];
-	float intensity = lightIntensity[i] / distAtten; //Dividimos intensidad sobre distancia (lo hacemos lineal pero tambien podria ser i/d^2)
-
-	//Componente Ambient
-	float3 ambientLight = intensity * lightColor[i] * materialAmbientColor;
-
-	//Componente Diffuse: N dot L
-	float3 n_dot_l = dot(Nn, Ln);
-	float3 diffuseLight = intensity * lightColor[i] * materialDiffuseColor.rgb * max(0.0, n_dot_l); //Controlamos que no de negativo
-
-	//Componente Specular: (N dot H)^exp
-	float3 n_dot_h = dot(Nn, Hn);
-	float3 specularLight = n_dot_l <= 0.0
-			? float3(0.0, 0.0, 0.0)
-			: (intensity * lightColor[i] * materialSpecularColor * pow(max(0.0, n_dot_h), materialSpecularExp));
-
-	/* Color final: modular (Emissive + Ambient + Diffuse) por el color del mesh, y luego sumar Specular.
-	   El color Alpha sale del diffuse material */
+	float intensity = lightIntensity[i] / distAtten; //Dividimos intensidad sobre distancia (lo hacemos lineal pero tambien podria ser i/d^2)	
 	
-	float3 finalColor = (ambientLight, diffuseLight, specularLight);
+	float finalColor = intensity;
 
 	return finalColor;
 }
@@ -172,17 +156,14 @@ float3 computeDiffuseComponent(float3 surfacePosition, float3 Nn, float3 Ln, flo
 //Pixel Shader
 float4 ps_VertexColor(PS_INPUT_VERTEX_COLOR input) : COLOR0
 {
-	//Normalizar vectores
-	float3 Nn = normalize(input.WorldNormal);
-	float3 Ln = normalize(input.LightVec);
-	float3 Hn = normalize(input.HalfAngleVec);
 	
-	float3 colorFinal = computeDiffuseComponent(input.WorldPosition, Nn, Ln, Hn, 0);
-	colorFinal += computeDiffuseComponent(input.WorldPosition, Nn, Ln, Hn, 1);
-	colorFinal += computeDiffuseComponent(input.WorldPosition, Nn, Ln, Hn, 2);
-	//colorFinal += computeDiffuseComponent(input.WorldPosition, Nn, Ln, Hn, 3);
+	float colorFinal = computeDiffuseComponent(input.WorldPosition, 0);
 	
-	float4 finalColor = float4(saturate(materialEmissiveColor + colorFinal.x + colorFinal.y) * input.Color + colorFinal.z , materialDiffuseColor.a);
+	float intensidad = min(colorFinal, 0.15);
+	
+	colorFinal = min(colorFinal, 0.8);
+	
+	float4 finalColor = float4(intensidad * lightColor[0].r + colorFinal * input.Color.r, intensidad * lightColor[0].g + colorFinal * input.Color.g, intensidad * lightColor[0].b + colorFinal * input.Color.b, materialDiffuseColor.a);
 	
 	return finalColor;	
 }
@@ -311,12 +292,13 @@ float4 ps_DiffuseMap(PS_DIFFUSE_MAP input) : COLOR0
 	//Obtener texel de la textura
 	float4 texelColor = tex2D(diffuseMap, input.Texcoord);
 	
-	float3 colorFinal = computeDiffuseComponent(input.WorldPosition, Nn, Ln, Hn, 0);
-	colorFinal += computeDiffuseComponent(input.WorldPosition, Nn, Ln, Hn, 1);
-	colorFinal += computeDiffuseComponent(input.WorldPosition, Nn, Ln, Hn, 2);
-	//colorFinal += computeDiffuseComponent(input.WorldPosition, Nn, Ln, Hn, 3);
+	float colorFinal = computeDiffuseComponent(input.WorldPosition, 0);
 	
-	float4 finalColor = float4(saturate(materialEmissiveColor + colorFinal.x + colorFinal.y) * texelColor + colorFinal.z , materialDiffuseColor.a);
+	float intensidad = min(colorFinal, 0.15);
+	
+	colorFinal = min(colorFinal, 0.8);
+	
+	float4 finalColor = float4(intensidad * lightColor[0].r + colorFinal * texelColor.r, intensidad * lightColor[0].g + colorFinal * texelColor.g, intensidad * lightColor[0].b + colorFinal * texelColor.b, materialDiffuseColor.a);
 	
 	return finalColor;	
 }

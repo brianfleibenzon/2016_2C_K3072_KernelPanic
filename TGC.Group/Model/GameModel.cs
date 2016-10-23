@@ -196,25 +196,27 @@ namespace TGC.Group.Model
                 puertas[i].sonido.MinDistance = 1000f;
             }
 
-            puertas[0].funcion = () => { this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona6); this.meshesARenderizar.AddRange(SepararZonas.zona1); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
+            puertas[0].funcionAbriendo = () => { this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona6); this.meshesARenderizar.AddRange(SepararZonas.zona1); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
 
-            puertas[1].funcion = () => { this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona7); this.meshesARenderizar.AddRange(SepararZonas.zona1); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
+            puertas[1].funcionAbriendo = () => { this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona7); this.meshesARenderizar.AddRange(SepararZonas.zona1); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
 
             puertas[2].estado = Puerta.Estado.BLOQUEADA;
-            puertas[2].funcion = () => { this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona8); this.meshesARenderizar.AddRange(SepararZonas.zona1); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
+            puertas[2].funcionAbriendo = () => { this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona8); this.meshesARenderizar.AddRange(SepararZonas.zona1); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
 
             puertas[3].estado = Puerta.Estado.BLOQUEADA;
-            puertas[3].funcion = () => { this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona9); this.meshesARenderizar.AddRange(SepararZonas.zona1); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
+            puertas[3].funcionAbriendo = () => { this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona9); this.meshesARenderizar.AddRange(SepararZonas.zona1); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
 
             puertas[4].estado = Puerta.Estado.BLOQUEADA;
-            puertas[4].funcion = () => { enemigos[0].activar(); this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona2); this.meshesARenderizar.AddRange(SepararZonas.zona1); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
+            puertas[4].funcionAbriendo = () => { this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona2); this.meshesARenderizar.AddRange(SepararZonas.zona1); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
+            puertas[4].funcionAbierta = () => { enemigos[0].activar(); };
 
-            puertas[5].funcion = () => { this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona1); this.meshesARenderizar.AddRange(SepararZonas.zona3); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
+            puertas[5].funcionAbriendo = () => { this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona1); this.meshesARenderizar.AddRange(SepararZonas.zona3); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
 
-            puertas[6].funcion = () => { if (interruptores[0].estado == Interruptor.Estado.ACTIVADO) enemigos[1].retornar(); else enemigos[1].activar(); this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona3); this.meshesARenderizar.AddRange(SepararZonas.zona4); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
+            puertas[6].funcionAbriendo = () => { this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona3); this.meshesARenderizar.AddRange(SepararZonas.zona4); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
+            puertas[6].funcionAbierta = () => { if (interruptores[0].estado == Interruptor.Estado.ACTIVADO) enemigos[1].retornar(); else enemigos[1].activar(); };
 
-            puertas[7].funcion = () => { if (interruptores[0].estado == Interruptor.Estado.DESACTIVADO) enemigos[1].retornar(); else enemigos[1].activar(); this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona4); this.meshesARenderizar.AddRange(SepararZonas.zona5); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
-
+            puertas[7].funcionAbriendo = () => {  this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona4); this.meshesARenderizar.AddRange(SepararZonas.zona5); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
+            puertas[7].funcionAbierta = () => { if (interruptores[0].estado == Interruptor.Estado.DESACTIVADO) enemigos[1].retornar(); else enemigos[1].activar(); };
         }
 
         void InicializarEnemigos()
@@ -322,7 +324,7 @@ namespace TGC.Group.Model
         void ActualizarEstadoEnemigos()
         {
             foreach (var enemigo in enemigos)
-            {   
+            {
                 enemigo.actualizarEstado(Camara, ElapsedTime, scene);
 
             }
@@ -401,7 +403,7 @@ namespace TGC.Group.Model
                         break;
                     }
                 }
-                
+
             }
         }
 
@@ -496,7 +498,7 @@ namespace TGC.Group.Model
             fog.updateValues();
 
             VerificarColisionConClick();
-
+            
 
             //Dibuja un texto por pantalla
             DrawText.drawText(
@@ -541,7 +543,7 @@ namespace TGC.Group.Model
                 mostrarBloqueado = 0;
             }
 
-
+            
             if (iluminacionEnMano != null)
             {
                 iluminacionEnMano.mesh.Effect = TgcShaders.Instance.TgcMeshShader;
@@ -556,7 +558,7 @@ namespace TGC.Group.Model
             }
 
 
-            
+
 
             D3DDevice.Instance.Device.EndScene();
             D3DDevice.Instance.Device.Present();
@@ -624,12 +626,13 @@ namespace TGC.Group.Model
                     pointLightPositions[j] = TgcParserUtils.vector3ToVector4(Camara.Position);
                     pointLightIntensity[j] = iluminacionEnMano.pointLightIntensityAgarrada;
                     pointLightAttenuation[j] = iluminacionEnMano.pointLightAttenuationAgarrada;
-                    j++;
                 }
 
                 iluminacionEnMano.mesh.Effect = TgcShaders.Instance.TgcMeshShader;
                 iluminacionEnMano.mesh.Technique = TgcShaders.Instance.getTgcMeshTechnique(TgcMesh.MeshRenderType.DIFFUSE_MAP);
             }
+
+            j = 1;
 
             for (var i = 0; i < iluminaciones.Length; i++)
             {
@@ -655,7 +658,7 @@ namespace TGC.Group.Model
 
             }
 
-            
+
 
             foreach (var enemigo in enemigos)
             {
@@ -669,7 +672,6 @@ namespace TGC.Group.Model
                      ColorValue.FromColor((Color.Black)));
                  enemigo.mesh.Effect.SetValue("materialDiffuseColor",
                      ColorValue.FromColor(Color.White));*/
-
                 //Cargar variables shader de la luz
                 enemigo.mesh.Effect.SetValue("lightColor", lightColors);
                 enemigo.mesh.Effect.SetValue("lightPosition", pointLightPositions);
@@ -679,18 +681,34 @@ namespace TGC.Group.Model
 
                 //Cargar variables de shader de Material. El Material en realidad deberia ser propio de cada mesh. Pero en este ejemplo se simplifica con uno comun para todos
                 enemigo.mesh.Effect.SetValue("materialEmissiveColor",
-                    ColorValue.FromColor((Color.White)));
-                enemigo.mesh.Effect.SetValue("materialAmbientColor", ColorValue.FromColor(Color.White));
-                enemigo.mesh.Effect.SetValue("materialDiffuseColor", ColorValue.FromColor(Color.White));
+                    ColorValue.FromColor((Color.DarkGray)));
+                enemigo.mesh.Effect.SetValue("materialAmbientColor", ColorValue.FromColor(Color.DarkGray));
+                enemigo.mesh.Effect.SetValue("materialDiffuseColor", ColorValue.FromColor(Color.DarkGray));
                 enemigo.mesh.Effect.SetValue("materialSpecularColor",
-                   ColorValue.FromColor(Color.White));
-                enemigo.mesh.Effect.SetValue("materialSpecularExp", 0f);
+                   ColorValue.FromColor(Color.DarkGray));
+                enemigo.mesh.Effect.SetValue("materialSpecularExp", 100f);
 
                 enemigo.render(ElapsedTime);
             }
 
+            List<TgcMesh> ListaARenderizar = meshesARenderizar;
 
-            foreach (var mesh in meshesARenderizar)
+            if (((TgcFpsCamera)Camara).colisiones == false)
+            {
+                ListaARenderizar = new List<TgcMesh>();
+                ListaARenderizar.AddRange(SepararZonas.zona1);
+                ListaARenderizar.AddRange(SepararZonas.zona2);
+                ListaARenderizar.AddRange(SepararZonas.zona3);
+                ListaARenderizar.AddRange(SepararZonas.zona4);
+                ListaARenderizar.AddRange(SepararZonas.zona5);
+                ListaARenderizar.AddRange(SepararZonas.zona6);
+                ListaARenderizar.AddRange(SepararZonas.zona7);
+                ListaARenderizar.AddRange(SepararZonas.zona8);
+                ListaARenderizar.AddRange(SepararZonas.zona9);
+                ListaARenderizar.AddRange(SepararZonas.comunes);
+            }
+
+            foreach (var mesh in ListaARenderizar)
             {
 
                 if (shadow)
@@ -755,18 +773,18 @@ namespace TGC.Group.Model
                     {
                         if (meshesARenderizar.Contains(contenedor.mesh) && TgcCollisionUtils.sqDistPointAABB(Camara.Position, contenedor.mesh.BoundingBox) < 3000f)
                         {
-  
+
                             contenedor.esconderse(((TgcFpsCamera)Camara));
                             enTacho = contenedor;
 
                             foreach (var enemigo in enemigos)
                             {
-                               enemigo.retornar();
+                                enemigo.retornar();
                             }
 
-                        }                        
+                        }
                     }
-                
+
                 }
             }
 

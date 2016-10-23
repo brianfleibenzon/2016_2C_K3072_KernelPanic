@@ -261,7 +261,6 @@ namespace TGC.Group.Form
 
             //Inicio el ciclo de Render.
             InitRenderLoop();
-
             //Focus panel3D.
             panel3D.Focus();
         }

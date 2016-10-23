@@ -18,7 +18,8 @@ namespace TGC.Group.Model
 
         public Estado estado = Estado.CERRADA;
 
-        public Action funcion = null;
+        public Action funcionAbriendo = null;
+        public Action funcionAbierta = null;
 
         public TgcMesh mesh;
 
@@ -41,11 +42,15 @@ namespace TGC.Group.Model
                     if (this.mesh.Position.Y < 195)
                     {
                         this.mesh.move(new Vector3(0, 80f * ElapsedTime, 0));
+                        if (funcionAbierta != null)
+                            funcionAbierta();
                         ((TgcFpsCamera)Camara).moverse = false;
                     }
                     else
                     {
                         this.estado = Puerta.Estado.ABIERTA;
+
+
                         this.sonido.stop();
                         ((TgcFpsCamera)Camara).moverse = true;
                     }
@@ -66,8 +71,8 @@ namespace TGC.Group.Model
 
         public void abrir()
         {
-            if (funcion != null)
-                funcion();      
+            if (funcionAbriendo != null)
+                funcionAbriendo();      
             this.estado = Estado.ABRIENDO;
             this.sonido.play();
         }
