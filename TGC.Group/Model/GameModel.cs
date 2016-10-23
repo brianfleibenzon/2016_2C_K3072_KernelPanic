@@ -526,7 +526,7 @@ namespace TGC.Group.Model
                 DrawText.drawText(
           "Presionar F pare encender", 0, 70, Color.OrangeRed);
 
-
+            RenderFPS();
 
             if (mostrarBloqueado > 0)
             {
@@ -595,7 +595,7 @@ namespace TGC.Group.Model
             // Hago el render de la escena pp dicha
             effect.SetValue("g_txShadow", g_pShadowMap);
             RenderScene(true);
-
+            
             // Termino
             D3DDevice.Instance.Device.EndScene();
 
