@@ -323,11 +323,7 @@ namespace TGC.Group.Model
         {
             foreach (var enemigo in enemigos)
             {   
-                if (enTacho!= null)
-                    enemigo.actualizarEstado(Camara, ElapsedTime, scene, true);
-                else
-                    enemigo.actualizarEstado(Camara, ElapsedTime, scene, false);
-
+                enemigo.actualizarEstado(Camara, ElapsedTime, scene);
 
             }
         }
@@ -560,12 +556,7 @@ namespace TGC.Group.Model
             }
 
 
-            foreach (var enemigo in enemigos)
-            {
-
-                enemigo.render(ElapsedTime);
-
-            }
+            
 
             D3DDevice.Instance.Device.EndScene();
             D3DDevice.Instance.Device.Present();
@@ -624,6 +615,22 @@ namespace TGC.Group.Model
 
             int j = 0;
 
+            if (iluminacionEnMano != null)
+            {
+
+                if (luzActivada)
+                {
+                    lightColors[j] = ColorValue.FromColor(iluminacionEnMano.lightColors);
+                    pointLightPositions[j] = TgcParserUtils.vector3ToVector4(Camara.Position);
+                    pointLightIntensity[j] = iluminacionEnMano.pointLightIntensityAgarrada;
+                    pointLightAttenuation[j] = iluminacionEnMano.pointLightAttenuationAgarrada;
+                    j++;
+                }
+
+                iluminacionEnMano.mesh.Effect = TgcShaders.Instance.TgcMeshShader;
+                iluminacionEnMano.mesh.Technique = TgcShaders.Instance.getTgcMeshTechnique(TgcMesh.MeshRenderType.DIFFUSE_MAP);
+            }
+
             for (var i = 0; i < iluminaciones.Length; i++)
             {
 
@@ -648,22 +655,39 @@ namespace TGC.Group.Model
 
             }
 
-            if (iluminacionEnMano != null)
+            
+
+            foreach (var enemigo in enemigos)
             {
 
-                if (luzActivada)
-                {
-                    lightColors[j] = ColorValue.FromColor(iluminacionEnMano.lightColors);
-                    pointLightPositions[j] = TgcParserUtils.vector3ToVector4(Camara.Position);
-                    pointLightIntensity[j] = iluminacionEnMano.pointLightIntensityAgarrada;
-                    pointLightAttenuation[j] = iluminacionEnMano.pointLightAttenuationAgarrada;
-                }
 
-                iluminacionEnMano.mesh.Effect = TgcShaders.Instance.TgcMeshShader;
-                iluminacionEnMano.mesh.Technique = TgcShaders.Instance.getTgcMeshTechnique(TgcMesh.MeshRenderType.DIFFUSE_MAP);
+                /* enemigo.mesh.Effect.SetValue("lightColor", lightColors);
+                 enemigo.mesh.Effect.SetValue("lightPosition", pointLightPositions);
+                 enemigo.mesh.Effect.SetValue("lightIntensity", pointLightIntensity);
+                 enemigo.mesh.Effect.SetValue("lightAttenuation", pointLightAttenuation);
+                 enemigo.mesh.Effect.SetValue("materialEmissiveColor",
+                     ColorValue.FromColor((Color.Black)));
+                 enemigo.mesh.Effect.SetValue("materialDiffuseColor",
+                     ColorValue.FromColor(Color.White));*/
+
+                //Cargar variables shader de la luz
+                enemigo.mesh.Effect.SetValue("lightColor", lightColors);
+                enemigo.mesh.Effect.SetValue("lightPosition", pointLightPositions);
+                enemigo.mesh.Effect.SetValue("eyePosition", TgcParserUtils.vector3ToFloat4Array(Camara.Position));
+                enemigo.mesh.Effect.SetValue("lightIntensity", pointLightIntensity);
+                enemigo.mesh.Effect.SetValue("lightAttenuation", pointLightAttenuation);
+
+                //Cargar variables de shader de Material. El Material en realidad deberia ser propio de cada mesh. Pero en este ejemplo se simplifica con uno comun para todos
+                enemigo.mesh.Effect.SetValue("materialEmissiveColor",
+                    ColorValue.FromColor((Color.White)));
+                enemigo.mesh.Effect.SetValue("materialAmbientColor", ColorValue.FromColor(Color.White));
+                enemigo.mesh.Effect.SetValue("materialDiffuseColor", ColorValue.FromColor(Color.White));
+                enemigo.mesh.Effect.SetValue("materialSpecularColor",
+                   ColorValue.FromColor(Color.White));
+                enemigo.mesh.Effect.SetValue("materialSpecularExp", 0f);
+
+                enemigo.render(ElapsedTime);
             }
-
-
 
 
             foreach (var mesh in meshesARenderizar)
@@ -729,12 +753,16 @@ namespace TGC.Group.Model
                 {
                     foreach (var contenedor in contenedores)
                     {
-                        if (TgcCollisionUtils.sqDistPointAABB(Camara.Position, contenedor.mesh.BoundingBox) < 5000f)
+                        if (meshesARenderizar.Contains(contenedor.mesh) && TgcCollisionUtils.sqDistPointAABB(Camara.Position, contenedor.mesh.BoundingBox) < 3000f)
                         {
   
                             contenedor.esconderse(((TgcFpsCamera)Camara));
+                            enTacho = contenedor;
 
-                            enTacho = contenedor;                                
+                            foreach (var enemigo in enemigos)
+                            {
+                               enemigo.retornar();
+                            }
 
                         }                        
                     }

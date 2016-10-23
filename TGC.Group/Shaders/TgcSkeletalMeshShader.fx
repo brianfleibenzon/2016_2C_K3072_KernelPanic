@@ -1,5 +1,6 @@
 /*
-* Shader generico para TgcSkeletalMesh
+* Shader genérico para TgcSkeletalMesh con iluminación dinámica por pixel (Phong Shading)
+* utilizando un tipo de luz Point-Light con atenuación por distancia
 * Hay 2 Techniques, una para cada MeshRenderType:
 *	- VERTEX_COLOR
 *	- DIFFUSE_MAP
@@ -31,6 +32,20 @@ sampler2D diffuseMap = sampler_state
 static const int MAX_MATRICES = 26;
 float4x3 bonesMatWorldArray[MAX_MATRICES];
 
+//Material del mesh
+float3 materialEmissiveColor; //Color RGB
+float3 materialAmbientColor; //Color RGB
+float4 materialDiffuseColor; //Color ARGB (tiene canal Alpha)
+float3 materialSpecularColor; //Color RGB
+float materialSpecularExp; //Exponente de specular
+
+//Parametros de la Luz
+float3 lightColor[4]; //Color RGB de la luz
+float4 lightPosition[4]; //Posicion de la luz
+float4 eyePosition; //Posicion de la camara
+float lightIntensity[4]; //Intensidad de la luz
+float lightAttenuation[4];
+
 /**************************************************************************************/
 /* VERTEX_COLOR */
 /**************************************************************************************/
@@ -52,9 +67,12 @@ struct VS_OUTPUT_VERTEX_COLOR
 {
 	float4 Position : POSITION0;
 	float4 Color : COLOR;
-	float3 WorldNormal : TEXCOORD1;
-	float3 WorldTangent	: TEXCOORD2;
-	float3 WorldBinormal : TEXCOORD3;
+	float3 WorldNormal : TEXCOORD0;
+	float3 WorldTangent	: TEXCOORD1;
+	float3 WorldBinormal : TEXCOORD2;
+	float3 WorldPosition : TEXCOORD3;
+	float3 LightVec	: TEXCOORD4;	
+	float3 HalfAngleVec	: TEXCOORD5;
 };
 
 //Vertex Shader
@@ -98,6 +116,18 @@ VS_OUTPUT_VERTEX_COLOR vs_VertexColor(VS_INPUT_VERTEX_COLOR input)
 	//Enviar color directamente
 	output.Color = input.Color;
 
+	//Posicion pasada a World-Space (necesaria para atenuación por distancia)
+	output.WorldPosition = mul(input.Position, matWorld);
+
+	//LightVec (L): vector que va desde el vertice hacia la luz. Usado en Diffuse y Specular
+	output.LightVec = lightPosition[0].xyz - output.WorldPosition;
+
+	//ViewVec (V): vector que va desde el vertice hacia la camara.
+	float3 viewVector = eyePosition.xyz - output.WorldPosition;
+
+	//HalfAngleVec (H): vector de reflexion simplificado de Phong-Blinn (H = |V + L|). Usado en Specular
+	output.HalfAngleVec = viewVector + output.LightVec;
+
 	return output;
 }
 
@@ -105,12 +135,56 @@ VS_OUTPUT_VERTEX_COLOR vs_VertexColor(VS_INPUT_VERTEX_COLOR input)
 struct PS_INPUT_VERTEX_COLOR
 {
 	float4 Color : COLOR0;
+	float3 WorldNormal : TEXCOORD0;
+	float3 WorldPosition : TEXCOORD3;
+	float3 LightVec	: TEXCOORD4;
+	float3 HalfAngleVec	: TEXCOORD5;
 };
+
+//Funcion para calcular color RGB de Diffuse
+float3 computeDiffuseComponent(float3 surfacePosition, float3 Nn, float3 Ln, float3 Hn, int i)
+{
+	//Calcular intensidad de luz, con atenuacion por distancia
+	float distAtten = length(lightPosition[i].xyz - surfacePosition) * lightAttenuation[i];
+	float intensity = lightIntensity[i] / distAtten; //Dividimos intensidad sobre distancia (lo hacemos lineal pero tambien podria ser i/d^2)
+
+	//Componente Ambient
+	float3 ambientLight = intensity * lightColor[i] * materialAmbientColor;
+
+	//Componente Diffuse: N dot L
+	float3 n_dot_l = dot(Nn, Ln);
+	float3 diffuseLight = intensity * lightColor[i] * materialDiffuseColor.rgb * max(0.0, n_dot_l); //Controlamos que no de negativo
+
+	//Componente Specular: (N dot H)^exp
+	float3 n_dot_h = dot(Nn, Hn);
+	float3 specularLight = n_dot_l <= 0.0
+			? float3(0.0, 0.0, 0.0)
+			: (intensity * lightColor[i] * materialSpecularColor * pow(max(0.0, n_dot_h), materialSpecularExp));
+
+	/* Color final: modular (Emissive + Ambient + Diffuse) por el color del mesh, y luego sumar Specular.
+	   El color Alpha sale del diffuse material */
+	
+	float3 finalColor = (ambientLight, diffuseLight, specularLight);
+
+	return finalColor;
+}
 
 //Pixel Shader
 float4 ps_VertexColor(PS_INPUT_VERTEX_COLOR input) : COLOR0
 {
-	return input.Color;
+	//Normalizar vectores
+	float3 Nn = normalize(input.WorldNormal);
+	float3 Ln = normalize(input.LightVec);
+	float3 Hn = normalize(input.HalfAngleVec);
+	
+	float3 colorFinal = computeDiffuseComponent(input.WorldPosition, Nn, Ln, Hn, 0);
+	colorFinal += computeDiffuseComponent(input.WorldPosition, Nn, Ln, Hn, 1);
+	colorFinal += computeDiffuseComponent(input.WorldPosition, Nn, Ln, Hn, 2);
+	//colorFinal += computeDiffuseComponent(input.WorldPosition, Nn, Ln, Hn, 3);
+	
+	float4 finalColor = float4(saturate(materialEmissiveColor + colorFinal.x + colorFinal.y) * input.Color + colorFinal.z , materialDiffuseColor.a);
+	
+	return finalColor;	
 }
 
 /*
@@ -120,8 +194,8 @@ technique VERTEX_COLOR
 {
 	pass Pass_0
 	{
-		VertexShader = compile vs_3_0 vs_VertexColor();
-		PixelShader = compile ps_3_0 ps_VertexColor();
+		VertexShader = compile vs_2_0 vs_VertexColor();
+		PixelShader = compile ps_2_0 ps_VertexColor();
 	}
 }
 
@@ -151,6 +225,9 @@ struct VS_OUTPUT_DIFFUSE_MAP
 	float3 WorldNormal : TEXCOORD1;
 	float3 WorldTangent	: TEXCOORD2;
 	float3 WorldBinormal : TEXCOORD3;
+	float3 WorldPosition : TEXCOORD4;
+	float3 LightVec	: TEXCOORD5;
+	float3 HalfAngleVec	: TEXCOORD6;
 };
 
 //Vertex Shader
@@ -197,6 +274,18 @@ VS_OUTPUT_DIFFUSE_MAP vs_DiffuseMap(VS_INPUT_DIFFUSE_MAP input)
 	//Enviar Texcoord directamente
 	output.Texcoord = input.Texcoord;
 
+	//Posicion pasada a World-Space (necesaria para atenuación por distancia)
+	output.WorldPosition = mul(input.Position, matWorld);
+
+	//LightVec (L): vector que va desde el vertice hacia la luz. Usado en Diffuse y Specular
+	output.LightVec = lightPosition[0].xyz - output.WorldPosition;
+
+	//ViewVec (V): vector que va desde el vertice hacia la camara.
+	float3 viewVector = eyePosition.xyz - output.WorldPosition;
+
+	//HalfAngleVec (H): vector de reflexion simplificado de Phong-Blinn (H = |V + L|). Usado en Specular
+	output.HalfAngleVec = viewVector + output.LightVec;
+
 	return output;
 }
 
@@ -205,13 +294,31 @@ struct PS_DIFFUSE_MAP
 {
 	float4 Color : COLOR0;
 	float2 Texcoord : TEXCOORD0;
+	float3 WorldNormal : TEXCOORD1;
+	float3 WorldPosition : TEXCOORD4;
+	float3 LightVec	: TEXCOORD5;
+	float3 HalfAngleVec	: TEXCOORD6;
 };
 
 //Pixel Shader
 float4 ps_DiffuseMap(PS_DIFFUSE_MAP input) : COLOR0
 {
-	//Modular color de la textura por color del mesh
-	return tex2D(diffuseMap, input.Texcoord) * input.Color;
+	//Normalizar vectores
+	float3 Nn = normalize(input.WorldNormal);
+	float3 Ln = normalize(input.LightVec);
+	float3 Hn = normalize(input.HalfAngleVec);
+	
+	//Obtener texel de la textura
+	float4 texelColor = tex2D(diffuseMap, input.Texcoord);
+	
+	float3 colorFinal = computeDiffuseComponent(input.WorldPosition, Nn, Ln, Hn, 0);
+	colorFinal += computeDiffuseComponent(input.WorldPosition, Nn, Ln, Hn, 1);
+	colorFinal += computeDiffuseComponent(input.WorldPosition, Nn, Ln, Hn, 2);
+	//colorFinal += computeDiffuseComponent(input.WorldPosition, Nn, Ln, Hn, 3);
+	
+	float4 finalColor = float4(saturate(materialEmissiveColor + colorFinal.x + colorFinal.y) * texelColor + colorFinal.z , materialDiffuseColor.a);
+	
+	return finalColor;	
 }
 
 /*
@@ -221,7 +328,7 @@ technique DIFFUSE_MAP
 {
 	pass Pass_0
 	{
-		VertexShader = compile vs_3_0 vs_DiffuseMap();
-		PixelShader = compile ps_3_0 ps_DiffuseMap();
+		VertexShader = compile vs_2_0 vs_DiffuseMap();
+		PixelShader = compile ps_2_0 ps_DiffuseMap();
 	}
 }

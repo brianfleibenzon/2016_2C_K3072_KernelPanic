@@ -116,13 +116,12 @@ namespace TGC.Group.Model
 
         public void retornar()
         {
-            this.setEstado(Estado.Retornando);
+            if (this.estado != Estado.Parado)
+                this.setEstado(Estado.Retornando);
         }
 
-        public void actualizarEstado(TgcCamera Camara, float ElapsedTime, TgcScene scene,bool enemigoEnTacho)
+        public void actualizarEstado(TgcCamera Camara, float ElapsedTime, TgcScene scene)
         {
-            if (enemigoEnTacho)
-                estado = Estado.Retornando;
             if (estado != Estado.Parado)
             {
                 Vector3 posicionAnterior = mesh.Position;
@@ -155,20 +154,20 @@ namespace TGC.Group.Model
                         intento.X = 0;
                         intento.Z = valorUnitario(vector.Z);
                         this.mesh.Position += intento * MovementSpeed * ElapsedTime;
-                       
-                     /*   if (valorUnitario(vector.Z)<0.02f && verificarColision(Camara, scene))
-                        {
-                            this.mesh.Position = posicionAnterior;
-                            intento.X = 0;
-                            intento.Z = 1;
-                            this.mesh.Position += intento * MovementSpeed * ElapsedTime;
-                            if(valorUnitario(vector.X) < 0.02f && verificarColision(Camara, scene))
-                            {
-                                this.mesh.Position = posicionAnterior;
-                                intento.X = 1;
-                                intento.Z = 0;
-                                this.mesh.Position += intento * MovementSpeed * ElapsedTime; */
-                                if (verificarColision(Camara, scene))
+
+                        /*   if (valorUnitario(vector.Z)<0.02f && verificarColision(Camara, scene))
+                           {
+                               this.mesh.Position = posicionAnterior;
+                               intento.X = 0;
+                               intento.Z = 1;
+                               this.mesh.Position += intento * MovementSpeed * ElapsedTime;
+                               if(valorUnitario(vector.X) < 0.02f && verificarColision(Camara, scene))
+                               {
+                                   this.mesh.Position = posicionAnterior;
+                                   intento.X = 1;
+                                   intento.Z = 0;
+                                   this.mesh.Position += intento * MovementSpeed * ElapsedTime; */
+                            if (verificarColision(Camara, scene))                                
                                     mesh.Position = posicionAnterior;
                            // }
                        // }
