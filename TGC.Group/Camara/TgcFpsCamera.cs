@@ -207,19 +207,60 @@ namespace TGC.Group.Camara
                 
                 foreach (var mesh in gameModel.meshesARenderizar)
                 {
-                    /* COLISIONES POR RAYOS*/
-                    /*if (TgcCollisionUtils.sqDistPointAABB(positionEye, mesh.BoundingBox) < 100f)
+
+                    if (TgcCollisionUtils.testAABBAABB(camaraBox, mesh.BoundingBox) && !gameModel.VerificarSiMeshEsIluminacion(mesh))
                     {
-                        colision = true;
-                        break;
-                    }*/
-                    if (TgcCollisionUtils.classifyBoxBox(camaraBox, mesh.BoundingBox) == TgcCollisionUtils.BoxBoxResult.Atravesando)
+                        var movementRay = lastPositionEye - positionEye;                        
+                        var t = "";
+                        var rs = Vector3.Empty;
+                        if (((camaraBox.PMax.X > mesh.BoundingBox.PMax.X && movementRay.X > 0) ||
+                            (camaraBox.PMin.X < mesh.BoundingBox.PMin.X && movementRay.X < 0)) &&
+                            ((camaraBox.PMax.Z > mesh.BoundingBox.PMax.Z && movementRay.Z > 0) ||
+                            (camaraBox.PMin.Z < mesh.BoundingBox.PMin.Z && movementRay.Z < 0)))
+                        {
+                            
+                            if (camaraBox.Position.X > mesh.BoundingBox.PMin.X &&
+                                camaraBox.Position.X < mesh.BoundingBox.PMax.X)
+                            {
+                                //El personaje esta contenido en el bounding X
+                                rs = new Vector3(movementRay.X, movementRay.Y, 0);
+                            }
+                            if (camaraBox.Position.Z > mesh.BoundingBox.PMin.Z &&
+                                camaraBox.Position.Z < mesh.BoundingBox.PMax.Z)
+                            {
+                                //El personaje esta contenido en el bounding Z
+                                rs = new Vector3(0, movementRay.Y, movementRay.Z);
+                            }
+
+                            //Seria ideal sacar el punto mas proximo al bounding que colisiona y chequear con eso, en ves que con la posicion.
+
+                        }
+                        else
+                        {
+                            if ((camaraBox.PMax.X > mesh.BoundingBox.PMax.X && movementRay.X > 0) ||
+                                (camaraBox.PMin.X < mesh.BoundingBox.PMin.X && movementRay.X < 0))
+                            {
+                                rs = new Vector3(0, movementRay.Y, movementRay.Z);
+                            }
+                            if ((camaraBox.PMax.Z > mesh.BoundingBox.PMax.Z && movementRay.Z > 0) ||
+                                (camaraBox.PMin.Z < mesh.BoundingBox.PMin.Z && movementRay.Z < 0))
+                            {
+                                rs = new Vector3(movementRay.X, movementRay.Y, 0);
+                            }
+                        }
+                        positionEye = lastPositionEye - rs;
+                        //Este ejemplo solo se mueve en X y Z con lo cual realizar el test en el plano Y no tiene sentido.
+
+                    
+                    }
+
+                   /* if (TgcCollisionUtils.classifyBoxBox(camaraBox, mesh.BoundingBox) == TgcCollisionUtils.BoxBoxResult.Atravesando)
                     {
                         if (!gameModel.VerificarSiMeshEsIluminacion(mesh)){
                             positionEye = lastPositionEye;
                             break;
                         }
-                    }
+                    }*/
                 }
 
                 foreach (var enemigo in gameModel.enemigos)
