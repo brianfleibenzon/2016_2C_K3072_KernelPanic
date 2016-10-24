@@ -216,8 +216,8 @@ namespace TGC.Group.Model
             puertas[6].funcionAbriendo = () => { this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona3); this.meshesARenderizar.AddRange(SepararZonas.zona4); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
             puertas[6].funcionAbierta = () => { if (interruptores[0].estado == Interruptor.Estado.ACTIVADO) enemigos[1].retornar(); else enemigos[1].activar(); };
 
-            puertas[7].funcionAbriendo = () => {  this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona4); this.meshesARenderizar.AddRange(SepararZonas.zona5); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
-            puertas[7].funcionAbierta = () => { if (interruptores[0].estado == Interruptor.Estado.DESACTIVADO) enemigos[1].retornar(); else enemigos[1].activar(); };
+            puertas[7].funcionAbriendo = () => { if (interruptores[0].estado == Interruptor.Estado.DESACTIVADO) enemigos[1].retornar(); this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona4); this.meshesARenderizar.AddRange(SepararZonas.zona5); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
+            puertas[7].funcionAbierta = () => { if (interruptores[0].estado == Interruptor.Estado.ACTIVADO) enemigos[1].activar(); };
         }
 
         void InicializarEnemigos()

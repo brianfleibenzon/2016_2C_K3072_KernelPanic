@@ -41,16 +41,14 @@ namespace TGC.Group.Model
 
                     if (this.mesh.Position.Y < 195)
                     {
-                        this.mesh.move(new Vector3(0, 80f * ElapsedTime, 0));
-                        if (funcionAbierta != null)
-                            funcionAbierta();
+                        this.mesh.move(new Vector3(0, 80f * ElapsedTime, 0));                        
                         ((TgcFpsCamera)Camara).moverse = false;
                     }
                     else
                     {
                         this.estado = Puerta.Estado.ABIERTA;
-
-
+                        if (funcionAbierta != null)
+                            funcionAbierta();
                         this.sonido.stop();
                         ((TgcFpsCamera)Camara).moverse = true;
                     }
