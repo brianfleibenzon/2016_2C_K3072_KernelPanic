@@ -271,7 +271,7 @@ namespace TGC.Group.Model
 
 
             iluminaciones[0] = new Iluminacion(Color.DarkOrange, "Vela", scene, new Vector3(0f, 25f, 0f),
-                68.0f, 0.25f, 38.0f, 0.5f, 100f, true, false, true);
+                80.0f, 0.25f, 38.0f, 0.5f, 100f, true, false, true);
             iluminaciones[0].posicionarEnMano = () =>
             {
                 iluminacionEnMano.mesh.Scale = new Vector3(0.008f, 0.008f, 0.008f);
@@ -279,7 +279,7 @@ namespace TGC.Group.Model
                 iluminacionEnMano.mesh.Position += new Vector3(x, -0.38f, 1f);
             };
             iluminaciones[1] = new Iluminacion(Color.Gray, "Linterna", scene, new Vector3(30f, 10f, 40f),
-                108f, 0.25f, 38f, 0.5f, 240f, false, true, false);
+                120f, 0.25f, 38f, 0.5f, 240f, false, true, false);
             iluminaciones[1].posicionarEnMano = () =>
             {
 
@@ -287,8 +287,8 @@ namespace TGC.Group.Model
                 iluminacionEnMano.mesh.Position = -iluminacionEnMano.mesh.BoundingBox.Position;
                 iluminacionEnMano.mesh.Position += new Vector3(x, -0.38f, 1f);
             };
-            iluminaciones[2] = new Iluminacion(Color.YellowGreen, "Farol", scene, new Vector3(0f, 25f, 0f),
-                90f, 0.15f, 38f, 0.5f, 190f, false, false, true);
+            iluminaciones[2] = new Iluminacion(Color.Yellow, "Farol", scene, new Vector3(0f, 25f, 0f),
+                90f, 0.15f, 38f, 0.5f, 190f, true, false, true);
             iluminaciones[2].posicionarEnMano = () =>
             {
                 iluminacionEnMano.mesh.Scale = new Vector3(0.005f, 0.005f, 0.005f);
