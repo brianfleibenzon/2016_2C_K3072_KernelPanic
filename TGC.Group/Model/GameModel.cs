@@ -753,7 +753,9 @@ namespace TGC.Group.Model
 
         private int getBateria()
         {
-            return 100 - (int)Math.Ceiling((contador / iluminacionEnMano.duracion) * 100);
+            int bateria = 100 - (int)Math.Ceiling((contador / iluminacionEnMano.duracion) * 100);
+            if (bateria == 0) perder();
+            return bateria;
         }
 
         private void escucharTeclas()
