@@ -86,7 +86,7 @@
             // 
             // btnControles
             // 
-            this.btnControles.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 26.25F);
+            this.btnControles.Font = new System.Drawing.Font("Chiller", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnControles.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnControles.Location = new System.Drawing.Point(151, 298);
             this.btnControles.Margin = new System.Windows.Forms.Padding(2);
@@ -99,17 +99,18 @@
             // 
             // lblResultado
             // 
-            this.lblResultado.Font = new System.Drawing.Font("Tahoma", 60F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblResultado.Font = new System.Drawing.Font("Chiller", 72F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblResultado.ForeColor = System.Drawing.Color.Red;
             this.lblResultado.Location = new System.Drawing.Point(3, 12);
             this.lblResultado.Name = "lblResultado";
             this.lblResultado.Size = new System.Drawing.Size(518, 114);
             this.lblResultado.TabIndex = 23;
+            this.lblResultado.Text = "Kernel Panic";
             this.lblResultado.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // botonSalir
             // 
-            this.botonSalir.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 26.25F);
+            this.botonSalir.Font = new System.Drawing.Font("Chiller", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.botonSalir.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.botonSalir.Location = new System.Drawing.Point(151, 356);
             this.botonSalir.Margin = new System.Windows.Forms.Padding(2);
@@ -122,7 +123,7 @@
             // 
             // botonJugar
             // 
-            this.botonJugar.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 26.25F);
+            this.botonJugar.Font = new System.Drawing.Font("Chiller", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.botonJugar.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.botonJugar.Location = new System.Drawing.Point(151, 240);
             this.botonJugar.Margin = new System.Windows.Forms.Padding(2);
@@ -148,7 +149,7 @@
             // 
             // label2
             // 
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Chiller", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(122, 12);
             this.label2.Name = "label2";
@@ -160,7 +161,7 @@
             // 
             // label1
             // 
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Chiller", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(30, 12);
             this.label1.Name = "label1";
@@ -171,7 +172,7 @@
             // 
             // btnVolver
             // 
-            this.btnVolver.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 26.25F);
+            this.btnVolver.Font = new System.Drawing.Font("Chiller", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnVolver.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnVolver.Location = new System.Drawing.Point(151, 356);
             this.btnVolver.Margin = new System.Windows.Forms.Padding(2);

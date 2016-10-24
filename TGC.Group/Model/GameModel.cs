@@ -172,6 +172,7 @@ namespace TGC.Group.Model
             meshesARenderizar.AddRange(SepararZonas.comunes);
 
             this.AxisLinesEnable = false;
+            DrawText.changeFont(new System.Drawing.Font("Chiller", 20));
         }
 
         void InicializarContenedores()
@@ -498,14 +499,14 @@ namespace TGC.Group.Model
             fog.updateValues();
 
             VerificarColisionConClick();
-            
+
 
             //Dibuja un texto por pantalla
-            DrawText.drawText(
+            /*DrawText.drawText(
                 "Con clic izquierdo subimos la camara [Actual]: " + TgcParserUtils.printVector3(Camara.Position) + " - LookAt: " + TgcParserUtils.printVector3(Camara.LookAt), 0, 20,
-                Color.OrangeRed);
+                Color.OrangeRed);*/
 
-            if (((TgcFpsCamera)Camara).colisiones)
+            /*if (((TgcFpsCamera)Camara).colisiones)
 
                 DrawText.drawText(
                     "Colisiones activadas (C para desactivar)", 0, 50,
@@ -513,7 +514,14 @@ namespace TGC.Group.Model
             else
                 DrawText.drawText(
                    "Colisiones desactivadas (C para activar)", 0, 50,
-                   Color.OrangeRed);
+                   Color.OrangeRed);*/
+
+            if (!((TgcFpsCamera)Camara).colisiones)
+
+                DrawText.drawText(
+                    "God Mode (C para desactivar)", 0, 50,
+                    Color.OrangeRed);
+            
 
             if (iluminacionEnMano != null)
                 DrawText.drawText(
@@ -524,7 +532,7 @@ namespace TGC.Group.Model
           "Presionar F pare apagar", 0, 70, Color.OrangeRed);
             else if (!luzActivada && iluminacionEnMano != null && iluminacionEnMano.puedeApagarse)
                 DrawText.drawText(
-          "Presionar F pare encender", 0, 70, Color.OrangeRed);
+          "Presionar F pare encender", 0, 70, Color.OrangeRed);            
 
             RenderFPS();
 
