@@ -250,6 +250,8 @@ namespace TGC.Group.Model
                 puertas[i].mesh = scene.getMeshByName("Puerta" + (i + 1));
                 puertas[i].sonido = new Tgc3dSound(MediaDir + "Sonidos\\puerta.wav", puertas[i].mesh.BoundingBox.Position, DirectSound.DsDevice);
                 puertas[i].sonido.MinDistance = 1000f;
+                puertas[i].sonidoBloqueada = new Tgc3dSound(MediaDir + "Sonidos\\puertaBloqueada.wav", puertas[i].mesh.BoundingBox.Position, DirectSound.DsDevice);
+                puertas[i].sonidoBloqueada.MinDistance = 1000f;
             }
 
             puertas[0].funcionAbriendo = () => { this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona6); this.meshesARenderizar.AddRange(SepararZonas.zona1); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
@@ -431,16 +433,12 @@ namespace TGC.Group.Model
                     if (TgcCollisionUtils.intersectRayAABB(pickingRay.Ray, aabb, out collisionPoint))
                     {
                         if (TgcCollisionUtils.sqDistPointAABB(Camara.Position, puerta.mesh.BoundingBox) < 15000f)
-                        {
-                            switch (puerta.estado)
+                        {                            
+                            if (puerta.estado == Puerta.Estado.BLOQUEADA)
                             {
-                                case (Puerta.Estado.BLOQUEADA):
-                                    mostrarBloqueado = 3f;
-                                    break;
-                                case (Puerta.Estado.CERRADA):
-                                    puerta.abrir();
-                                    break;
+                                mostrarBloqueado = 3f;
                             }
+                            puerta.abrir();
                         }
                         break;
                     }
@@ -868,6 +866,7 @@ namespace TGC.Group.Model
         {
             foreach (Puerta puerta in puertas)
             {
+                puerta.sonidoBloqueada.stop();
                 puerta.sonido.stop();
             }
             foreach (Interruptor interruptor in interruptores)

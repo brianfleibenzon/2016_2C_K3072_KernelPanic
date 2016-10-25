@@ -24,6 +24,8 @@ namespace TGC.Group.Model
         public TgcMesh mesh;
 
         public Tgc3dSound sonido;
+        public Tgc3dSound sonidoBloqueada;
+
 
         public double pasadasPorPuerta = 0;
 
@@ -76,10 +78,18 @@ namespace TGC.Group.Model
 
         public void abrir()
         {
-            if (funcionAbriendo != null)
-                funcionAbriendo();      
-            this.estado = Estado.ABRIENDO;
-            this.sonido.play();
+            switch (this.estado)
+            {
+                case (Estado.CERRADA):
+                    if (funcionAbriendo != null)
+                        funcionAbriendo();
+                    this.estado = Estado.ABRIENDO;
+                    this.sonido.play();
+                    break;
+                case (Estado.BLOQUEADA):
+                    sonidoBloqueada.play();
+                    break;
+            }
         }
 
         private bool colisionConEnemigos(Enemigo[] enemigos)
