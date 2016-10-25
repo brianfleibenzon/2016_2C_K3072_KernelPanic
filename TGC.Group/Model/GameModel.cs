@@ -142,19 +142,23 @@ namespace TGC.Group.Model
             bateria1 = loader.loadSceneFromFile(MediaDir + "Bateria\\bateria1-TgcScene.xml").Meshes[0];
             bateria1.Scale = new Vector3(0.002f, 0.002f, 0.002f);
             bateria1.Position = new Vector3(0.50f, 0.30f, 1.15f);
+            bateria1.AlphaBlendEnable = true;
 
             bateria2 = loader.loadSceneFromFile(MediaDir + "Bateria\\bateria2-TgcScene.xml").Meshes[0];
             bateria2.Scale = new Vector3(0.002f, 0.002f, 0.002f);
             bateria2.Position = new Vector3(0.50f, 0.30f, 1.15f);
+            bateria2.AlphaBlendEnable = true;
 
             bateria3 = loader.loadSceneFromFile(MediaDir + "Bateria\\bateria3-TgcScene.xml").Meshes[0];
             bateria3.Scale = new Vector3(0.002f, 0.002f, 0.002f);
             bateria3.Position = new Vector3(0.50f, 0.30f, 1.15f);
+            bateria3.AlphaBlendEnable = true;
 
             bateria4 = loader.loadSceneFromFile(MediaDir + "Bateria\\bateria4-TgcScene.xml").Meshes[0];
             bateria4.Scale = new Vector3(0.002f, 0.002f, 0.002f);
             bateria4.Position = new Vector3(0.50f, 0.30f, 1.15f);
-            
+            bateria4.AlphaBlendEnable = true;
+
             // empieza sombras
 
             g_pShadowMap = new Texture(D3DDevice.Instance.Device, SHADOWMAP_SIZE, SHADOWMAP_SIZE,
@@ -862,6 +866,10 @@ namespace TGC.Group.Model
             {
                 enemigo.mesh.dispose();
             }
+            bateria1.dispose();
+            bateria2.dispose();
+            bateria3.dispose();
+            bateria4.dispose();
             bloqueado.dispose();
             effect.Dispose();
             scene.disposeAll();
