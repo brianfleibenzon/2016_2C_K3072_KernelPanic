@@ -160,7 +160,7 @@
             this.label2.TabIndex = 24;
             this.label2.Text = "- Mover la cámara\r\n- Mover hacia adelante\r\n- Mover hacia la izquierda\r\n- Mover ha" +
     "cia atras\r\n- Mover hacia la derecha\r\n- Encender / Apagar iluminación\r\n- Esconder" +
-    "se\r\n- Pausa";
+    "se\r\n- Instrucciones\r\n- Pausa";
             // 
             // label1
             // 
@@ -171,7 +171,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(115, 400);
             this.label1.TabIndex = 23;
-            this.label1.Text = "Mouse\r\nW\r\nA\r\nS\r\nD\r\nF\r\nCtrl\r\nEsc";
+            this.label1.Text = "Mouse\r\nW\r\nA\r\nS\r\nD\r\nF\r\nE\r\nI\r\nEsc";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // btnVolver

@@ -588,6 +588,12 @@ namespace TGC.Group.Model
                 DrawText.drawText(
                     "God Mode (C para desactivar)", 0, 50,
                     Color.OrangeRed);
+            if (mostrarPapel == 1)
+            {
+                DrawText.drawText(
+         "Presionar ESC o I para cerrar", 500, 900, Color.OrangeRed);
+            }
+
 
             if (iluminacionEnMano != null)
             {
@@ -868,7 +874,7 @@ namespace TGC.Group.Model
                 sonidoPisadas.play(false);
             }
 
-            if (Input.keyPressed(Key.LeftControl))
+            if (Input.keyPressed(Key.E))
             {
                 if (enTacho != null)
                 {
@@ -899,7 +905,7 @@ namespace TGC.Group.Model
                 }
             }
 
-
+         
 
             if (Input.keyPressed(Key.Escape))
             {
