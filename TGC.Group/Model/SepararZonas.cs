@@ -30,6 +30,10 @@ namespace TGC.Group.Model
             zona1.AddRange(obtenerHabitacion(scene, "Room-10"));
             zona1.Add(scene.getMeshByName("Vela"));
             zona1.Add(scene.getMeshByName("Esqueleto2"));
+            zona1.Add(scene.getMeshByName("Box1"));
+            zona1.Add(scene.getMeshByName("Box3"));
+            zona1.Add(scene.getMeshByName("Box4"));
+            zona1.Add(scene.getMeshByName("Esqueleto20"));
 
             zona2.AddRange(obtenerHabitacion(scene, "Room-7"));
             zona2.Add(scene.getMeshByName("Interruptor3"));            
