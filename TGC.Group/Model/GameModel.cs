@@ -291,6 +291,8 @@ namespace TGC.Group.Model
             {
                 interruptores[i] = new Interruptor();
                 interruptores[i].mesh = scene.getMeshByName("Interruptor" + (i + 1));
+                interruptores[i].sonido = new Tgc3dSound(MediaDir + "Sonidos\\interruptor.wav", interruptores[i].mesh.BoundingBox.Position, DirectSound.DsDevice);
+                interruptores[i].sonido.MinDistance = 1000f;
             }
 
             interruptores[0].funcion = () => { puertas[2].estado = Puerta.Estado.CERRADA; puertas[3].estado = Puerta.Estado.CERRADA; };
@@ -867,6 +869,10 @@ namespace TGC.Group.Model
             foreach (Puerta puerta in puertas)
             {
                 puerta.sonido.stop();
+            }
+            foreach (Interruptor interruptor in interruptores)
+            {
+                interruptor.sonido.stop();
             }
             sonidoPisadas.stop();
             sonidoEntorno.pause();

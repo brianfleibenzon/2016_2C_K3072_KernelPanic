@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TGC.Core.SceneLoader;
+using TGC.Core.Sound;
 using TGC.Core.Textures;
 
 namespace TGC.Group.Model
@@ -18,6 +19,8 @@ namespace TGC.Group.Model
 
         public Action funcion = null;
 
+        public Tgc3dSound sonido;
+
         public int puertaADesbloquear = -1;
 
         public void activar(Puerta[] puertas, String MediaDir)
@@ -26,7 +29,7 @@ namespace TGC.Group.Model
             var diffuseMaps = new TgcTexture[1];
             diffuseMaps[0] = TgcTexture.createTexture(MediaDir + "Escenario\\Textures\\than_button2.jpg");
             this.mesh.changeDiffuseMaps(diffuseMaps);
-            
+            this.sonido.play(false);
             if (funcion!=null)
                 funcion();
         }
