@@ -962,12 +962,22 @@ namespace TGC.Group.Model
         ///     Es muy importante liberar los recursos, sobretodo los gráficos ya que quedan bloqueados en el device de video.
         /// </summary>
         public override void Dispose()
-        {
+        {            
             sonidoEntorno.stop();
             sonidoEntorno.closeFile();
+            sonidoPisadas.dispose();
             foreach (var enemigo in enemigos)
             {
                 enemigo.mesh.dispose();
+            }
+            foreach (var puerta in puertas)
+            {
+                puerta.sonido.dispose();
+                puerta.sonidoBloqueada.dispose();
+            }
+            foreach (var interruptor in interruptores)
+            {
+                interruptor.sonido.dispose();
             }
             bateria1.dispose();
             bateria2.dispose();
