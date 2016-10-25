@@ -50,6 +50,7 @@ float3 materialEmissiveColor; //Color RGB
 float3 materialDiffuseColor; //Color RGB
 
 //Variables de las luces
+int cantidadLuces ;
 float3 lightColor[4]; //Color RGB de las luces
 float4 lightPosition[4]; //Posicion de las luces
 float lightIntensity[4]; //Intensidad de las luces
@@ -147,7 +148,7 @@ float3 computeDiffuseComponent(float3 surfacePosition, float3 N, int i)
 	float intensity = lightIntensity[i] / distAtten; //Dividimos intensidad sobre distancia
 
 													 //Calcular Diffuse (N dot L)
-	return intensity * lightColor[i].rgb * materialDiffuseColor * max(0.0, dot(N, Ln));
+	return intensity * lightColor[i].rgb * materialDiffuseColor * max(1.0, dot(N, Ln));
 }
 
 
@@ -181,18 +182,10 @@ float4 PixScene(float2 Tex : TEXCOORD0,
 
 	//Emissive + Diffuse de 4 luces PointLight
 	float3 diffuseLighting = materialEmissiveColor;
+	
+	for (int i = 0; i < cantidadLuces; i++)
+		diffuseLighting += computeDiffuseComponent(vPos, Nn, i);		
 
-	//Diffuse 0
-	diffuseLighting += computeDiffuseComponent(vPos, Nn, 0);
-
-	//Diffuse 1
-	diffuseLighting += computeDiffuseComponent(vPos, Nn, 1);
-
-	//Diffuse 2
-	diffuseLighting += computeDiffuseComponent(vPos, Nn, 2);
-
-	//Diffuse 3
-	diffuseLighting += computeDiffuseComponent(vPos, Nn, 3);
 
 	float4 color_base = tex2D(diffuseMap, Tex);
 	color_base.rgb *= 0.5*K * diffuseLighting;

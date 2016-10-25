@@ -173,6 +173,14 @@ namespace TGC.Group.Model
 
             this.AxisLinesEnable = false;
             DrawText.changeFont(new System.Drawing.Font("Chiller", 20));
+
+            //--------Niebla---------//            
+            fog.StartDistance = 50f;
+            fog.EndDistance = 1000f;
+            fog.Density = 0.0015f;
+            fog.Color = Color.Black;
+            fog.Enabled = true;
+            fog.updateValues();
         }
 
         void InicializarContenedores()
@@ -272,7 +280,7 @@ namespace TGC.Group.Model
 
 
             iluminaciones[0] = new Iluminacion(Color.DarkOrange, "Vela", scene, new Vector3(0f, 25f, 0f),
-                80.0f, 0.25f, 38.0f, 0.5f, 100f, true, false, true);
+                30.0f, 0.35f, 28.0f, 0.5f, 100f, true, false, true);
             iluminaciones[0].posicionarEnMano = () =>
             {
                 iluminacionEnMano.mesh.Scale = new Vector3(0.008f, 0.008f, 0.008f);
@@ -280,7 +288,7 @@ namespace TGC.Group.Model
                 iluminacionEnMano.mesh.Position += new Vector3(x, -0.38f, 1f);
             };
             iluminaciones[1] = new Iluminacion(Color.Gray, "Linterna", scene, new Vector3(30f, 10f, 40f),
-                120f, 0.25f, 38f, 0.5f, 240f, false, true, false);
+                60f, 0.35f, 38f, 0.5f, 210f, false, true, false);
             iluminaciones[1].posicionarEnMano = () =>
             {
 
@@ -289,7 +297,7 @@ namespace TGC.Group.Model
                 iluminacionEnMano.mesh.Position += new Vector3(x, -0.38f, 1f);
             };
             iluminaciones[2] = new Iluminacion(Color.Yellow, "Farol", scene, new Vector3(0f, 25f, 0f),
-                90f, 0.15f, 38f, 0.5f, 190f, true, false, true);
+                20f, 0.25f, 18f, 0.7f, 50f, true, false, true);
             iluminaciones[2].posicionarEnMano = () =>
             {
                 iluminacionEnMano.mesh.Scale = new Vector3(0.005f, 0.005f, 0.005f);
@@ -300,15 +308,15 @@ namespace TGC.Group.Model
 
             // ILUMINACIONES ESTATICAS
             iluminaciones[3] = new Iluminacion(Color.DarkRed, "LuzEstatica1", scene, new Vector3(-40f, 25f, 8f),
-                0f, 0f, 100f, 0.5f, 0f, false, false, true);
+                0f, 0f, 40f, 0.5f, 0f, false, false, true);
             iluminaciones[4] = new Iluminacion(Color.DarkRed, "LuzEstatica2", scene, new Vector3(0f, 25f, 0f),
-                0f, 0f, 100f, 0.5f, 0f, false, false, true);
+                0f, 0f, 40f, 0.5f, 0f, false, false, true);
             iluminaciones[5] = new Iluminacion(Color.DarkRed, "LuzEstatica3", scene, new Vector3(0f, 25f, 0f),
-                0f, 0f, 100f, 0.5f, 0f, false, false, true);
+                0f, 0f, 40f, 0.5f, 0f, false, false, true);
             iluminaciones[6] = new Iluminacion(Color.DarkRed, "LuzEstatica4", scene, new Vector3(0f, 25f, 0f),
-                0f, 0f, 100f, 0.5f, 0f, false, false, true);
+                0f, 0f, 40f, 0.5f, 0f, false, false, true);
             iluminaciones[7] = new Iluminacion(Color.DarkRed, "LuzEstatica5", scene, new Vector3(0f, 25f, 0f),
-                0f, 0f, 100f, 0.5f, 0f, false, false, true);
+                0f, 0f, 40f, 0.5f, 0f, false, false, true);
 
 
         }
@@ -445,6 +453,17 @@ namespace TGC.Group.Model
 
             ActualizarEstadoLuces();
 
+            VerificarColisionConClick();
+
+            if (iluminacionEnMano == null || iluminacionEnMano.usarFog)
+            {
+                fog.Enabled = true;
+            }
+            else
+            {
+                fog.Enabled = false;
+            }
+            fog.updateValues();
 
         }
 
@@ -465,8 +484,6 @@ namespace TGC.Group.Model
             D3DDevice.Instance.Device.BeginScene();
 
 
-
-
             D3DDevice.Instance.Device.EndScene(); // termino el thread anterior
 
             D3DDevice.Instance.Device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.Black, 1.0f, 0);
@@ -480,41 +497,10 @@ namespace TGC.Group.Model
             D3DDevice.Instance.Device.BeginScene();
             // dibujo la escena pp dicha
             D3DDevice.Instance.Device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.Black, 1.0f, 0);
-            RenderScene(false);
+            RenderScene(false);      
 
-            //--------Niebla---------//            
-            fog.StartDistance = 50f;
-            fog.EndDistance = 1000f;
-            fog.Density = 0.0015f;
-            fog.Color = Color.Black;
+            
 
-            if (iluminacionEnMano == null || iluminacionEnMano.usarFog)
-            {
-                fog.Enabled = true;
-            }
-            else
-            {
-                fog.Enabled = false;
-            }
-            fog.updateValues();
-
-            VerificarColisionConClick();
-
-
-            //Dibuja un texto por pantalla
-            /*DrawText.drawText(
-                "Con clic izquierdo subimos la camara [Actual]: " + TgcParserUtils.printVector3(Camara.Position) + " - LookAt: " + TgcParserUtils.printVector3(Camara.LookAt), 0, 20,
-                Color.OrangeRed);*/
-
-            /*if (((TgcFpsCamera)Camara).colisiones)
-
-                DrawText.drawText(
-                    "Colisiones activadas (C para desactivar)", 0, 50,
-                    Color.OrangeRed);
-            else
-                DrawText.drawText(
-                   "Colisiones desactivadas (C para activar)", 0, 50,
-                   Color.OrangeRed);*/
 
             if (!((TgcFpsCamera)Camara).colisiones)
 
@@ -529,10 +515,10 @@ namespace TGC.Group.Model
 
             if (luzActivada && iluminacionEnMano != null && iluminacionEnMano.puedeApagarse)
                 DrawText.drawText(
-          "Presionar F pare apagar", 0, 70, Color.OrangeRed);
+          "Presionar F para apagar", 0, 70, Color.OrangeRed);
             else if (!luzActivada && iluminacionEnMano != null && iluminacionEnMano.puedeApagarse)
                 DrawText.drawText(
-          "Presionar F pare encender", 0, 70, Color.OrangeRed);            
+          "Presionar F para encender", 0, 70, Color.OrangeRed);            
 
             RenderFPS();
 
@@ -634,13 +620,15 @@ namespace TGC.Group.Model
                     pointLightPositions[j] = TgcParserUtils.vector3ToVector4(Camara.Position);
                     pointLightIntensity[j] = iluminacionEnMano.pointLightIntensityAgarrada;
                     pointLightAttenuation[j] = iluminacionEnMano.pointLightAttenuationAgarrada;
+
+                    j++;
                 }
 
                 iluminacionEnMano.mesh.Effect = TgcShaders.Instance.TgcMeshShader;
                 iluminacionEnMano.mesh.Technique = TgcShaders.Instance.getTgcMeshTechnique(TgcMesh.MeshRenderType.DIFFUSE_MAP);
             }
 
-            j = 1;
+            
 
             for (var i = 0; i < iluminaciones.Length; i++)
             {
@@ -660,10 +648,7 @@ namespace TGC.Group.Model
 
 
                 }
-
-
-
-
+                
             }
 
 
@@ -735,6 +720,7 @@ namespace TGC.Group.Model
                         mesh.UpdateMeshTransform();
 
                         //Cargar variables de shader
+                        mesh.Effect.SetValue("cantidadLuces", j);
                         mesh.Effect.SetValue("lightColor", lightColors);
                         mesh.Effect.SetValue("lightPosition", pointLightPositions);
                         mesh.Effect.SetValue("lightIntensity", pointLightIntensity);
