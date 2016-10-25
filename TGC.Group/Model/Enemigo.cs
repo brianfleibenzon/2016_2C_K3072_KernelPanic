@@ -17,8 +17,8 @@ namespace TGC.Group.Model
     {
         public TgcSkeletalMesh mesh;
 
-        protected string mediaDir = Environment.CurrentDirectory + "\\" + Game.Default.MediaDirectory;        
-        protected string[] animationList;        
+        protected string mediaDir = Environment.CurrentDirectory + "\\" + Game.Default.MediaDirectory;
+        protected string[] animationList;
 
         private float MovementSpeed = 150f;
 
@@ -26,7 +26,7 @@ namespace TGC.Group.Model
 
         public Vector3 posicionInicial;
 
-        public bool persecutor=false;
+        public bool persecutor = false;
 
         GameModel gameModel;
 

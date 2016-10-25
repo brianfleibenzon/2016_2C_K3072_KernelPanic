@@ -255,10 +255,12 @@ namespace TGC.Group.Model
             puertas[5].funcionAbriendo = () => { this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona1); this.meshesARenderizar.AddRange(SepararZonas.zona3); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
 
             puertas[6].funcionAbriendo = () => { this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona3); this.meshesARenderizar.AddRange(SepararZonas.zona4); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
+            
             puertas[6].funcionAbierta = () => { if (interruptores[0].estado == Interruptor.Estado.ACTIVADO) enemigos[1].retornar(); else enemigos[1].activar(); };
 
-            puertas[7].funcionAbriendo = () => { if (interruptores[0].estado == Interruptor.Estado.DESACTIVADO) enemigos[1].retornar(); this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona4); this.meshesARenderizar.AddRange(SepararZonas.zona5); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
-            puertas[7].funcionAbierta = () => { if (interruptores[0].estado == Interruptor.Estado.ACTIVADO) enemigos[1].activar(); };
+            puertas[7].funcionAbriendo = () => { enemigos[1].retornar() ; this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona4); this.meshesARenderizar.AddRange(SepararZonas.zona5); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
+           
+            puertas[7].funcionAbierta = () => { puertas[7].sumarUnaPasada(); if(puertas[7].pasadasPorPuerta%2==0)enemigos[1].activar(); };
         }
 
         void InicializarEnemigos()
