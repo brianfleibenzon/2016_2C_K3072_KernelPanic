@@ -40,6 +40,7 @@ namespace TGC.Group.Model
             zona1.AddRange(obtenerHabitacion(scene, "Room-4"));
             zona1.AddRange(obtenerHabitacion(scene, "Room-10"));
             zona1.Add(scene.getMeshByName("Vela"));
+            scene.getMeshByName("Esqueleto2").AlphaBlendEnable = true;
             zona1.Add(scene.getMeshByName("Esqueleto2"));
             zona1.Add(scene.getMeshByName("Box1"));
             zona1.Add(scene.getMeshByName("Box3"));
@@ -49,6 +50,7 @@ namespace TGC.Group.Model
             //zona1.Add(scene.getMeshByName("Esqueleto12"));
             //zona1.Add(scene.getMeshByName("Esqueleto11"));
             //zona1.Add(scene.getMeshByName("Esqueleto10"));
+            scene.getMeshByName("Esqueleto20").AlphaBlendEnable = true;
             zona1.Add(scene.getMeshByName("Esqueleto20"));
             zona1.Add(scene.getMeshByName("BarrilPolvora10"));
             zona1.Add(scene.getMeshByName("BarrilPolvora12"));
@@ -69,7 +71,9 @@ namespace TGC.Group.Model
             zona3.Add(scene.getMeshByName("Calabera52"));
             zona3.Add(scene.getMeshByName("PilarEgipcio50"));
             zona3.Add(scene.getMeshByName("Contenedor51"));
+            scene.getMeshByName("Esqueleto51").AlphaBlendEnable = true;
             zona3.Add(scene.getMeshByName("Esqueleto51"));
+            scene.getMeshByName("Esqueleto50").AlphaBlendEnable = true;
             zona3.Add(scene.getMeshByName("Esqueleto50"));
             zona3.Add(scene.getMeshByName("Contenedor50"));
 
@@ -86,6 +90,7 @@ namespace TGC.Group.Model
             zona5.Add(scene.getMeshByName("Farol"));
             zona5.Add(scene.getMeshByName("BarrilPolvora1"));
             zona5.Add(scene.getMeshByName("BarrilPolvora2"));
+            scene.getMeshByName("Esqueleto1").AlphaBlendEnable = true;
             zona5.Add(scene.getMeshByName("Esqueleto1"));
             zona5.Add(scene.getMeshByName("Contenedor1"));
             zona5.Add(scene.getMeshByName("LuzEstatica3"));
@@ -94,6 +99,7 @@ namespace TGC.Group.Model
             zona5.Add(scene.getMeshByName("MesaTortura10"));
 
             zona6.AddRange(obtenerHabitacion(scene, "Room-31"));
+            scene.getMeshByName("Esqueleto3").AlphaBlendEnable = true;
             zona6.Add(scene.getMeshByName("Esqueleto3"));
             zona6.Add(scene.getMeshByName("Guillotina"));
             zona6.Add(scene.getMeshByName("SogaEnrollada"));
@@ -107,11 +113,13 @@ namespace TGC.Group.Model
             zona8.AddRange(obtenerHabitacion(scene, "Room-33"));
             zona8.Add(scene.getMeshByName("Interruptor2"));
             zona8.Add(scene.getMeshByName("Mesa10"));
+            scene.getMeshByName("Esqueleto30").AlphaBlendEnable = true;
             zona8.Add(scene.getMeshByName("Esqueleto30"));
             zona8.Add(scene.getMeshByName("DispenserAgua"));
 
             zona9.AddRange(obtenerHabitacion(scene, "Room-34"));
             zona9.Add(scene.getMeshByName("MesaTortura"));
+            scene.getMeshByName("Esqueleto4").AlphaBlendEnable = true;
             zona9.Add(scene.getMeshByName("Esqueleto4"));
             zona9.Add(scene.getMeshByName("LuzEstatica2"));
 

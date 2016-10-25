@@ -55,7 +55,7 @@ namespace TGC.Group.Model
 
         private TgcFog fog;
 
-        private TgcMp3Player sonidoEntorno;
+        public TgcMp3Player sonidoEntorno;
 
         private Tgc3dSound sonidoPisadas;
 
@@ -187,7 +187,7 @@ namespace TGC.Group.Model
                 true);
 
             var aspectRatio = D3DDevice.Instance.AspectRatio;
-            g_mShadowProj = Matrix.PerspectiveFovLH(Geometry.DegreeToRadian(45f), aspectRatio, 50, 5000);
+            g_mShadowProj = Matrix.PerspectiveFovLH(Geometry.DegreeToRadian(180f), aspectRatio, 50, 5000);
             D3DDevice.Instance.Device.Transform.Projection =
                 Matrix.PerspectiveFovLH(Geometry.DegreeToRadian(45.0f), aspectRatio, near_plane, far_plane);
 
@@ -841,8 +841,8 @@ namespace TGC.Group.Model
                         if( iluminacionEnMano == iluminaciones[1])
                         {                            
 
-                            mesh.Effect.SetValue("spotLightAngleCos", FastMath.ToRad(0.001f));
-                            mesh.Effect.SetValue("spotLightExponent", 12f);
+                            mesh.Effect.SetValue("spotLightAngleCos", FastMath.ToRad(0.05f));
+                            mesh.Effect.SetValue("spotLightExponent", 30f);
                             mesh.Effect.SetValue("spotLightDir", TgcParserUtils.vector3ToFloat4Array(lightDir));
                         }
 

@@ -183,19 +183,22 @@ float4 PixScene(float2 Tex : TEXCOORD0,
 	float3 vLight = normalize(float3(vPos - g_vLightPos));
 	float cono = dot(vLight, g_vLightDir);
 	float4 K = 0.0;
-	if (cono > 0.7)
+	if (cono > 0.1)
 	{
 		// coordenada de textura CT
 		float2 CT = 0.5 * vPosLight.xy / vPosLight.w + float2(0.5, 0.5);
 		CT.y = 1.0f - CT.y;
 
-		// sin ningun aa. conviene con smap size >= 512
-		float I = (tex2D(g_samShadow, CT) + EPSILON < vPosLight.z / vPosLight.w) ? 0.5f : 1.0f;
-
-		if (cono < 0.8)
-			I *= 1 - (0.8 - cono) * 10;
-
-		K = I;
+		float2 vecino = frac(CT*SMAP_SIZE);
+		float prof = vPosLight.z / vPosLight.w;
+		float s0 = (tex2D(g_samShadow, float2(CT)) + EPSILON < prof) ? 0.0f : 1.0f;
+		float s1 = (tex2D(g_samShadow, float2(CT)+float2(1.0 / SMAP_SIZE,0))
+							+ EPSILON < prof) ? 0.0f : 1.0f;
+		float s2 = (tex2D(g_samShadow, float2(CT)+float2(0,1.0 / SMAP_SIZE))
+							+ EPSILON < prof) ? 0.0f : 1.0f;
+		float s3 = (tex2D(g_samShadow, float2(CT)+float2(1.0 / SMAP_SIZE,1.0 / SMAP_SIZE))
+							+ EPSILON < prof) ? 0.0f : 1.0f;
+		K = lerp(lerp(s0, s1, vecino.x),lerp(s2, s3, vecino.x),vecino.y);
 	}
 
 	float3 Nn = normalize(iWorldNormal);
@@ -218,7 +221,7 @@ float4 PixScene(float2 Tex : TEXCOORD0,
 
 
 	float4 color_base = tex2D(diffuseMap, Tex);
-	color_base.rgb *= 0.5*K * diffuseLighting;
+	color_base.rgb *= (K + 1.0) * 0.5 * diffuseLighting;
 	return color_base;
 }
 
