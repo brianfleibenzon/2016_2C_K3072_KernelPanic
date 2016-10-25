@@ -26,6 +26,8 @@ namespace TGC.Group.Model
 
         public Vector3 posicionInicial;
 
+        public bool persecutor=false;
+
         GameModel gameModel;
 
         public enum Estado
@@ -106,6 +108,7 @@ namespace TGC.Group.Model
 
         public void activar()
         {
+            persecutor = false;
             this.setEstado(Estado.Persiguiendo);
         }
 
@@ -116,6 +119,8 @@ namespace TGC.Group.Model
 
         public void retornar()
         {
+            if (this.estado == Estado.Persiguiendo)
+                persecutor = true;
             if (this.estado != Estado.Parado)
                 this.setEstado(Estado.Retornando);
         }

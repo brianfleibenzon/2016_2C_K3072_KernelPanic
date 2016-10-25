@@ -821,6 +821,9 @@ namespace TGC.Group.Model
                 {
                     enTacho.salir((TgcFpsCamera)Camara);
                     enTacho = null;
+                    foreach (var enemigo in enemigos)
+                        if (enemigo.persecutor)
+                            enemigo.setEstado(Enemigo.Estado.Persiguiendo);
                 }
                 else
                 {
