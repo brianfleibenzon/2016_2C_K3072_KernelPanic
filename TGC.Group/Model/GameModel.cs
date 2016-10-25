@@ -22,6 +22,8 @@ using System.Collections.Generic;
 using TGC.Core.UserControls;
 using TGC.Core.UserControls.Modifier;
 
+
+
 namespace TGC.Group.Model
 {
     /// <summary>
@@ -75,6 +77,16 @@ namespace TGC.Group.Model
 
         TgcMesh bloqueado;
 
+        TgcMesh bateria4;
+
+        TgcMesh bateria3;
+
+        TgcMesh bateria2;
+
+        TgcMesh bateria1;
+
+        private float mostrarBateria = 0;
+
         private Iluminacion iluminacionEnMano;
 
         private Microsoft.DirectX.Direct3D.Effect effect;
@@ -126,7 +138,23 @@ namespace TGC.Group.Model
             Camara = new TgcFpsCamera(this, new Vector3(128f, 90f, 51f), Input);
             pickingRay = new TgcPickingRay(Input);
 
+            //Baterias
+            bateria1 = loader.loadSceneFromFile(MediaDir + "Bateria\\bateria1-TgcScene.xml").Meshes[0];
+            bateria1.Scale = new Vector3(0.002f, 0.002f, 0.002f);
+            bateria1.Position = new Vector3(0.50f, 0.30f, 1.15f);
 
+            bateria2 = loader.loadSceneFromFile(MediaDir + "Bateria\\bateria2-TgcScene.xml").Meshes[0];
+            bateria2.Scale = new Vector3(0.002f, 0.002f, 0.002f);
+            bateria2.Position = new Vector3(0.50f, 0.30f, 1.15f);
+
+            bateria3 = loader.loadSceneFromFile(MediaDir + "Bateria\\bateria3-TgcScene.xml").Meshes[0];
+            bateria3.Scale = new Vector3(0.002f, 0.002f, 0.002f);
+            bateria3.Position = new Vector3(0.50f, 0.30f, 1.15f);
+
+            bateria4 = loader.loadSceneFromFile(MediaDir + "Bateria\\bateria4-TgcScene.xml").Meshes[0];
+            bateria4.Scale = new Vector3(0.002f, 0.002f, 0.002f);
+            bateria4.Position = new Vector3(0.50f, 0.30f, 1.15f);
+            
             // empieza sombras
 
             g_pShadowMap = new Texture(D3DDevice.Instance.Device, SHADOWMAP_SIZE, SHADOWMAP_SIZE,
@@ -252,7 +280,6 @@ namespace TGC.Group.Model
             };
 
         }
-
 
         public void ganar()
         {
@@ -416,6 +443,7 @@ namespace TGC.Group.Model
             }
         }
 
+        //Baterias
 
         //Intervalo: Cantidad de bateria que se pierde por intervalo
         //Porciento: Cantidad de bateria que se pierde por intervalo
@@ -434,6 +462,27 @@ namespace TGC.Group.Model
 
             }
         }
+
+        //@DESC: Muestra un determiada imagen de la bateria dependiendo de la cantidad de carga que tenga (entre x e y)
+        void renderImagenBateria(int x, int y, TgcMesh bateria, int carga)
+        {
+            var matrizView = D3DDevice.Instance.Device.Transform.View;
+            if ((carga < x) && (carga >= y))
+                D3DDevice.Instance.Device.Transform.View = Matrix.Identity;
+            bateria.render();
+            D3DDevice.Instance.Device.Transform.View = matrizView;
+            // mostrarBateria += ElapsedTime;
+        }
+        //@DESC: Cambia los 4 estados de la bateria dependiendo de la cantidad de carga
+        void cambiarImagenBateria(int contador)
+        {
+            renderImagenBateria(100, 75, bateria1, contador);
+            renderImagenBateria(75, 50, bateria2, contador);
+            renderImagenBateria(50, 25, bateria3, contador);
+            renderImagenBateria(25, 1, bateria4, contador);
+        }
+
+
         /// <summary>
         ///     Se llama en cada frame.
         ///     Se debe escribir toda la lógica de computo del modelo, así como también verificar entradas del usuario y reacciones
@@ -510,9 +559,11 @@ namespace TGC.Group.Model
             
 
             if (iluminacionEnMano != null)
+            {
                 DrawText.drawText(
                    "BATERIA: " + getBateria() + "%", resolucionPantalla.Width - 175, 30, Color.OrangeRed);
-
+                cambiarImagenBateria(getBateria());
+            }
             if (luzActivada && iluminacionEnMano != null && iluminacionEnMano.puedeApagarse)
                 DrawText.drawText(
           "Presionar F para apagar", 0, 70, Color.OrangeRed);
@@ -532,6 +583,9 @@ namespace TGC.Group.Model
                 mostrarBloqueado -= ElapsedTime;
 
             }
+           
+
+
             else if (mostrarBloqueado < 0)
             {
                 mostrarBloqueado = 0;
