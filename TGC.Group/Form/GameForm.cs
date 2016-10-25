@@ -227,7 +227,7 @@ namespace TGC.Group.Form
             panel1.Visible = true;
             botonX.Visible = false;
             panel3D.Visible = false;
-            ((GameModel)Modelo).sonidoEntorno.stop();
+            ((GameModel)Modelo).pausarSonidos();
         }
 
         private void botonJugar_Click(object sender, EventArgs e)
@@ -257,7 +257,7 @@ namespace TGC.Group.Form
                 else
                 {
                     ApplicationRunning = true;
-                    ((GameModel)Modelo).sonidoEntorno.resume();
+                    ((GameModel)Modelo).retomarSonidos();
                 }
                 
             }
@@ -298,7 +298,7 @@ namespace TGC.Group.Form
             panel3D.Visible = false;
             botonX.Visible = false;
             panel1.Visible = true;
-            ((GameModel)Modelo).sonidoEntorno.pause();
+            ((GameModel)Modelo).pausarSonidos();
         }
 
         private void btnVolver_Click(object sender, EventArgs e)

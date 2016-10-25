@@ -55,7 +55,7 @@ namespace TGC.Group.Model
 
         private TgcFog fog;
 
-        public TgcMp3Player sonidoEntorno;
+        private TgcMp3Player sonidoEntorno;
 
         private Tgc3dSound sonidoPisadas;
 
@@ -144,7 +144,7 @@ namespace TGC.Group.Model
             Camara = new TgcFpsCamera(this, new Vector3(128f, 90f, 51f), Input);
             pickingRay = new TgcPickingRay(Input);
 
-        
+
 
             //Baterias
             bateria1 = loader.loadSceneFromFile(MediaDir + "Bateria\\bateria1-TgcScene.xml").Meshes[0];
@@ -269,12 +269,12 @@ namespace TGC.Group.Model
             puertas[5].funcionAbriendo = () => { this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona1); this.meshesARenderizar.AddRange(SepararZonas.zona3); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
 
             puertas[6].funcionAbriendo = () => { this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona3); this.meshesARenderizar.AddRange(SepararZonas.zona4); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
-            
+
             puertas[6].funcionAbierta = () => { if (interruptores[0].estado == Interruptor.Estado.ACTIVADO) enemigos[1].retornar(); else enemigos[1].activar(); };
 
-            puertas[7].funcionAbriendo = () => { enemigos[1].retornar() ; this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona4); this.meshesARenderizar.AddRange(SepararZonas.zona5); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
-           
-            puertas[7].funcionAbierta = () => { puertas[7].sumarUnaPasada(); if(puertas[7].pasadasPorPuerta%2==0)enemigos[1].activar(); };
+            puertas[7].funcionAbriendo = () => { enemigos[1].retornar(); this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona4); this.meshesARenderizar.AddRange(SepararZonas.zona5); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
+
+            puertas[7].funcionAbierta = () => { puertas[7].sumarUnaPasada(); if (puertas[7].pasadasPorPuerta % 2 == 0) enemigos[1].activar(); };
         }
 
         void InicializarEnemigos()
@@ -487,7 +487,8 @@ namespace TGC.Group.Model
         //@DESC: Muestra un determiada imagen de la bateria dependiendo de la cantidad de carga que tenga (entre x e y)
         void renderImagenBateria(int x, int y, TgcMesh bateria, int carga)
         {
-            if ((carga < x) && (carga >= y)) { 
+            if ((carga < x) && (carga >= y))
+            {
                 var matrizView = D3DDevice.Instance.Device.Transform.View;
 
                 D3DDevice.Instance.Device.Transform.View = Matrix.Identity;
@@ -507,10 +508,10 @@ namespace TGC.Group.Model
 
         void papelRender()
         {
-        var matrizView2 = D3DDevice.Instance.Device.Transform.View;
-        D3DDevice.Instance.Device.Transform.View = Matrix.Identity;
-        papel.render();
-        D3DDevice.Instance.Device.Transform.View = matrizView2;
+            var matrizView2 = D3DDevice.Instance.Device.Transform.View;
+            D3DDevice.Instance.Device.Transform.View = Matrix.Identity;
+            papel.render();
+            D3DDevice.Instance.Device.Transform.View = matrizView2;
         }
 
         /// <summary>
@@ -545,19 +546,19 @@ namespace TGC.Group.Model
             fog.updateValues();
 
         }
-      
 
-    /// <summary>
-    ///     Se llama cada vez que hay que refrescar la pantalla.
-    ///     Escribir aquí todo el código referido al renderizado.
-    ///     Borrar todo lo que no haga falta.
-    /// </summary>
-    public override void Render()
+
+        /// <summary>
+        ///     Se llama cada vez que hay que refrescar la pantalla.
+        ///     Escribir aquí todo el código referido al renderizado.
+        ///     Borrar todo lo que no haga falta.
+        /// </summary>
+        public override void Render()
         {
             //Inicio el render de la escena, para ejemplos simples. Cuando tenemos postprocesado o shaders es mejor realizar las operaciones según nuestra conveniencia.
             //PreRender();
 
-            
+
 
             ClearTextures();
 
@@ -578,9 +579,9 @@ namespace TGC.Group.Model
             D3DDevice.Instance.Device.BeginScene();
             // dibujo la escena pp dicha
             D3DDevice.Instance.Device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.Black, 1.0f, 0);
-            RenderScene(false);      
+            RenderScene(false);
 
-            
+
 
 
             if (!((TgcFpsCamera)Camara).colisiones)
@@ -606,7 +607,7 @@ namespace TGC.Group.Model
           "Presionar F para apagar", 0, 70, Color.OrangeRed);
             else if (!luzActivada && iluminacionEnMano != null && iluminacionEnMano.puedeApagarse)
                 DrawText.drawText(
-          "Presionar F para encender", 0, 70, Color.OrangeRed);            
+          "Presionar F para encender", 0, 70, Color.OrangeRed);
 
             RenderFPS();
 
@@ -634,7 +635,7 @@ namespace TGC.Group.Model
                 mostrarBloqueado = 0;
             }
 
-            
+
             if (iluminacionEnMano != null)
             {
                 iluminacionEnMano.mesh.Effect = TgcShaders.Instance.TgcMeshShader;
@@ -663,7 +664,7 @@ namespace TGC.Group.Model
             direccion.Normalize();
 
             Microsoft.DirectX.Direct3D.Effect efecto;
-            if (iluminacionEnMano == iluminaciones[1])            
+            if (iluminacionEnMano == iluminaciones[1])
                 efecto = effectLinterna;
             else
                 efecto = effect;
@@ -691,7 +692,7 @@ namespace TGC.Group.Model
             // Hago el render de la escena pp dicha
             efecto.SetValue("g_txShadow", g_pShadowMap);
             RenderScene(true);
-            
+
             // Termino
             D3DDevice.Instance.Device.EndScene();
 
@@ -730,7 +731,7 @@ namespace TGC.Group.Model
                 iluminacionEnMano.mesh.Technique = TgcShaders.Instance.getTgcMeshTechnique(TgcMesh.MeshRenderType.DIFFUSE_MAP);
             }
 
-            
+
 
             for (var i = 0; i < iluminaciones.Length; i++)
             {
@@ -750,7 +751,7 @@ namespace TGC.Group.Model
 
 
                 }
-                
+
             }
 
 
@@ -816,7 +817,7 @@ namespace TGC.Group.Model
 
                 if (shadow)
                 {
-                    
+
                     mesh.Technique = "RenderShadow";
                 }
                 else
@@ -838,8 +839,8 @@ namespace TGC.Group.Model
                         mesh.Effect.SetValue("materialDiffuseColor",
                             ColorValue.FromColor(Color.White));
 
-                        if( iluminacionEnMano == iluminaciones[1])
-                        {                            
+                        if (iluminacionEnMano == iluminaciones[1])
+                        {
 
                             mesh.Effect.SetValue("spotLightAngleCos", FastMath.ToRad(0.05f));
                             mesh.Effect.SetValue("spotLightExponent", 30f);
@@ -861,8 +862,23 @@ namespace TGC.Group.Model
             return bateria;
         }
 
-     
-    private void escucharTeclas()
+        public void pausarSonidos()
+        {
+            foreach (Puerta puerta in puertas)
+            {
+                puerta.sonido.stop();
+            }
+            sonidoPisadas.stop();
+            sonidoEntorno.pause();
+        }
+
+        public void retomarSonidos()
+        {
+            sonidoEntorno.resume();
+        }
+
+
+        private void escucharTeclas()
         {
             if (Input.keyPressed(Key.F) && iluminacionEnMano != null && iluminacionEnMano.puedeApagarse)
             {
@@ -905,11 +921,11 @@ namespace TGC.Group.Model
                 }
             }
 
-         
+
 
             if (Input.keyPressed(Key.Escape))
             {
-                if(mostrarPapel == 1)
+                if (mostrarPapel == 1)
                 {
                     mostrarPapel = 0;
                 }
@@ -918,10 +934,10 @@ namespace TGC.Group.Model
                     formulario.pausar();
                 }
             }
-           // Input.keyDown
+            // Input.keyDown
             if (Input.keyPressed(Key.I))
             {
-                if(mostrarPapel == 0)
+                if (mostrarPapel == 0)
                 {
                     mostrarPapel = 1;
                 }
@@ -933,14 +949,14 @@ namespace TGC.Group.Model
 
         }
 
-          
 
-    /// <summary>
-    ///     Se llama cuando termina la ejecución del ejemplo.
-    ///     Hacer Dispose() de todos los objetos creados.
-    ///     Es muy importante liberar los recursos, sobretodo los gráficos ya que quedan bloqueados en el device de video.
-    /// </summary>
-    public override void Dispose()
+
+        /// <summary>
+        ///     Se llama cuando termina la ejecución del ejemplo.
+        ///     Hacer Dispose() de todos los objetos creados.
+        ///     Es muy importante liberar los recursos, sobretodo los gráficos ya que quedan bloqueados en el device de video.
+        /// </summary>
+        public override void Dispose()
         {
             sonidoEntorno.stop();
             sonidoEntorno.closeFile();
@@ -958,4 +974,5 @@ namespace TGC.Group.Model
             scene.disposeAll();
         }
     }
+
 }
