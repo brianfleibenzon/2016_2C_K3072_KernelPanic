@@ -85,6 +85,9 @@ namespace TGC.Group.Model
 
             zona8.AddRange(obtenerHabitacion(scene, "Room-33"));
             zona8.Add(scene.getMeshByName("Interruptor2"));
+            zona8.Add(scene.getMeshByName("Mesa10"));
+            zona8.Add(scene.getMeshByName("Esqueleto30"));
+            zona8.Add(scene.getMeshByName("DispenserAgua"));
 
             zona9.AddRange(obtenerHabitacion(scene, "Room-34"));
             zona9.Add(scene.getMeshByName("MesaTortura"));
