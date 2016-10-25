@@ -93,6 +93,8 @@ namespace TGC.Group.Model
 
         private Microsoft.DirectX.Direct3D.Effect effect;
 
+        private Microsoft.DirectX.Direct3D.Effect effectLinterna;
+
         private bool luzActivada = true;
 
         public List<TgcMesh> meshesARenderizar;
@@ -137,6 +139,8 @@ namespace TGC.Group.Model
             scene = loader.loadSceneFromFile(MediaDir + "Escenario\\Escenario-TgcScene.xml");
 
             effect = TgcShaders.loadEffect(ShadersDir + "LuzYSombra.fx");
+            effectLinterna = TgcShaders.loadEffect(ShadersDir + "LinternaYSombra.fx");
+
             Camara = new TgcFpsCamera(this, new Vector3(128f, 90f, 51f), Input);
             pickingRay = new TgcPickingRay(Input);
 
@@ -652,16 +656,21 @@ namespace TGC.Group.Model
             Vector3 direccion = Camara.LookAt - posicion;
             direccion.Normalize();
 
+            Microsoft.DirectX.Direct3D.Effect efecto;
+            if (iluminacionEnMano == iluminaciones[1])            
+                efecto = effectLinterna;
+            else
+                efecto = effect;
 
 
             // Calculo la matriz de view de la luz
-            effect.SetValue("g_vLightPos", new Vector4(posicion.X, posicion.Y, posicion.Z, 1));
-            effect.SetValue("g_vLightDir", new Vector4(direccion.X, direccion.Y, direccion.Z, 1));
+            efecto.SetValue("g_vLightPos", new Vector4(posicion.X, posicion.Y, posicion.Z, 1));
+            efecto.SetValue("g_vLightDir", new Vector4(direccion.X, direccion.Y, direccion.Z, 1));
             g_LightView = Matrix.LookAtLH(posicion, direccion + posicion, new Vector3(0, 0, 1));
 
             // inicializacion standard:
-            effect.SetValue("g_mProjLight", g_mShadowProj);
-            effect.SetValue("g_mViewLightProj", g_LightView * g_mShadowProj);
+            efecto.SetValue("g_mProjLight", g_mShadowProj);
+            efecto.SetValue("g_mViewLightProj", g_LightView * g_mShadowProj);
 
             // Primero genero el shadow map, para ello dibujo desde el pto de vista de luz
             // a una textura, con el VS y PS que generan un mapa de profundidades.
@@ -674,7 +683,7 @@ namespace TGC.Group.Model
             D3DDevice.Instance.Device.BeginScene();
 
             // Hago el render de la escena pp dicha
-            effect.SetValue("g_txShadow", g_pShadowMap);
+            efecto.SetValue("g_txShadow", g_pShadowMap);
             RenderScene(true);
             
             // Termino
@@ -788,19 +797,25 @@ namespace TGC.Group.Model
                 ListaARenderizar.AddRange(SepararZonas.comunes);
             }
 
+            Vector3 lightDir;
+            lightDir = Camara.LookAt - Camara.Position;
+            lightDir.Normalize();
+
             foreach (var mesh in ListaARenderizar)
             {
+                if (iluminacionEnMano == iluminaciones[1])
+                    mesh.Effect = effectLinterna;
+                else
+                    mesh.Effect = effect;
 
                 if (shadow)
                 {
-                    mesh.Effect = effect;
+                    
                     mesh.Technique = "RenderShadow";
                 }
                 else
                 {
-                    mesh.Effect = effect;
                     mesh.Technique = "RenderScene";
-
                     if (iluminacionEnMano == null || mesh != iluminacionEnMano.mesh)
                     {
 
@@ -816,6 +831,15 @@ namespace TGC.Group.Model
                             ColorValue.FromColor((Color.Black)));
                         mesh.Effect.SetValue("materialDiffuseColor",
                             ColorValue.FromColor(Color.White));
+
+                        if( iluminacionEnMano == iluminaciones[1])
+                        {                            
+
+                            mesh.Effect.SetValue("spotLightAngleCos", FastMath.ToRad(20f));
+                            mesh.Effect.SetValue("spotLightExponent", 40f);
+                            mesh.Effect.SetValue("spotLightDir", TgcParserUtils.vector3ToFloat4Array(lightDir));
+                        }
+
                     }
                 }
 
@@ -924,6 +948,7 @@ namespace TGC.Group.Model
             bateria4.dispose();
             bloqueado.dispose();
             effect.Dispose();
+            effectLinterna.Dispose();
             scene.disposeAll();
         }
     }
