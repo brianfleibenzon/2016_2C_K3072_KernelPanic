@@ -267,7 +267,7 @@ namespace TGC.Group.Model
         {
             enemigos[0] = new Enemigo(this, new Vector3(318, 2, 1480));
 
-            enemigos[1] = new Enemigo(this, new Vector3(1460, 2, 1460));
+            enemigos[1] = new Enemigo(this, new Vector3(1009, 2, 1465));
 
         }
 
