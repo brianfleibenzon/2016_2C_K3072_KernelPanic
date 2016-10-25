@@ -335,8 +335,8 @@ namespace TGC.Group.Model
                 iluminacionEnMano.mesh.Position = -iluminacionEnMano.mesh.BoundingBox.Position;
                 iluminacionEnMano.mesh.Position += new Vector3(x, -0.38f, 1f);
             };
-            iluminaciones[1] = new Iluminacion(Color.Gray, "Linterna", scene, new Vector3(30f, 10f, 40f),
-                60f, 0.35f, 38f, 0.5f, 210f, false, true, false);
+            iluminaciones[1] = new Iluminacion(Color.White, "Linterna", scene, new Vector3(30f, 10f, 40f),
+                110f, 0.30f, 38f, 0.5f, 210f, false, true, false);
             iluminaciones[1].posicionarEnMano = () =>
             {
 
@@ -835,8 +835,8 @@ namespace TGC.Group.Model
                         if( iluminacionEnMano == iluminaciones[1])
                         {                            
 
-                            mesh.Effect.SetValue("spotLightAngleCos", FastMath.ToRad(20f));
-                            mesh.Effect.SetValue("spotLightExponent", 40f);
+                            mesh.Effect.SetValue("spotLightAngleCos", FastMath.ToRad(0.001f));
+                            mesh.Effect.SetValue("spotLightExponent", 12f);
                             mesh.Effect.SetValue("spotLightDir", TgcParserUtils.vector3ToFloat4Array(lightDir));
                         }
 
