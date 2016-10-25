@@ -71,6 +71,9 @@ namespace TGC.Group.Model
             zona5.Add(scene.getMeshByName("Esqueleto1"));
             zona5.Add(scene.getMeshByName("Contenedor1"));
             zona5.Add(scene.getMeshByName("LuzEstatica3"));
+            zona5.Add(scene.getMeshByName("Guillotina10"));
+            zona5.Add(scene.getMeshByName("Guillotina11"));
+            zona5.Add(scene.getMeshByName("MesaTortura10"));
 
             zona6.AddRange(obtenerHabitacion(scene, "Room-31"));
             zona6.Add(scene.getMeshByName("Esqueleto3"));
