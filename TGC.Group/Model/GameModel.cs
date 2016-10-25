@@ -591,7 +591,7 @@ namespace TGC.Group.Model
             if (mostrarPapel == 1)
             {
                 DrawText.drawText(
-         "Presionar ESC o I para cerrar", 500, 900, Color.OrangeRed);
+         "Presionar ESC o I para cerrar", resolucionPantalla.Width / 2 - 125, resolucionPantalla.Height - 60, Color.OrangeRed);
             }
 
 
