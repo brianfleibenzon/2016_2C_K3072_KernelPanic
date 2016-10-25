@@ -85,7 +85,9 @@ namespace TGC.Group.Model
 
         TgcMesh bateria1;
 
-        private float mostrarBateria = 0;
+        private float mostrarPapel = 1;
+
+        TgcMesh papel;
 
         private Iluminacion iluminacionEnMano;
 
@@ -138,6 +140,8 @@ namespace TGC.Group.Model
             Camara = new TgcFpsCamera(this, new Vector3(128f, 90f, 51f), Input);
             pickingRay = new TgcPickingRay(Input);
 
+        
+
             //Baterias
             bateria1 = loader.loadSceneFromFile(MediaDir + "Bateria\\bateria1-TgcScene.xml").Meshes[0];
             bateria1.Scale = new Vector3(0.002f, 0.002f, 0.002f);
@@ -158,6 +162,12 @@ namespace TGC.Group.Model
             bateria4.Scale = new Vector3(0.002f, 0.002f, 0.002f);
             bateria4.Position = new Vector3(0.50f, 0.30f, 1.15f);
             bateria4.AlphaBlendEnable = true;
+
+            //Papel
+            papel = loader.loadSceneFromFile(MediaDir + "Papel\\papel-TgcScene.xml").Meshes[0];
+            papel.Scale = new Vector3(0.005f, 0.005f, 0.005f);
+            papel.Position = new Vector3(-0.35f, -0.3f, 1f);
+            papel.AlphaBlendEnable = true;
 
             // empieza sombras
 
@@ -489,6 +499,13 @@ namespace TGC.Group.Model
             renderImagenBateria(25, 1, bateria4, contador);
         }
 
+        void papelRender()
+        {
+        var matrizView2 = D3DDevice.Instance.Device.Transform.View;
+        D3DDevice.Instance.Device.Transform.View = Matrix.Identity;
+        papel.render();
+        D3DDevice.Instance.Device.Transform.View = matrizView2;
+        }
 
         /// <summary>
         ///     Se llama en cada frame.
@@ -522,17 +539,19 @@ namespace TGC.Group.Model
             fog.updateValues();
 
         }
+      
 
-        /// <summary>
-        ///     Se llama cada vez que hay que refrescar la pantalla.
-        ///     Escribir aquí todo el código referido al renderizado.
-        ///     Borrar todo lo que no haga falta.
-        /// </summary>
-        public override void Render()
+    /// <summary>
+    ///     Se llama cada vez que hay que refrescar la pantalla.
+    ///     Escribir aquí todo el código referido al renderizado.
+    ///     Borrar todo lo que no haga falta.
+    /// </summary>
+    public override void Render()
         {
             //Inicio el render de la escena, para ejemplos simples. Cuando tenemos postprocesado o shaders es mejor realizar las operaciones según nuestra conveniencia.
             //PreRender();
 
+            
 
             ClearTextures();
 
@@ -563,7 +582,6 @@ namespace TGC.Group.Model
                 DrawText.drawText(
                     "God Mode (C para desactivar)", 0, 50,
                     Color.OrangeRed);
-            
 
             if (iluminacionEnMano != null)
             {
@@ -590,8 +608,14 @@ namespace TGC.Group.Model
                 mostrarBloqueado -= ElapsedTime;
 
             }
-           
 
+            if (mostrarPapel > 0)
+            {
+                var matrizView2 = D3DDevice.Instance.Device.Transform.View;
+                D3DDevice.Instance.Device.Transform.View = Matrix.Identity;
+                papel.render();
+                D3DDevice.Instance.Device.Transform.View = matrizView2;
+            }
 
             else if (mostrarBloqueado < 0)
             {
@@ -805,7 +829,8 @@ namespace TGC.Group.Model
             return bateria;
         }
 
-        private void escucharTeclas()
+     
+    private void escucharTeclas()
         {
             if (Input.keyPressed(Key.F) && iluminacionEnMano != null && iluminacionEnMano.puedeApagarse)
             {
@@ -852,19 +877,38 @@ namespace TGC.Group.Model
 
             if (Input.keyPressed(Key.Escape))
             {
-
-                formulario.pausar();
+                if(mostrarPapel == 1)
+                {
+                    mostrarPapel = 0;
+                }
+                else
+                {
+                    formulario.pausar();
+                }
+            }
+           // Input.keyDown
+            if (Input.keyPressed(Key.I))
+            {
+                if(mostrarPapel == 0)
+                {
+                    mostrarPapel = 1;
+                }
+                else
+                {
+                    mostrarPapel = 0;
+                }
             }
 
         }
 
+          
 
-        /// <summary>
-        ///     Se llama cuando termina la ejecución del ejemplo.
-        ///     Hacer Dispose() de todos los objetos creados.
-        ///     Es muy importante liberar los recursos, sobretodo los gráficos ya que quedan bloqueados en el device de video.
-        /// </summary>
-        public override void Dispose()
+    /// <summary>
+    ///     Se llama cuando termina la ejecución del ejemplo.
+    ///     Hacer Dispose() de todos los objetos creados.
+    ///     Es muy importante liberar los recursos, sobretodo los gráficos ya que quedan bloqueados en el device de video.
+    /// </summary>
+    public override void Dispose()
         {
             sonidoEntorno.stop();
             sonidoEntorno.closeFile();

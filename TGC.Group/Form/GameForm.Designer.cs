@@ -51,7 +51,7 @@
             this.panel3D.Controls.Add(this.botonX);
             this.panel3D.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3D.Location = new System.Drawing.Point(0, 0);
-            this.panel3D.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel3D.Margin = new System.Windows.Forms.Padding(4);
             this.panel3D.Name = "panel3D";
             this.panel3D.Size = new System.Drawing.Size(1045, 690);
             this.panel3D.TabIndex = 0;
@@ -198,7 +198,7 @@
             this.Controls.Add(this.panel3D);
             this.Controls.Add(this.panel2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "GameForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form";
