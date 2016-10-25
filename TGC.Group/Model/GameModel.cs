@@ -341,7 +341,7 @@ namespace TGC.Group.Model
                 iluminacionEnMano.mesh.Position += new Vector3(x, -0.38f, 1f);
             };
             iluminaciones[2] = new Iluminacion(Color.Yellow, "Farol", scene, new Vector3(0f, 25f, 0f),
-                20f, 0.25f, 18f, 0.7f, 50f, true, false, true);
+                20f, 0.25f, 18f, 0.7f, 300f, true, false, true);
             iluminaciones[2].posicionarEnMano = () =>
             {
                 iluminacionEnMano.mesh.Scale = new Vector3(0.005f, 0.005f, 0.005f);
@@ -483,11 +483,13 @@ namespace TGC.Group.Model
         //@DESC: Muestra un determiada imagen de la bateria dependiendo de la cantidad de carga que tenga (entre x e y)
         void renderImagenBateria(int x, int y, TgcMesh bateria, int carga)
         {
-            var matrizView = D3DDevice.Instance.Device.Transform.View;
-            if ((carga < x) && (carga >= y))
+            if ((carga < x) && (carga >= y)) { 
+                var matrizView = D3DDevice.Instance.Device.Transform.View;
+
                 D3DDevice.Instance.Device.Transform.View = Matrix.Identity;
-            bateria.render();
-            D3DDevice.Instance.Device.Transform.View = matrizView;
+                bateria.render();
+                D3DDevice.Instance.Device.Transform.View = matrizView;
+            }
             // mostrarBateria += ElapsedTime;
         }
         //@DESC: Cambia los 4 estados de la bateria dependiendo de la cantidad de carga
