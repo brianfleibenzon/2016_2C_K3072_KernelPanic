@@ -33,7 +33,19 @@ namespace TGC.Group.Model
             zona1.Add(scene.getMeshByName("Box1"));
             zona1.Add(scene.getMeshByName("Box3"));
             zona1.Add(scene.getMeshByName("Box4"));
+            zona1.Add(scene.getMeshByName("Box5"));
+            //zona1.Add(scene.getMeshByName("Esqueleto13"));
+            //zona1.Add(scene.getMeshByName("Esqueleto12"));
+            //zona1.Add(scene.getMeshByName("Esqueleto11"));
+            //zona1.Add(scene.getMeshByName("Esqueleto10"));
             zona1.Add(scene.getMeshByName("Esqueleto20"));
+            zona1.Add(scene.getMeshByName("BarrilPolvora10"));
+            zona1.Add(scene.getMeshByName("BarrilPolvora12"));
+            zona1.Add(scene.getMeshByName("BarrilPolvora13"));
+            
+            zona1.Add(scene.getMeshByName("Calabera10"));
+            zona1.Add(scene.getMeshByName("Calabera11"));
+            
 
             zona2.AddRange(obtenerHabitacion(scene, "Room-7"));
             zona2.Add(scene.getMeshByName("Interruptor3"));            
