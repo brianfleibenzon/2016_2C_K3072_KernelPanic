@@ -9,20 +9,31 @@ namespace TGC.Group.Model
 {
     class SepararZonas
     {
-        public static List<TgcMesh> zona1 = new List<TgcMesh>();
-        public static List<TgcMesh> zona2 = new List<TgcMesh>();
-        public static List<TgcMesh> zona3 = new List<TgcMesh>();
-        public static List<TgcMesh> zona4 = new List<TgcMesh>();
-        public static List<TgcMesh> zona5 = new List<TgcMesh>();
-        public static List<TgcMesh> zona6 = new List<TgcMesh>();
-        public static List<TgcMesh> zona7 = new List<TgcMesh>();
-        public static List<TgcMesh> zona8 = new List<TgcMesh>();
-        public static List<TgcMesh> zona9 = new List<TgcMesh>();
+        public static List<TgcMesh> zona1;
+        public static List<TgcMesh> zona2;
+        public static List<TgcMesh> zona3;
+        public static List<TgcMesh> zona4;
+        public static List<TgcMesh> zona5;
+        public static List<TgcMesh> zona6;
+        public static List<TgcMesh> zona7;
+        public static List<TgcMesh> zona8;
+        public static List<TgcMesh> zona9;
 
-        public static List<TgcMesh> comunes = new List<TgcMesh>();
+        public static List<TgcMesh> comunes;
 
         public static void separar(TgcScene scene)
         {
+            zona1 = new List<TgcMesh>();
+            zona2 = new List<TgcMesh>();
+            zona3 = new List<TgcMesh>();
+            zona4 = new List<TgcMesh>();
+            zona5 = new List<TgcMesh>();
+            zona6 = new List<TgcMesh>();
+            zona7 = new List<TgcMesh>();
+            zona8 = new List<TgcMesh>();
+            zona9 = new List<TgcMesh>();
+            comunes = new List<TgcMesh>();
+
 
             zona1.AddRange(obtenerHabitacion(scene, "Room-1"));
             zona1.AddRange(obtenerHabitacion(scene, "Room-3"));

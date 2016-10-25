@@ -93,7 +93,7 @@ namespace TGC.Group.Model
 
         private bool luzActivada = true;
 
-        public List<TgcMesh> meshesARenderizar = new List<TgcMesh>();
+        public List<TgcMesh> meshesARenderizar;
 
         private readonly float far_plane = 2500f;
 
@@ -200,6 +200,7 @@ namespace TGC.Group.Model
             sonidoEntorno.play(true);
 
             SepararZonas.separar(scene);
+            meshesARenderizar = new List<TgcMesh>();
             meshesARenderizar.AddRange(SepararZonas.zona1);
             meshesARenderizar.AddRange(SepararZonas.comunes);
 
