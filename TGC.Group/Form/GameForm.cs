@@ -256,6 +256,7 @@ namespace TGC.Group.Form
                 }
                 else
                 {
+                    ((GameModel)Modelo).reiniciarTimer();
                     ApplicationRunning = true;
                     ((GameModel)Modelo).retomarSonidos();
                 }

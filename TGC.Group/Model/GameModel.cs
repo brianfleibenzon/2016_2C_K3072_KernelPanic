@@ -142,9 +142,7 @@ namespace TGC.Group.Model
             effectLinterna = TgcShaders.loadEffect(ShadersDir + "LinternaYSombra.fx");
 
             Camara = new TgcFpsCamera(this, new Vector3(128f, 90f, 51f), Input);
-            pickingRay = new TgcPickingRay(Input);
-
-
+            pickingRay = new TgcPickingRay(Input);            
 
             //Baterias
             bateria1 = loader.loadSceneFromFile(MediaDir + "Bateria\\bateria1-TgcScene.xml").Meshes[0];
@@ -882,6 +880,11 @@ namespace TGC.Group.Model
             sonidoEntorno.resume();
         }
 
+        public void reiniciarTimer()
+        {
+            UpdateClock();
+            UpdateClock();
+        }
 
         private void escucharTeclas()
         {
