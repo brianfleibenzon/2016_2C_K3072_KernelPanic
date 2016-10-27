@@ -268,21 +268,25 @@ namespace TGC.Group.Model
 
             puertas[5].funcionAbriendo = () => { this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona1); this.meshesARenderizar.AddRange(SepararZonas.zona3); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
 
-            puertas[6].funcionAbriendo = () => { this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona3); this.meshesARenderizar.AddRange(SepararZonas.zona4); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
+            puertas[6].funcionAbriendo = () => {
+                enemigos[1].vigilador = true;
+                enemigos[1].setEstado(Enemigo.Estado.Vigilando);
+                this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona3); this.meshesARenderizar.AddRange(SepararZonas.zona4); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
 
-            puertas[6].funcionAbierta = () => { if (interruptores[0].estado == Interruptor.Estado.ACTIVADO) enemigos[1].retornar(); else enemigos[1].activar(); };
+            puertas[7].funcionAbriendo = () => { this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona4); this.meshesARenderizar.AddRange(SepararZonas.zona5); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
 
-            puertas[7].funcionAbriendo = () => { enemigos[1].retornar(); this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona4); this.meshesARenderizar.AddRange(SepararZonas.zona5); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
-
-            puertas[7].funcionAbierta = () => { puertas[7].sumarUnaPasada(); if (puertas[7].pasadasPorPuerta % 2 == 0) enemigos[1].activar(); };
         }
 
         void InicializarEnemigos()
         {
-            enemigos[0] = new Enemigo(this, new Vector3(318, 2, 1480),false);
+            enemigos[0] = new Enemigo(this, new Vector3(318f, 2f, 1480f));
 
-            enemigos[1] = new Enemigo(this, new Vector3(1458f, 2f, 550f), true);
-
+            enemigos[1] = new Enemigo(this, new Vector3(540f, 2f, 540f));
+                                   
+            enemigos[1].puntosARecorrer.Add(new Vector3(1460f, 2f, 540f));
+            enemigos[1].puntosARecorrer.Add(new Vector3(1425f, 2f, 1450f));
+            enemigos[1].puntosARecorrer.Add(new Vector3(540f, 2f, 1450f));
+            enemigos[1].puntosARecorrer.Add(new Vector3(540f, 2f, 540f));            
         }
 
         void InicializarInterruptores()
@@ -606,6 +610,17 @@ namespace TGC.Group.Model
             else if (!luzActivada && iluminacionEnMano != null && iluminacionEnMano.puedeApagarse)
                 DrawText.drawText(
           "Presionar F para encender", 0, 70, Color.OrangeRed);
+
+            DrawText.drawText(
+         enemigos[1].mesh.Position.ToString(), 0, 70, Color.OrangeRed);
+
+            DrawText.drawText(
+         Camara.Position.ToString(), 0, 180, Color.OrangeRed);
+
+            DrawText.drawText(
+        (enemigos[1].puntosARecorrer[enemigos[1].posicion] - enemigos[1].mesh.Position).ToString(), 80, 180, Color.OrangeRed);
+
+            
 
             RenderFPS();
 

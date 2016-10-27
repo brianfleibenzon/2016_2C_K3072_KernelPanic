@@ -27,13 +27,6 @@ namespace TGC.Group.Model
         public Tgc3dSound sonidoBloqueada;
 
 
-        public double pasadasPorPuerta = 0;
-
-        public void sumarUnaPasada()
-        {
-            pasadasPorPuerta += 1;
-        }
-
         public void actualizarEstado(TgcCamera Camara, float ElapsedTime, Enemigo[] enemigos)
         {
             switch (this.estado)

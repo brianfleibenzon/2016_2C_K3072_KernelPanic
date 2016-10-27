@@ -10,6 +10,7 @@ using TGC.Core.Collision;
 using TGC.Core.Geometry;
 using TGC.Core.SceneLoader;
 using TGC.Core.SkeletalAnimation;
+using TGC.Core.Utils;
 
 namespace TGC.Group.Model
 {
@@ -26,14 +27,16 @@ namespace TGC.Group.Model
 
         public Vector3 posicionInicial;
 
-        public Vector3 posicion1= new Vector3(1458f, 2f, 550f);
-        public Vector3 posicion2= new Vector3(584f,  2f, 562f);
+        public List<Vector3> puntosARecorrer = new List<Vector3>();
 
-        private bool vigilador = false;
+        //public Vector3 posicion1= new Vector3(1458f, 2f, 550f);
+        //public Vector3 posicion2= new Vector3(584f,  2f, 562f);
+
+        public bool vigilador = false;
 
         public bool persecutor = false;
 
-        private int posicion= 1;
+        public int posicion = 0;
 
         GameModel gameModel;
 
@@ -45,17 +48,16 @@ namespace TGC.Group.Model
             Vigilando = 3
         }
 
-        public Enemigo(GameModel gameModel, Vector3 posicionInicial, bool vigilante)
+        public Enemigo(GameModel gameModel, Vector3 posicionInicial)
         {
             this.gameModel = gameModel;
-            
+
             //Paths para archivo XML de la malla
             string pathMesh = mediaDir + "SkeletalAnimations\\Robot\\Robot-TgcSkeletalMesh.xml";
 
             //Path para carpeta de texturas de la malla
             string mediaPath = mediaDir + "SkeletalAnimations\\Robot\\";
 
-            this.vigilador = vigilante;
             //Lista de animaciones disponibles
             animationList = new string[]{
                 "Parado",
@@ -87,14 +89,8 @@ namespace TGC.Group.Model
             //Elegir animacion Caminando
             // mesh.BoundingBox.move(new Vector3(15,0,-170));
             //mesh.BoundingBox.scaleTranslate(mesh.BoundingBox.Position, new Vector3(4f,0.8f,4f)); // este sera el rango de vision
-            if (vigilador)
-            {
-                setEstado(Estado.Vigilando);
-            }
-            else
-            { 
             setEstado(Estado.Parado);
-            }
+
             mesh.Position = posicionInicial;
 
             this.posicionInicial = posicionInicial;
@@ -144,47 +140,7 @@ namespace TGC.Group.Model
 
         public void actualizarEstado(TgcCamera Camara, float ElapsedTime, TgcScene scene)
         {
-            if (estado == Estado.Vigilando)
-            {
-                Vector3 posicionAnterior = mesh.Position;
-
-                Vector3 vector;
-
-                if (posicion == 1)
-                    vector = posicion1 - posicion2;
-                else
-                    vector = posicion2 - posicion1;
-                vector.Normalize();
-                vector.Y = 0;
-
-                Vector3 intento = vector;
-
-                mesh.Position += intento * MovementSpeed * ElapsedTime;
-
-
-                if (verificarColision(Camara, scene))
-                {
-                    mesh.Position = posicionAnterior;
-                    intento.X = valorUnitario(vector.X);
-                    intento.Z = 0;
-                    mesh.Position += intento * MovementSpeed * ElapsedTime;
-
-
-                    if (verificarColision(Camara, scene))
-                    {
-                        this.mesh.Position = posicionAnterior;
-                        intento.X = 0;
-                        intento.Z = valorUnitario(vector.Z);
-                        this.mesh.Position += intento * MovementSpeed * ElapsedTime;
-                        if (verificarColision(Camara, scene))
-                            mesh.Position = posicionAnterior;
-                    }
-                }
-                mesh.rotateY((float)Math.Atan2(intento.X, intento.Z) - mesh.Rotation.Y - Geometry.DegreeToRadian(180f));
-
-            }
-
-            if (estado != Estado.Parado && estado != Estado.Vigilando)
+            if (estado != Estado.Parado)
             {
                 Vector3 posicionAnterior = mesh.Position;
 
@@ -192,8 +148,20 @@ namespace TGC.Group.Model
 
                 if (estado == Estado.Persiguiendo)
                     vector = Camara.Position - mesh.Position;
-                else
+                else if (estado == Estado.Retornando)
                     vector = posicionInicial - mesh.Position;
+                else
+                {
+                    vector = this.puntosARecorrer[posicion] - mesh.Position;
+                    if (estaCerca(vector))
+                    {
+                        posicion++;
+                        if (posicion >= puntosARecorrer.Count)
+                            posicion = 0;
+                        vector = puntosARecorrer[posicion] - mesh.Position;
+                    }
+                }
+
                 vector.Normalize();
                 vector.Y = 0;
 
@@ -217,38 +185,28 @@ namespace TGC.Group.Model
                         intento.Z = valorUnitario(vector.Z);
                         this.mesh.Position += intento * MovementSpeed * ElapsedTime;
 
-                        /*   if (valorUnitario(vector.Z)<0.02f && verificarColision(Camara, scene))
-                           {
-                               this.mesh.Position = posicionAnterior;
-                               intento.X = 0;
-                               intento.Z = 1;
-                               this.mesh.Position += intento * MovementSpeed * ElapsedTime;
-                               if(valorUnitario(vector.X) < 0.02f && verificarColision(Camara, scene))
-                               {
-                                   this.mesh.Position = posicionAnterior;
-                                   intento.X = 1;
-                                   intento.Z = 0;
-                                   this.mesh.Position += intento * MovementSpeed * ElapsedTime; */
-                        if (verificarColision(Camara, scene))
-                            mesh.Position = posicionAnterior;
-                        // }
-                        // }
+                        if (valorUnitario(vector.Z) < 0.02f && verificarColision(Camara, scene))
+                        {
+                            this.mesh.Position = posicionAnterior;
+                            intento.X = 0;
+                            intento.Z = 1;
+                            this.mesh.Position += intento * MovementSpeed * ElapsedTime;
+                            if (valorUnitario(vector.X) < 0.02f && verificarColision(Camara, scene))
+                            {
+                                this.mesh.Position = posicionAnterior;
+                                intento.X = 1;
+                                intento.Z = 0;
+                                this.mesh.Position += intento * MovementSpeed * ElapsedTime;
+                                if (verificarColision(Camara, scene))
+                                    mesh.Position = posicionAnterior;
+                            }
+                        }
 
 
                     }
                 }
 
                 mesh.rotateY((float)Math.Atan2(intento.X, intento.Z) - mesh.Rotation.Y - Geometry.DegreeToRadian(180f));
-
-                if(posicion == 1)
-                {
-                    if ((vector - posicion1).X < 0.1f && (vector - posicion1).Z < 0.1f)
-                        posicion = 2;
-                }
-                else
-                    if ((vector - posicion2).X < 0.1f && (vector - posicion2).Z < 0.1f)
-                    posicion = 1;
-
 
             }
 
@@ -268,15 +226,15 @@ namespace TGC.Group.Model
             {
                 return 1;
             }
-            else if(numero <= -0f && numero >= -0.6f)
+            else if (numero <= -0f && numero >= -0.6f)
             {
                 return -1;
             }
             else
             {
                 return numero;
-            }            
-            
+            }
+
         }
 
 
@@ -297,7 +255,7 @@ namespace TGC.Group.Model
                     if (TgcCollisionUtils.classifyBoxBox(this.mesh.BoundingBox, mesh.BoundingBox) == TgcCollisionUtils.BoxBoxResult.Atravesando)
                     {
                         return true;
-                    }                    
+                    }
 
                 }
 
@@ -308,6 +266,15 @@ namespace TGC.Group.Model
         public virtual void render(float ElapsedTime)
         {
             mesh.animateAndRender(ElapsedTime);
+        }
+
+        private bool estaCerca(Vector3 vector)
+        {
+            if (FastMath.Abs(vector.X) < 5f && FastMath.Abs(vector.Z) < 5f)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
