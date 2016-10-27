@@ -26,7 +26,14 @@ namespace TGC.Group.Model
 
         public Vector3 posicionInicial;
 
+        public Vector3 posicion1= new Vector3(1458f, 2f, 550f);
+        public Vector3 posicion2= new Vector3(584f,  2f, 562f);
+
+        private bool vigilador = false;
+
         public bool persecutor = false;
+
+        private int posicion= 1;
 
         GameModel gameModel;
 
@@ -34,19 +41,21 @@ namespace TGC.Group.Model
         {
             Parado = 0, // Hay que pasarle 2 viewpoints: posicion y direccion donde mira.
             Persiguiendo = 1,
-            Retornando = 2
+            Retornando = 2,
+            Vigilando = 3
         }
 
-        public Enemigo(GameModel gameModel, Vector3 posicionInicial)
+        public Enemigo(GameModel gameModel, Vector3 posicionInicial, bool vigilante)
         {
             this.gameModel = gameModel;
-
+            
             //Paths para archivo XML de la malla
             string pathMesh = mediaDir + "SkeletalAnimations\\Robot\\Robot-TgcSkeletalMesh.xml";
 
             //Path para carpeta de texturas de la malla
             string mediaPath = mediaDir + "SkeletalAnimations\\Robot\\";
 
+            this.persecutor = vigilante;
             //Lista de animaciones disponibles
             animationList = new string[]{
                 "Parado",
@@ -78,9 +87,14 @@ namespace TGC.Group.Model
             //Elegir animacion Caminando
             // mesh.BoundingBox.move(new Vector3(15,0,-170));
             //mesh.BoundingBox.scaleTranslate(mesh.BoundingBox.Position, new Vector3(4f,0.8f,4f)); // este sera el rango de vision
-
+            if (persecutor)
+            {
+                setEstado(Estado.Vigilando);
+            }
+            else
+            { 
             setEstado(Estado.Parado);
-
+            }
             mesh.Position = posicionInicial;
 
             this.posicionInicial = posicionInicial;
@@ -100,6 +114,9 @@ namespace TGC.Group.Model
                     selectedAnim = animationList[1];
                     break;
                 case Estado.Retornando:
+                    selectedAnim = animationList[1];
+                    break;
+                case Estado.Vigilando:
                     selectedAnim = animationList[1];
                     break;
             }
@@ -127,7 +144,47 @@ namespace TGC.Group.Model
 
         public void actualizarEstado(TgcCamera Camara, float ElapsedTime, TgcScene scene)
         {
-            if (estado != Estado.Parado)
+            if (estado == Estado.Vigilando)
+            {
+                Vector3 posicionAnterior = mesh.Position;
+
+                Vector3 vector;
+
+                if (posicion == 1)
+                    vector = posicion1 - posicion2;
+                else
+                    vector = posicion2 - posicion1;
+                vector.Normalize();
+                vector.Y = 0;
+
+                Vector3 intento = vector;
+
+                mesh.Position += intento * MovementSpeed * ElapsedTime;
+
+
+                if (verificarColision(Camara, scene))
+                {
+                    mesh.Position = posicionAnterior;
+                    intento.X = valorUnitario(vector.X);
+                    intento.Z = 0;
+                    mesh.Position += intento * MovementSpeed * ElapsedTime;
+
+
+                    if (verificarColision(Camara, scene))
+                    {
+                        this.mesh.Position = posicionAnterior;
+                        intento.X = 0;
+                        intento.Z = valorUnitario(vector.Z);
+                        this.mesh.Position += intento * MovementSpeed * ElapsedTime;
+                        if (verificarColision(Camara, scene))
+                            mesh.Position = posicionAnterior;
+                    }
+                }
+                mesh.rotateY((float)Math.Atan2(intento.X, intento.Z) - mesh.Rotation.Y - Geometry.DegreeToRadian(180f));
+
+            }
+
+            if (estado != Estado.Parado && estado != Estado.Vigilando)
             {
                 Vector3 posicionAnterior = mesh.Position;
 
@@ -143,14 +200,14 @@ namespace TGC.Group.Model
                 Vector3 intento = vector;
 
                 mesh.Position += intento * MovementSpeed * ElapsedTime;
-                
+
 
                 if (verificarColision(Camara, scene))
                 {
                     mesh.Position = posicionAnterior;
                     intento.X = valorUnitario(vector.X);
                     intento.Z = 0;
-                    mesh.Position += intento * MovementSpeed * ElapsedTime;                  
+                    mesh.Position += intento * MovementSpeed * ElapsedTime;
 
 
                     if (verificarColision(Camara, scene))
@@ -172,23 +229,39 @@ namespace TGC.Group.Model
                                    intento.X = 1;
                                    intento.Z = 0;
                                    this.mesh.Position += intento * MovementSpeed * ElapsedTime; */
-                            if (verificarColision(Camara, scene))                                
-                                    mesh.Position = posicionAnterior;
-                           // }
-                       // }
-                        
-                        
+                        if (verificarColision(Camara, scene))
+                            mesh.Position = posicionAnterior;
+                        // }
+                        // }
+
+
                     }
                 }
- 
+
                 mesh.rotateY((float)Math.Atan2(intento.X, intento.Z) - mesh.Rotation.Y - Geometry.DegreeToRadian(180f));
+
+                if(posicion == 1)
+                {
+                    if ((vector - posicion1).X < 0.1f && (vector - posicion1).Z < 0.1f)
+                        posicion = 2;
+                }
+                else
+                    if ((vector - posicion2).X < 0.1f && (vector - posicion2).Z < 0.1f)
+                    posicion = 1;
+
 
             }
 
             if ((estado == Estado.Retornando) && TgcCollisionUtils.sqDistPointAABB(posicionInicial, mesh.BoundingBox) < 2f)
-                desactivar();
-        }
+            {
 
+                if (vigilador)
+                    estado = Estado.Vigilando;
+                else
+                    desactivar();
+            }
+
+        }
         private float valorUnitario(float numero)
         {
             if (numero >= 0f && numero <= 0.6f)
