@@ -281,12 +281,11 @@ namespace TGC.Group.Model
         {
             enemigos[0] = new Enemigo(this, new Vector3(318f, 2f, 1480f));
 
-            enemigos[1] = new Enemigo(this, new Vector3(540f, 2f, 540f));
-                                   
+            enemigos[1] = new Enemigo(this, new Vector3(1425f, 2f, 1450f));
             enemigos[1].puntosARecorrer.Add(new Vector3(1460f, 2f, 540f));
-            enemigos[1].puntosARecorrer.Add(new Vector3(1425f, 2f, 1450f));
+            enemigos[1].puntosARecorrer.Add(new Vector3(540f, 2f, 540f));
             enemigos[1].puntosARecorrer.Add(new Vector3(540f, 2f, 1450f));
-            enemigos[1].puntosARecorrer.Add(new Vector3(540f, 2f, 540f));            
+            enemigos[1].puntosARecorrer.Add(new Vector3(1425f, 2f, 1450f));          
         }
 
         void InicializarInterruptores()
@@ -611,17 +610,6 @@ namespace TGC.Group.Model
                 DrawText.drawText(
           "Presionar F para encender", 0, 70, Color.OrangeRed);
 
-            DrawText.drawText(
-         enemigos[1].mesh.Position.ToString(), 0, 70, Color.OrangeRed);
-
-            DrawText.drawText(
-         Camara.Position.ToString(), 0, 180, Color.OrangeRed);
-
-            DrawText.drawText(
-        (enemigos[1].puntosARecorrer[enemigos[1].posicion] - enemigos[1].mesh.Position).ToString(), 80, 180, Color.OrangeRed);
-
-            
-
             RenderFPS();
 
             if (mostrarBloqueado > 0)
@@ -772,15 +760,6 @@ namespace TGC.Group.Model
             foreach (var enemigo in enemigos)
             {
 
-
-                /* enemigo.mesh.Effect.SetValue("lightColor", lightColors);
-                 enemigo.mesh.Effect.SetValue("lightPosition", pointLightPositions);
-                 enemigo.mesh.Effect.SetValue("lightIntensity", pointLightIntensity);
-                 enemigo.mesh.Effect.SetValue("lightAttenuation", pointLightAttenuation);
-                 enemigo.mesh.Effect.SetValue("materialEmissiveColor",
-                     ColorValue.FromColor((Color.Black)));
-                 enemigo.mesh.Effect.SetValue("materialDiffuseColor",
-                     ColorValue.FromColor(Color.White));*/
                 //Cargar variables shader de la luz
                 enemigo.mesh.Effect.SetValue("lightColor", lightColors);
                 enemigo.mesh.Effect.SetValue("lightPosition", pointLightPositions);
