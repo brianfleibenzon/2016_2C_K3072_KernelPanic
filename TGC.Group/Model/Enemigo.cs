@@ -55,7 +55,7 @@ namespace TGC.Group.Model
             //Path para carpeta de texturas de la malla
             string mediaPath = mediaDir + "SkeletalAnimations\\Robot\\";
 
-            this.persecutor = vigilante;
+            this.vigilador = vigilante;
             //Lista de animaciones disponibles
             animationList = new string[]{
                 "Parado",
@@ -87,7 +87,7 @@ namespace TGC.Group.Model
             //Elegir animacion Caminando
             // mesh.BoundingBox.move(new Vector3(15,0,-170));
             //mesh.BoundingBox.scaleTranslate(mesh.BoundingBox.Position, new Vector3(4f,0.8f,4f)); // este sera el rango de vision
-            if (persecutor)
+            if (vigilador)
             {
                 setEstado(Estado.Vigilando);
             }
