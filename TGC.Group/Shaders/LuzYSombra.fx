@@ -56,6 +56,8 @@ float4 lightPosition[4]; //Posicion de las luces
 float lightIntensity[4]; //Intensidad de las luces
 float lightAttenuation[4]; //Factor de atenuacion de las luces
 
+float bateria = 100;
+
 
 //Output del Vertex Shader
 struct VS_OUTPUT
@@ -191,7 +193,14 @@ float4 PixScene(float2 Tex : TEXCOORD0,
 
 
 	float4 color_base = tex2D(diffuseMap, Tex);
+	
+
+	color_base *= min(bateria + 20, 100) / 100;
+	
 	color_base.rgb *= min(K + 1.0, 1.6) * 0.5 * diffuseLighting;
+	
+	
+	
 	return color_base;
 }
 

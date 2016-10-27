@@ -837,6 +837,9 @@ namespace TGC.Group.Model
                         mesh.Effect.SetValue("materialDiffuseColor",
                             ColorValue.FromColor(Color.White));
 
+                        if (iluminacionEnMano != null)
+                            mesh.Effect.SetValue("bateria", getBateria());
+
                         if (iluminacionEnMano == iluminaciones[1])
                         {
 
