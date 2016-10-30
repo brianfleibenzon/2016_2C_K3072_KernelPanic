@@ -574,7 +574,7 @@ namespace TGC.Group.Model
 
             //Genero el shadow map
 
-
+            if(iluminacionEnMano != null)
             RenderShadowMap();
 
             D3DDevice.Instance.Device.BeginScene();
@@ -660,7 +660,7 @@ namespace TGC.Group.Model
 
         public void RenderShadowMap()
         {
-            Vector3 posicion = Camara.Position + new Vector3(0.00001f, 0.00001f, 0.00001f);
+            Vector3 posicion = Camara.Position + new Vector3(0.0001f, 0.00001f, 0.00001f);
             Vector3 direccion = Camara.LookAt - posicion;
             direccion.Normalize();
 
@@ -674,6 +674,7 @@ namespace TGC.Group.Model
             // Calculo la matriz de view de la luz
             efecto.SetValue("g_vLightPos", new Vector4(posicion.X, posicion.Y, posicion.Z, 1));
             efecto.SetValue("g_vLightDir", new Vector4(direccion.X, direccion.Y, direccion.Z, 1));
+            //efecto.SetValue("g_vLightDir", new Vector4(posicion.X, posicion.Y, posicion.Z, 1));
             g_LightView = Matrix.LookAtLH(posicion, direccion + posicion, new Vector3(0, 0, 1));
 
             // inicializacion standard:
