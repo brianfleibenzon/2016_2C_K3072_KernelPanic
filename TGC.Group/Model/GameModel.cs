@@ -77,6 +77,8 @@ namespace TGC.Group.Model
 
         TgcMesh bloqueado;
 
+        TgcMesh esconderse;
+
         TgcMesh bateria4;
 
         TgcMesh bateria3;
@@ -201,6 +203,10 @@ namespace TGC.Group.Model
             bloqueado = loader.loadSceneFromFile(MediaDir + "Bloqueado\\locked-TgcScene.xml").Meshes[0];
             bloqueado.Scale = new Vector3(0.004f, 0.004f, 0.004f);
             bloqueado.Position = new Vector3(-0.05f, 0.20f, 1f);
+
+            esconderse = loader.loadSceneFromFile(MediaDir + "Esconderse\\esconderse-TgcScene.xml").Meshes[0];
+            esconderse.Scale = new Vector3(0.004f, 0.004f, 0.004f);
+            esconderse.Position = new Vector3(-0.05f, 0.20f, 1f);
 
             fog = new TgcFog();
 
@@ -623,6 +629,22 @@ namespace TGC.Group.Model
 
             }
 
+            if (contenedorCerca() != null)
+            {
+
+                var matrizView = D3DDevice.Instance.Device.Transform.View;
+                D3DDevice.Instance.Device.Transform.View = Matrix.Identity;
+                esconderse.render();
+                D3DDevice.Instance.Device.Transform.View = matrizView;
+
+                if (enTacho != null)
+                    DrawText.drawText(
+         "Presionar E para salir", 0, 90, Color.OrangeRed);
+                else
+                    DrawText.drawText(
+        "Presionar E para esconderse", 0,90, Color.OrangeRed);
+            }
+
             if (mostrarPapel > 0)
             {
                 var matrizView2 = D3DDevice.Instance.Device.Transform.View;
@@ -908,21 +930,17 @@ namespace TGC.Group.Model
                 }
                 else
                 {
-                    foreach (var contenedor in contenedores)
+                    var contenedor = contenedorCerca();
+                    if (contenedor != null)
                     {
-                        if (meshesARenderizar.Contains(contenedor.mesh) && TgcCollisionUtils.sqDistPointAABB(Camara.Position, contenedor.mesh.BoundingBox) < 3000f)
+                        contenedor.esconderse(((TgcFpsCamera)Camara));
+                        enTacho = contenedor;
+
+                        foreach (var enemigo in enemigos)
                         {
-
-                            contenedor.esconderse(((TgcFpsCamera)Camara));
-                            enTacho = contenedor;
-
-                            foreach (var enemigo in enemigos)
-                            {
-                                enemigo.retornar();
-                            }
-
+                            enemigo.retornar();
                         }
-                    }
+                    }                    
 
                 }
             }
@@ -953,6 +971,18 @@ namespace TGC.Group.Model
                 }
             }
 
+        }
+
+        private Contenedor contenedorCerca() {
+            foreach (var contenedor in contenedores)
+            {
+                if (meshesARenderizar.Contains(contenedor.mesh) && TgcCollisionUtils.sqDistPointAABB(Camara.Position, contenedor.mesh.BoundingBox) < 2000f)
+                {
+                    return contenedor;
+
+                }
+            }
+            return null;
         }
 
 
