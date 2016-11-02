@@ -63,7 +63,7 @@
             this.botonX.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.botonX.Cursor = System.Windows.Forms.Cursors.Hand;
             this.botonX.Location = new System.Drawing.Point(750, 10);
-            this.botonX.Margin = new System.Windows.Forms.Padding(2);
+            this.botonX.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.botonX.Name = "botonX";
             this.botonX.Size = new System.Drawing.Size(25, 32);
             this.botonX.TabIndex = 25;
@@ -79,17 +79,17 @@
             this.panel1.Controls.Add(this.botonSalir);
             this.panel1.Controls.Add(this.botonJugar);
             this.panel1.Location = new System.Drawing.Point(148, 44);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(524, 444);
             this.panel1.TabIndex = 22;
             // 
             // btnControles
             // 
-            this.btnControles.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 26.25F);
+            this.btnControles.Font = new System.Drawing.Font("Chiller", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnControles.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnControles.Location = new System.Drawing.Point(151, 298);
-            this.btnControles.Margin = new System.Windows.Forms.Padding(2);
+            this.btnControles.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnControles.Name = "btnControles";
             this.btnControles.Size = new System.Drawing.Size(236, 54);
             this.btnControles.TabIndex = 1;
@@ -99,20 +99,21 @@
             // 
             // lblResultado
             // 
-            this.lblResultado.Font = new System.Drawing.Font("Tahoma", 60F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblResultado.Font = new System.Drawing.Font("Chiller", 72F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblResultado.ForeColor = System.Drawing.Color.Red;
             this.lblResultado.Location = new System.Drawing.Point(3, 12);
             this.lblResultado.Name = "lblResultado";
             this.lblResultado.Size = new System.Drawing.Size(518, 114);
             this.lblResultado.TabIndex = 23;
+            this.lblResultado.Text = "Kernel Panic";
             this.lblResultado.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // botonSalir
             // 
-            this.botonSalir.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 26.25F);
+            this.botonSalir.Font = new System.Drawing.Font("Chiller", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.botonSalir.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.botonSalir.Location = new System.Drawing.Point(151, 356);
-            this.botonSalir.Margin = new System.Windows.Forms.Padding(2);
+            this.botonSalir.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.botonSalir.Name = "botonSalir";
             this.botonSalir.Size = new System.Drawing.Size(236, 54);
             this.botonSalir.TabIndex = 2;
@@ -122,10 +123,10 @@
             // 
             // botonJugar
             // 
-            this.botonJugar.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 26.25F);
+            this.botonJugar.Font = new System.Drawing.Font("Chiller", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.botonJugar.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.botonJugar.Location = new System.Drawing.Point(151, 240);
-            this.botonJugar.Margin = new System.Windows.Forms.Padding(2);
+            this.botonJugar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.botonJugar.Name = "botonJugar";
             this.botonJugar.Size = new System.Drawing.Size(236, 54);
             this.botonJugar.TabIndex = 0;
@@ -140,7 +141,7 @@
             this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.btnVolver);
             this.panel2.Location = new System.Drawing.Point(148, 44);
-            this.panel2.Margin = new System.Windows.Forms.Padding(2);
+            this.panel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(524, 444);
             this.panel2.TabIndex = 24;
@@ -148,33 +149,33 @@
             // 
             // label2
             // 
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Chiller", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(122, 12);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(360, 325);
             this.label2.TabIndex = 24;
             this.label2.Text = "- Mover la cámara\r\n- Mover hacia adelante\r\n- Mover hacia la izquierda\r\n- Mover ha" +
-    "cia atras\r\n- Mover hacia la derecha\r\n- Encender / Apagar iluminación\r\n- Agachars" +
-    "e\r\n- Pausa";
+    "cia atras\r\n- Mover hacia la derecha\r\n- Encender / Apagar iluminación\r\n- Esconder" +
+    "se\r\n- Instrucciones\r\n- Pausa";
             // 
             // label1
             // 
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Chiller", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(30, 12);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(86, 325);
             this.label1.TabIndex = 23;
-            this.label1.Text = "Mouse\r\nW\r\nA\r\nS\r\nD\r\nF\r\nCtrl\r\nEsc";
+            this.label1.Text = "Mouse\r\nW\r\nA\r\nS\r\nD\r\nF\r\nE\r\nI\r\nEsc";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // btnVolver
             // 
-            this.btnVolver.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 26.25F);
+            this.btnVolver.Font = new System.Drawing.Font("Chiller", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnVolver.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnVolver.Location = new System.Drawing.Point(151, 356);
-            this.btnVolver.Margin = new System.Windows.Forms.Padding(2);
+            this.btnVolver.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(236, 54);
             this.btnVolver.TabIndex = 0;
@@ -186,7 +187,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::TGC.Group.Properties.Resources.fondo;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.BackgroundImage = global::TGC.Group.Properties.Resources.fondo1;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(784, 561);
             this.Controls.Add(this.panel1);

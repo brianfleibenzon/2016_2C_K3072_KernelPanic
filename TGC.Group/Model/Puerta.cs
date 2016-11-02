@@ -8,6 +8,7 @@ using TGC.Core.Camara;
 using TGC.Core.Collision;
 using TGC.Core.SceneLoader;
 using TGC.Core.Sound;
+using TGC.Group.Camara;
 
 namespace TGC.Group.Model
 {
@@ -17,17 +18,20 @@ namespace TGC.Group.Model
 
         public Estado estado = Estado.CERRADA;
 
-        public Action funcion = null;
+        public Action funcionAbriendo = null;
+        public Action funcionAbierta = null;
 
         public TgcMesh mesh;
 
         public Tgc3dSound sonido;
+        public Tgc3dSound sonidoBloqueada;
+
 
         public void actualizarEstado(TgcCamera Camara, float ElapsedTime, Enemigo[] enemigos)
         {
             switch (this.estado)
             {
-
+                
                 case (Puerta.Estado.ABIERTA):
                     if (TgcCollisionUtils.sqDistPointAABB(Camara.Position, this.mesh.BoundingBox) > 100000f && !colisionConEnemigos(enemigos)) { 
                         this.estado = Puerta.Estado.CERRANDO;
@@ -36,14 +40,19 @@ namespace TGC.Group.Model
                     break;
 
                 case (Puerta.Estado.ABRIENDO):
+
                     if (this.mesh.Position.Y < 195)
-                        this.mesh.move(new Vector3(0, 80f * ElapsedTime, 0));
+                    {
+                        this.mesh.move(new Vector3(0, 80f * ElapsedTime, 0));                        
+                        ((TgcFpsCamera)Camara).moverse = false;
+                    }
                     else
                     {
                         this.estado = Puerta.Estado.ABIERTA;
+                        if (funcionAbierta != null)
+                            funcionAbierta();
                         this.sonido.stop();
-                        //if (funcion != null)
-                            //funcion();
+                        ((TgcFpsCamera)Camara).moverse = true;
                     }
                     break;
 
@@ -62,10 +71,18 @@ namespace TGC.Group.Model
 
         public void abrir()
         {
-            if (funcion != null)
-                funcion();      
-            this.estado = Estado.ABRIENDO;
-            this.sonido.play();
+            switch (this.estado)
+            {
+                case (Estado.CERRADA):
+                    if (funcionAbriendo != null)
+                        funcionAbriendo();
+                    this.estado = Estado.ABRIENDO;
+                    this.sonido.play();
+                    break;
+                case (Estado.BLOQUEADA):
+                    sonidoBloqueada.play();
+                    break;
+            }
         }
 
         private bool colisionConEnemigos(Enemigo[] enemigos)
@@ -80,4 +97,5 @@ namespace TGC.Group.Model
             return false;
         }
     }
+
 }

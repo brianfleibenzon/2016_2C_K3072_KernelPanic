@@ -71,8 +71,10 @@
     </Reference>
     <Reference Include="Microsoft.VisualC" />
     <Reference Include="System" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
     <Reference Include="TGC.Core">
       <HintPath>..\packages\TGC.Core.2.2.2\lib\TGC.Core.dll</HintPath>
     </Reference>
@@ -90,6 +92,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Game.settings</DependentUpon>
     </Compile>
+    <Compile Include="Model\Contenedor.cs" />
     <Compile Include="Model\Enemigo.cs" />
     <Compile Include="Model\GameModel.cs" />
     <Compile Include="Model\Iluminacion.cs" />
@@ -172,6 +175,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\botonXx.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\fondo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

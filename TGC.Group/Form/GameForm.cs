@@ -211,27 +211,29 @@ namespace TGC.Group.Form
         {
             lblResultado.ForeColor = Color.Green;
             lblResultado.Text = "GANASTE";
-            ApplicationRunning = false;
-            hayQueReiniciar = true;
-            panel1.Visible = true;
-            botonX.Visible = false;
-            panel3D.Visible = false;
+            finJuego();
         }
         public void perder()
         {
             lblResultado.ForeColor = Color.Red;
             lblResultado.Text = "PERDISTE";
+            finJuego();
+        }
+
+        private void finJuego()
+        {
             ApplicationRunning = false;
             hayQueReiniciar = true;
             panel1.Visible = true;
             botonX.Visible = false;
             panel3D.Visible = false;
+            ((GameModel)Modelo).pausarSonidos();
         }
 
         private void botonJugar_Click(object sender, EventArgs e)
         {
             botonJugar.Text = "Jugar";
-            lblResultado.Text = "";
+            lblResultado.Text = "Kernel Panic";
             botonX.Visible = true;
             panel3D.Visible = true;
             panel1.Visible = false;
@@ -254,14 +256,15 @@ namespace TGC.Group.Form
                 }
                 else
                 {
+                    ((GameModel)Modelo).reiniciarTimer();
                     ApplicationRunning = true;
+                    ((GameModel)Modelo).retomarSonidos();
                 }
                 
             }
 
             //Inicio el ciclo de Render.
             InitRenderLoop();
-
             //Focus panel3D.
             panel3D.Focus();
         }
@@ -296,6 +299,7 @@ namespace TGC.Group.Form
             panel3D.Visible = false;
             botonX.Visible = false;
             panel1.Visible = true;
+            ((GameModel)Modelo).pausarSonidos();
         }
 
         private void btnVolver_Click(object sender, EventArgs e)

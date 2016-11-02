@@ -41,11 +41,12 @@ namespace TGC.Group.Camara
 
         public bool colisiones = true;
 
-        public bool agachado = false;
-
         GameModel gameModel;
 
         public TgcBoundingAxisAlignBox camaraBox = new TgcBoundingAxisAlignBox();
+
+        public bool moverse = true;
+
 
         public TgcFpsCamera(TgcD3dInput input)
         {
@@ -126,62 +127,47 @@ namespace TGC.Group.Camara
             Vector3 lastPositionEye = positionEye;
 
             var moveVector = new Vector3(0, 0, 0);
-            //Forward
-            if (Input.keyDown(Key.W))
-            {
-                moveVector += new Vector3(0, 0, -1) * MovementSpeed;
-            }
 
-            //Backward
-            if (Input.keyDown(Key.S))
-            {
-                moveVector += new Vector3(0, 0, 1) * MovementSpeed;
-            }
-
-            //Strafe right
-            if (Input.keyDown(Key.D))
+            if (moverse)
             {
 
-                /* SI MUEVE LA POSICION*/
-                moveVector += new Vector3(-1, 0, 0) * MovementSpeed;
-
-                /* SI ROTA LA CAMARA*/
-                /*leftrightRot += 0.1f * RotationSpeed;
-                cameraRotation = Matrix.RotationX(updownRot) * Matrix.RotationY(leftrightRot);*/
-            }
-
-            //Strafe left
-            if (Input.keyDown(Key.A))
-            {
-                /* SI MUEVE LA POSICION*/
-
-                moveVector += new Vector3(1, 0, 0) * MovementSpeed;
-
-                /* SI ROTA LA CAMARA*/
-                /*leftrightRot -= 0.1f * RotationSpeed;
-                cameraRotation = Matrix.RotationX(updownRot) * Matrix.RotationY(leftrightRot);*/
-            }
-
-            if (Input.keyPressed(Key.LeftControl))
-            {
-                if (agachado)
+                //Forward
+                if (Input.keyDown(Key.W))
                 {
-                    
-                    lastPositionEye.Y = 90f;
-                    positionEye.Y = 90f;
-                    //moveVector += new Vector3(0, 8000f, 0);
-                    MovementSpeed = 250f;
+                    moveVector += new Vector3(0, 0, -1) * MovementSpeed;
                 }
-                else
-                {
-                    lastPositionEye.Y = 40f;
-                    positionEye.Y = 40f;
-                    //moveVector += new Vector3(0, -8000f, 0);
-                    MovementSpeed = 80f;
-                }
-                agachado = !agachado;
-            }
 
+                //Backward
+                if (Input.keyDown(Key.S))
+                {
+                    moveVector += new Vector3(0, 0, 1) * MovementSpeed;
+                }
+
+                //Strafe right
+                if (Input.keyDown(Key.D))
+                {
+
+                    /* SI MUEVE LA POSICION*/
+                    moveVector += new Vector3(-1, 0, 0) * MovementSpeed;
+
+                    /* SI ROTA LA CAMARA*/
+                    /*leftrightRot += 0.1f * RotationSpeed;
+                    cameraRotation = Matrix.RotationX(updownRot) * Matrix.RotationY(leftrightRot);*/
+                }
+            
+
+                //Strafe left
+                if (Input.keyDown(Key.A))
+                {
+                    /* SI MUEVE LA POSICION*/
+
+                    moveVector += new Vector3(1, 0, 0) * MovementSpeed;
+
+                    /* SI ROTA LA CAMARA*/
+                    /*leftrightRot -= 0.1f * RotationSpeed;
+                    cameraRotation = Matrix.RotationX(updownRot) * Matrix.RotationY(leftrightRot);*/
+                }
+            }
 
             /*if (Input.keyPressed(Key.L) || Input.keyPressed(Key.Escape))
             {
@@ -221,19 +207,56 @@ namespace TGC.Group.Camara
                 
                 foreach (var mesh in gameModel.meshesARenderizar)
                 {
-                    /* COLISIONES POR RAYOS*/
-                    /*if (TgcCollisionUtils.sqDistPointAABB(positionEye, mesh.BoundingBox) < 100f)
+
+                    if (TgcCollisionUtils.classifyBoxBox(camaraBox, mesh.BoundingBox) == TgcCollisionUtils.BoxBoxResult.Atravesando && !gameModel.VerificarSiMeshEsIluminacion(mesh))
                     {
-                        colision = true;
-                        break;
-                    }*/
-                    if (TgcCollisionUtils.classifyBoxBox(camaraBox, mesh.BoundingBox) == TgcCollisionUtils.BoxBoxResult.Atravesando)
+                        var movementRay = lastPositionEye - positionEye;
+                        var rs = Vector3.Empty;
+                        if (((camaraBox.PMax.X > mesh.BoundingBox.PMax.X && movementRay.X > 0) ||
+                            (camaraBox.PMin.X < mesh.BoundingBox.PMin.X && movementRay.X < 0)) &&
+                            ((camaraBox.PMax.Z > mesh.BoundingBox.PMax.Z && movementRay.Z > 0) ||
+                            (camaraBox.PMin.Z < mesh.BoundingBox.PMin.Z && movementRay.Z < 0)))
+                        {
+                            
+                            if (camaraBox.PMax.X > mesh.BoundingBox.PMin.X &&
+                                camaraBox.PMin.X < mesh.BoundingBox.PMax.X)
+                            {
+                                //El personaje esta contenido en el bounding X
+                                rs = new Vector3(movementRay.X, movementRay.Y, 0);
+                            }
+                            if (camaraBox.PMax.Z > mesh.BoundingBox.PMin.Z &&
+                                camaraBox.PMin.Z < mesh.BoundingBox.PMax.Z)
+                            {
+                                //El personaje esta contenido en el bounding Z
+                                rs = new Vector3(0, movementRay.Y, movementRay.Z);
+                            }
+                        }
+                        else
+                        {
+                            if ((camaraBox.PMax.X > mesh.BoundingBox.PMax.X && movementRay.X > 0) ||
+                                (camaraBox.PMin.X < mesh.BoundingBox.PMin.X && movementRay.X < 0))
+                            {
+                                rs = new Vector3(0, movementRay.Y, movementRay.Z);
+                            }
+                            if ((camaraBox.PMax.Z > mesh.BoundingBox.PMax.Z && movementRay.Z > 0) ||
+                                (camaraBox.PMin.Z < mesh.BoundingBox.PMin.Z && movementRay.Z < 0))
+                            {
+                                rs = new Vector3(movementRay.X, movementRay.Y, 0);
+                            }
+                        }
+                        positionEye = lastPositionEye - rs;
+
+                    
+                    }
+
+                    /*if (TgcCollisionUtils.classifyBoxBox(camaraBox, mesh.BoundingBox) == TgcCollisionUtils.BoxBoxResult.Atravesando)
                     {
-                        if (!gameModel.VerificarSiMeshEsIluminacion(mesh)){
+                        if (!gameModel.VerificarSiMeshEsIluminacion(mesh))
+                        {
                             positionEye = lastPositionEye;
                             break;
                         }
-                    }
+                    }*/
                 }
 
                 foreach (var enemigo in gameModel.enemigos)
@@ -270,6 +293,29 @@ namespace TGC.Group.Camara
 
             positionEye = position;
             this.directionView = directionView;
+        }
+
+
+        public void invertirSentido(Vector3 posicion)
+        {
+            leftrightRot *= -1;
+            //Se actualiza matrix de rotacion, para no hacer este calculo cada vez y solo cuando en verdad es necesario.
+            cameraRotationParcial = Matrix.RotationY(leftrightRot);
+            cameraRotation = Matrix.RotationX(updownRot) * Matrix.RotationY(leftrightRot);
+
+            positionEye = posicion;
+
+            var cameraRotatedPositionEye = Vector3.TransformNormal(new Vector3(), cameraRotationParcial);
+            positionEye += cameraRotatedPositionEye;
+
+            var cameraRotatedTarget = Vector3.TransformNormal(directionView, cameraRotation);
+            var cameraFinalTarget = positionEye + cameraRotatedTarget;
+
+            var cameraOriginalUpVector = DEFAULT_UP_VECTOR;
+            var cameraRotatedUpVector = Vector3.TransformNormal(cameraOriginalUpVector, cameraRotation);
+
+
+            base.SetCamera(positionEye, cameraFinalTarget, cameraRotatedUpVector);
         }
 
     }

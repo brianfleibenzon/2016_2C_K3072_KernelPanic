@@ -24,8 +24,8 @@ namespace TGC.Group.Model
         public Action posicionarEnMano = null;
 
         float ultimaVariacion = 0;
-        float pointLightIntensityOriginal;
-        float pointLightIntensityAgarradaOriginal;
+        float pointLightAttenuationOriginal;
+        float pointLightAttenuationAgarradaOriginal;
         public bool variarLuzEnabled = false;
 
         public bool puedeApagarse = false;
@@ -56,22 +56,23 @@ namespace TGC.Group.Model
                 ultimaVariacion += ElpasedTime;
                 if (ultimaVariacion > 0.1f)
                 {
-                    if (this.pointLightIntensityOriginal == 0)
+                    if (this.pointLightAttenuationOriginal == 0)
                     {
-                        this.pointLightIntensityOriginal = this.pointLightIntensity;
-                        this.pointLightIntensityAgarradaOriginal = this.pointLightIntensityAgarrada;
+                        this.pointLightAttenuationOriginal = this.pointLightAttenuation;
+                        this.pointLightAttenuationAgarradaOriginal = this.pointLightAttenuationAgarrada;
                     }
-                    if (this.pointLightIntensityOriginal != this.pointLightIntensity)
+                    if (this.pointLightAttenuationOriginal != this.pointLightAttenuation)
                     {
-                        this.pointLightIntensity = this.pointLightIntensityOriginal;
-                        this.pointLightIntensityAgarrada = this.pointLightIntensityAgarradaOriginal;
+                        this.pointLightAttenuation = this.pointLightAttenuationOriginal;
+                        this.pointLightAttenuationAgarrada = this.pointLightAttenuationAgarradaOriginal;
                     }
                     else
                     {
                         Random rnd = new Random();
-                        float random = rnd.Next(1, 15);
-                        this.pointLightIntensity -= random;
-                        this.pointLightIntensityAgarrada -= random;
+                        float random = rnd.Next(-10, 10);
+                        random /= 100f;
+                        this.pointLightAttenuation += random;
+                        this.pointLightAttenuationAgarrada += random;
                     }
 
                     ultimaVariacion = 0;
