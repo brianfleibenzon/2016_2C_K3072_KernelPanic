@@ -101,9 +101,9 @@ namespace TGC.Group.Model
 
         public List<TgcMesh> meshesARenderizar;
 
-        private readonly float far_plane = 2500f;
+        private readonly float far_plane = 1500f;
 
-        private readonly float near_plane = 0.5f;
+        private readonly float near_plane = 1f;
 
         private Matrix g_mShadowProj; // Projection matrix for shadow map
 
@@ -187,7 +187,7 @@ namespace TGC.Group.Model
                 true);
 
             var aspectRatio = D3DDevice.Instance.AspectRatio;
-            g_mShadowProj = Matrix.PerspectiveFovLH(Geometry.DegreeToRadian(180f), aspectRatio, 50, 5000);
+            g_mShadowProj = Matrix.PerspectiveFovLH(Geometry.DegreeToRadian(80), aspectRatio, 50, 5000);
             D3DDevice.Instance.Device.Transform.Projection =
                 Matrix.PerspectiveFovLH(Geometry.DegreeToRadian(45.0f), aspectRatio, near_plane, far_plane);
 
@@ -275,11 +275,34 @@ namespace TGC.Group.Model
             puertas[5].funcionAbriendo = () => { this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona1); this.meshesARenderizar.AddRange(SepararZonas.zona3); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
 
             puertas[6].funcionAbriendo = () => {
-                enemigos[1].vigilador = true;
-                enemigos[1].setEstado(Enemigo.Estado.Vigilando);
+                /*enemigos[1].vigilador = true;
+                enemigos[1].setEstado(Enemigo.Estado.Vigilando);*/
+
+                
+
                 this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona3); this.meshesARenderizar.AddRange(SepararZonas.zona4); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
 
+            puertas[6].funcionAbierta = () =>
+            {
+                if (interruptores[0].estado == Interruptor.Estado.DESACTIVADO) { 
+                    enemigos[1].vigilador = true;
+                    enemigos[1].activar();
+                }else{
+                    enemigos[1].vigilar();
+                }
+            };
+
+
             puertas[7].funcionAbriendo = () => { this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona4); this.meshesARenderizar.AddRange(SepararZonas.zona5); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
+
+            puertas[7].funcionAbierta = () =>
+            {
+                if (interruptores[0].estado == Interruptor.Estado.ACTIVADO)
+                    enemigos[1].activar();
+                else
+                    enemigos[1].vigilar();
+            };
+
 
         }
 
@@ -628,6 +651,10 @@ namespace TGC.Group.Model
                 mostrarBloqueado -= ElapsedTime;
 
             }
+            else if (mostrarBloqueado < 0)
+            {
+                mostrarBloqueado = 0;
+            }
 
             if (contenedorCerca() != null)
             {
@@ -651,12 +678,7 @@ namespace TGC.Group.Model
                 D3DDevice.Instance.Device.Transform.View = Matrix.Identity;
                 papel.render();
                 D3DDevice.Instance.Device.Transform.View = matrizView2;
-            }
-
-            else if (mostrarBloqueado < 0)
-            {
-                mostrarBloqueado = 0;
-            }
+            }            
 
 
             if (iluminacionEnMano != null)
@@ -682,7 +704,12 @@ namespace TGC.Group.Model
 
         public void RenderShadowMap()
         {
-            Vector3 posicion = Camara.Position + new Vector3(0.0001f, 0.00001f, 0.00001f);
+            Vector3 posicion = Camara.Position;
+
+    
+            posicion.Y += 5f;
+      
+
             Vector3 direccion = Camara.LookAt - posicion;
             direccion.Normalize();
 
@@ -925,8 +952,8 @@ namespace TGC.Group.Model
                     enTacho.salir((TgcFpsCamera)Camara);
                     enTacho = null;
                     foreach (var enemigo in enemigos)
-                        if (enemigo.persecutor)
-                            enemigo.setEstado(Enemigo.Estado.Persiguiendo);
+                        if (enemigo.estabaSiguiendo)
+                        enemigo.setEstado(Enemigo.Estado.Persiguiendo);
                 }
                 else
                 {
@@ -938,7 +965,10 @@ namespace TGC.Group.Model
 
                         foreach (var enemigo in enemigos)
                         {
-                            enemigo.retornar();
+                            if (enemigo.vigilador)
+                                enemigo.vigilar();
+                            else
+                                enemigo.retornar();
                         }
                     }                    
 
@@ -1015,6 +1045,7 @@ namespace TGC.Group.Model
             bateria3.dispose();
             bateria4.dispose();
             bloqueado.dispose();
+            esconderse.dispose();
             effect.Dispose();
             effectLinterna.Dispose();
             scene.disposeAll();

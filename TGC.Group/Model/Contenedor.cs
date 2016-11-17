@@ -12,7 +12,7 @@ namespace TGC.Group.Model
     public class Contenedor
     {
         public TgcMesh mesh;
-        Vector3 posicionAdentro, posicionAfuera, lookAtAdentro, lookAtAfuera;
+        Vector3 posicionAdentro, posicionAfuera;
 
 
         public Contenedor(TgcMesh mesh)
