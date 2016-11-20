@@ -361,16 +361,16 @@ namespace TGC.Group.Model
             float x = -0.001f * resolucionPantalla.Width / 2;
 
 
-            iluminaciones[0] = new Iluminacion(Color.DarkOrange, "Vela", scene, new Vector3(0f, 25f, 0f),
-                30.0f, 0.35f, 28.0f, 0.5f, 100f, true, false, true);
+            iluminaciones[0] = new Iluminacion(Color.DarkOrange, "Vela", scene, new Vector3(0f, 25f, 0f), new Vector3(0,0,0),
+                30.0f, 0.35f, 28.0f, 0.5f, 100f, true, false, true, false);
             iluminaciones[0].posicionarEnMano = () =>
             {
                 iluminacionEnMano.mesh.Scale = new Vector3(0.008f, 0.008f, 0.008f);
                 iluminacionEnMano.mesh.Position = -iluminacionEnMano.mesh.BoundingBox.Position;
                 iluminacionEnMano.mesh.Position += new Vector3(x, -0.38f, 1f);
             };
-            iluminaciones[1] = new Iluminacion(Color.White, "Linterna", scene, new Vector3(30f, 10f, 40f),
-                110f, 0.30f, 38f, 0.5f, 210f, false, true, false);
+            iluminaciones[1] = new Iluminacion(Color.White, "Linterna", scene, new Vector3(30f, 10f, 40f), new Vector3(0, 0, 0),
+                110f, 0.30f, 38f, 0.5f, 210f, false, true, false, false);
             iluminaciones[1].posicionarEnMano = () =>
             {
 
@@ -378,8 +378,8 @@ namespace TGC.Group.Model
                 iluminacionEnMano.mesh.Position = -iluminacionEnMano.mesh.BoundingBox.Position;
                 iluminacionEnMano.mesh.Position += new Vector3(x, -0.38f, 1f);
             };
-            iluminaciones[2] = new Iluminacion(Color.Yellow, "Farol", scene, new Vector3(0f, 25f, 0f),
-                20f, 0.25f, 18f, 0.7f, 300f, true, false, true);
+            iluminaciones[2] = new Iluminacion(Color.Yellow, "Farol", scene, new Vector3(0f, 25f, 0f), new Vector3(0, 0, 0),
+                20f, 0.25f, 18f, 0.7f, 300f, true, false, true, false);
             iluminaciones[2].posicionarEnMano = () =>
             {
                 iluminacionEnMano.mesh.Scale = new Vector3(0.005f, 0.005f, 0.005f);
@@ -389,16 +389,16 @@ namespace TGC.Group.Model
 
 
             // ILUMINACIONES ESTATICAS
-            iluminaciones[3] = new Iluminacion(Color.DarkRed, "LuzEstatica1", scene, new Vector3(-40f, 25f, 8f),
-                0f, 0f, 40f, 0.5f, 0f, false, false, true);
-            iluminaciones[4] = new Iluminacion(Color.DarkRed, "LuzEstatica2", scene, new Vector3(0f, 25f, 0f),
-                0f, 0f, 40f, 0.5f, 0f, false, false, true);
-            iluminaciones[5] = new Iluminacion(Color.DarkRed, "LuzEstatica3", scene, new Vector3(0f, 25f, 0f),
-                0f, 0f, 40f, 0.5f, 0f, false, false, true);
-            iluminaciones[6] = new Iluminacion(Color.DarkRed, "LuzEstatica4", scene, new Vector3(0f, 25f, 0f),
-                0f, 0f, 40f, 0.5f, 0f, false, false, true);
-            iluminaciones[7] = new Iluminacion(Color.DarkRed, "LuzEstatica5", scene, new Vector3(0f, 25f, 0f),
-                0f, 0f, 40f, 0.5f, 0f, false, false, true);
+            iluminaciones[3] = new Iluminacion(Color.DarkRed, "LuzEstatica1", scene, new Vector3(-40f, 25f, 8f), new Vector3(-1f, -1f, 0),
+                0f, 0f, 40f, 0.5f, 0f, false, false, true, true);
+            iluminaciones[4] = new Iluminacion(Color.DarkRed, "LuzEstatica2", scene, new Vector3(40f, 25f, -10f), new Vector3(0, -1f, -1f),
+                0f, 0f, 40f, 0.5f, 0f, false, false, true, true);
+            iluminaciones[5] = new Iluminacion(Color.DarkRed, "LuzEstatica3", scene, new Vector3(0f, 25f, 0f), new Vector3(0, -1f, 0),
+                0f, 0f, 40f, 0.5f, 0f, false, false, true, true);
+            iluminaciones[6] = new Iluminacion(Color.DarkRed, "LuzEstatica4", scene, new Vector3(0f, 25f, 0f), new Vector3(0, -1f, 0),
+                0f, 0f, 40f, 0.5f, 0f, false, false, true, true);
+            iluminaciones[7] = new Iluminacion(Color.DarkRed, "LuzEstatica5", scene, new Vector3(0f, 25f, 0f), new Vector3(1f, -1f, 0),
+                0f, 0f, 40f, 0.5f, 0f, false, false, true, true);
 
 
         }
@@ -602,17 +602,12 @@ namespace TGC.Group.Model
 
 
             //Genero el shadow map
-
-            if(iluminacionEnMano != null)
             RenderShadowMap();
 
             D3DDevice.Instance.Device.BeginScene();
             // dibujo la escena pp dicha
             D3DDevice.Instance.Device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.Black, 1.0f, 0);
             RenderScene(false);
-
-
-
 
             if (!((TgcFpsCamera)Camara).colisiones)
 
@@ -704,14 +699,23 @@ namespace TGC.Group.Model
 
         public void RenderShadowMap()
         {
-            Vector3 posicion = Camara.Position;
+            Iluminacion ilumCerca = iluminacionCerca();
+            Vector3 posicion;
+            Vector3 direccion;
+            if (ilumCerca == null)
+            {
+                posicion = new Vector3(0, 0, 0);
+                direccion = new Vector3(0, 0, 0);
+            }
+            else
+            {
 
-    
-            posicion.Y += 5f;
-      
+                posicion = ilumCerca.pointLightPosition;
+                direccion = ilumCerca.lookAt;
+            }
+  
+            //Vector3 direccion = new Vector3(0f, -1f, 0f);
 
-            Vector3 direccion = Camara.LookAt - posicion;
-            direccion.Normalize();
 
             Microsoft.DirectX.Direct3D.Effect efecto;
             if (iluminacionEnMano == iluminaciones[1])
@@ -1009,6 +1013,39 @@ namespace TGC.Group.Model
                 if (meshesARenderizar.Contains(contenedor.mesh) && TgcCollisionUtils.sqDistPointAABB(Camara.Position, contenedor.mesh.BoundingBox) < 2000f)
                 {
                     return contenedor;
+
+                }
+            }
+            return null;
+        }
+
+        private Iluminacion iluminacionCerca()
+        {
+            /*
+            float masCerca = 0f;
+            Iluminacion ilum = null;
+
+            foreach (var iluminacion in iluminaciones)
+            {
+                float dist = TgcCollisionUtils.sqDistPointAABB(Camara.Position, iluminacion.mesh.BoundingBox);
+                if (meshesARenderizar.Contains(iluminacion.mesh) && iluminacion.esEstatica)
+                {
+                    if (dist < masCerca || ilum == null)
+                    {
+                        ilum = iluminacion;
+                        masCerca = dist;
+                    }  
+
+                }
+            }
+            return ilum;
+            */
+
+            foreach (var iluminacion in iluminaciones)
+            {
+                if (meshesARenderizar.Contains(iluminacion.mesh) && iluminacion.esEstatica && TgcCollisionUtils.sqDistPointAABB(Camara.Position, iluminacion.mesh.BoundingBox) < 260000f)
+                {
+                    return iluminacion;
 
                 }
             }
