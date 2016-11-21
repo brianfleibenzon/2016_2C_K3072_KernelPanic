@@ -120,6 +120,10 @@ namespace TGC.Group.Model
         Size resolucionPantalla = System.Windows.Forms.SystemInformation.PrimaryMonitorSize;
         float contador = 0;
 
+        int efectoEnemigo = 0;
+        bool estadoEfectoEnemigo = false;
+        float contadorEnemigo = 0;
+
         //ECONDIDAS
 
         public Contenedor[] contenedores = new Contenedor[3];
@@ -575,6 +579,33 @@ namespace TGC.Group.Model
             }
             fog.updateValues();
 
+            actualizarEfectoEnemigo();
+
+        }
+
+        void actualizarEfectoEnemigo()
+        {
+            contadorEnemigo += ElapsedTime;
+
+            if (contadorEnemigo >= 1f)
+            {
+                estadoEfectoEnemigo = !estadoEfectoEnemigo;
+                contadorEnemigo = 0;
+            }
+
+            int hayEnemigo = 0;
+            foreach (var en in enemigos)
+            {
+                if (en.estabaSiguiendo)
+                    hayEnemigo = 1;
+            }
+            if (hayEnemigo == 1)
+            {
+                if (estadoEfectoEnemigo)
+                    efectoEnemigo = 1;
+                else
+                    efectoEnemigo = 0;
+            }
         }
 
 
@@ -874,7 +905,9 @@ namespace TGC.Group.Model
 
                         mesh.UpdateMeshTransform();
 
-                        //Cargar variables de shader
+                        //Cargar variables de shader                        
+                        mesh.Effect.SetValue("efectoEnemigo", efectoEnemigo);
+
                         mesh.Effect.SetValue("cantidadLuces", j);
                         mesh.Effect.SetValue("lightColor", lightColors);
                         mesh.Effect.SetValue("lightPosition", pointLightPositions);
