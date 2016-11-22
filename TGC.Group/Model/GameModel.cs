@@ -405,6 +405,12 @@ namespace TGC.Group.Model
                 0f, 0f, 40f, 0.5f, 0f, false, false, true, true);
 
 
+            iluminaciones[3].definirPuntos(new Vector3(210f, 0f, 2030f), new Vector3(210f, 0f, 2600f), new Vector3(730f, 0f, 2030f), new Vector3(730f, 0f, 2600f));
+            iluminaciones[7].definirPuntos(new Vector3(230f, 0f, 1590f), new Vector3(230f, 0f, 1770f), new Vector3(1770f, 0f, 1590f), new Vector3(1770f, 0f, 1770f));
+            iluminaciones[5].definirPuntos(new Vector3(670f, 0f, 670f), new Vector3(670f, 0f, 1330f), new Vector3(1330f, 0f, 670f), new Vector3(1330f, 0f, 1330f));
+            iluminaciones[6].definirPuntos(new Vector3(450f, 0f, 1370f), new Vector3(450f, 0f, 1550f), new Vector3(1550f, 0f, 1370f), new Vector3(1550f, 0f, 1550f));
+            iluminaciones[4].definirPuntos(new Vector3(2030f, 0f, 240f), new Vector3(2030f, 0f, 750f), new Vector3(2580f, 0f, 240f), new Vector3(2580f, 0f, 750f));
+
         }
 
         void ActualizarEstadoPuertas()
@@ -593,19 +599,14 @@ namespace TGC.Group.Model
                 contadorEnemigo = 0;
             }
 
-            int hayEnemigo = 0;
+            efectoEnemigo = 0;
             foreach (var en in enemigos)
             {
                 if (en.estabaSiguiendo)
-                    hayEnemigo = 1;
+                    if (estadoEfectoEnemigo)
+                        efectoEnemigo = 1;
             }
-            if (hayEnemigo == 1)
-            {
-                if (estadoEfectoEnemigo)
-                    efectoEnemigo = 1;
-                else
-                    efectoEnemigo = 0;
-            }
+
         }
 
 
@@ -1076,7 +1077,7 @@ namespace TGC.Group.Model
 
             foreach (var iluminacion in iluminaciones)
             {
-                if (meshesARenderizar.Contains(iluminacion.mesh) && iluminacion.esEstatica && TgcCollisionUtils.sqDistPointAABB(Camara.Position, iluminacion.mesh.BoundingBox) < 260000f)
+                if (meshesARenderizar.Contains(iluminacion.mesh) && iluminacion.esEstatica && iluminacion.estaCerca(Camara.Position))
                 {
                     return iluminacion;
 

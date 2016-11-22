@@ -12,14 +12,13 @@ namespace TGC.Group.Model
     public class Contenedor
     {
         public TgcMesh mesh;
-        Vector3 posicionAdentro, posicionAfuera;
-
+        Vector3 posicionAdentro, posicionAfuera;        
 
         public Contenedor(TgcMesh mesh)
         {
             this.mesh = mesh;
 
-        }
+        }        
 
         public void definirPosiciones(Vector3 posicionAdentro, Vector3 posicionAfuera)
         {
