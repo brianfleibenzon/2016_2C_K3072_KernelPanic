@@ -63,6 +63,8 @@ float spotLightExponent; //Exponente de atenuacion dentro del cono de luz
 
 float bateria = 100;
 
+int efectoEnemigo = 0;
+
 //Output del Vertex Shader
 struct VS_OUTPUT
 {
@@ -225,6 +227,10 @@ float4 PixScene(float2 Tex : TEXCOORD0,
 	color_base *= min(bateria + 20, 100) / 100;
 	
 	color_base.rgb *= min(K + 1.0, 1.6) * 0.5 * diffuseLighting;
+	
+	if (efectoEnemigo==1)
+		color_base.r += 0.1;
+	
 	return color_base;
 }
 

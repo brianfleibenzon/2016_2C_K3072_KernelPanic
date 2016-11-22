@@ -101,9 +101,9 @@ namespace TGC.Group.Model
 
         public List<TgcMesh> meshesARenderizar;
 
-        private readonly float far_plane = 2500f;
+        private readonly float far_plane = 1500f;
 
-        private readonly float near_plane = 0.5f;
+        private readonly float near_plane = 1f;
 
         private Matrix g_mShadowProj; // Projection matrix for shadow map
 
@@ -119,6 +119,10 @@ namespace TGC.Group.Model
 
         Size resolucionPantalla = System.Windows.Forms.SystemInformation.PrimaryMonitorSize;
         float contador = 0;
+
+        int efectoEnemigo = 0;
+        bool estadoEfectoEnemigo = false;
+        float contadorEnemigo = 0;
 
         //ECONDIDAS
 
@@ -187,7 +191,7 @@ namespace TGC.Group.Model
                 true);
 
             var aspectRatio = D3DDevice.Instance.AspectRatio;
-            g_mShadowProj = Matrix.PerspectiveFovLH(Geometry.DegreeToRadian(180f), aspectRatio, 50, 5000);
+            g_mShadowProj = Matrix.PerspectiveFovLH(Geometry.DegreeToRadian(80), aspectRatio, 50, 5000);
             D3DDevice.Instance.Device.Transform.Projection =
                 Matrix.PerspectiveFovLH(Geometry.DegreeToRadian(45.0f), aspectRatio, near_plane, far_plane);
 
@@ -275,11 +279,34 @@ namespace TGC.Group.Model
             puertas[5].funcionAbriendo = () => { this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona1); this.meshesARenderizar.AddRange(SepararZonas.zona3); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
 
             puertas[6].funcionAbriendo = () => {
-                enemigos[1].vigilador = true;
-                enemigos[1].setEstado(Enemigo.Estado.Vigilando);
+                /*enemigos[1].vigilador = true;
+                enemigos[1].setEstado(Enemigo.Estado.Vigilando);*/
+
+                
+
                 this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona3); this.meshesARenderizar.AddRange(SepararZonas.zona4); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
 
+            puertas[6].funcionAbierta = () =>
+            {
+                if (interruptores[0].estado == Interruptor.Estado.DESACTIVADO) { 
+                    enemigos[1].vigilador = true;
+                    enemigos[1].activar();
+                }else{
+                    enemigos[1].vigilar();
+                }
+            };
+
+
             puertas[7].funcionAbriendo = () => { this.meshesARenderizar.Clear(); this.meshesARenderizar.AddRange(SepararZonas.zona4); this.meshesARenderizar.AddRange(SepararZonas.zona5); this.meshesARenderizar.AddRange(SepararZonas.comunes); };
+
+            puertas[7].funcionAbierta = () =>
+            {
+                if (interruptores[0].estado == Interruptor.Estado.ACTIVADO)
+                    enemigos[1].activar();
+                else
+                    enemigos[1].vigilar();
+            };
+
 
         }
 
@@ -338,16 +365,16 @@ namespace TGC.Group.Model
             float x = -0.001f * resolucionPantalla.Width / 2;
 
 
-            iluminaciones[0] = new Iluminacion(Color.DarkOrange, "Vela", scene, new Vector3(0f, 25f, 0f),
-                30.0f, 0.35f, 28.0f, 0.5f, 100f, true, false, true);
+            iluminaciones[0] = new Iluminacion(Color.DarkOrange, "Vela", scene, new Vector3(0f, 25f, 0f), new Vector3(0,0,0),
+                30.0f, 0.35f, 28.0f, 0.5f, 100f, true, false, true, false);
             iluminaciones[0].posicionarEnMano = () =>
             {
                 iluminacionEnMano.mesh.Scale = new Vector3(0.008f, 0.008f, 0.008f);
                 iluminacionEnMano.mesh.Position = -iluminacionEnMano.mesh.BoundingBox.Position;
                 iluminacionEnMano.mesh.Position += new Vector3(x, -0.38f, 1f);
             };
-            iluminaciones[1] = new Iluminacion(Color.White, "Linterna", scene, new Vector3(30f, 10f, 40f),
-                110f, 0.30f, 38f, 0.5f, 210f, false, true, false);
+            iluminaciones[1] = new Iluminacion(Color.White, "Linterna", scene, new Vector3(30f, 10f, 40f), new Vector3(0, 0, 0),
+                110f, 0.30f, 38f, 0.5f, 210f, false, true, false, false);
             iluminaciones[1].posicionarEnMano = () =>
             {
 
@@ -355,8 +382,8 @@ namespace TGC.Group.Model
                 iluminacionEnMano.mesh.Position = -iluminacionEnMano.mesh.BoundingBox.Position;
                 iluminacionEnMano.mesh.Position += new Vector3(x, -0.38f, 1f);
             };
-            iluminaciones[2] = new Iluminacion(Color.Yellow, "Farol", scene, new Vector3(0f, 25f, 0f),
-                20f, 0.25f, 18f, 0.7f, 300f, true, false, true);
+            iluminaciones[2] = new Iluminacion(Color.Yellow, "Farol", scene, new Vector3(0f, 25f, 0f), new Vector3(0, 0, 0),
+                20f, 0.25f, 18f, 0.7f, 300f, true, false, true, false);
             iluminaciones[2].posicionarEnMano = () =>
             {
                 iluminacionEnMano.mesh.Scale = new Vector3(0.005f, 0.005f, 0.005f);
@@ -366,17 +393,23 @@ namespace TGC.Group.Model
 
 
             // ILUMINACIONES ESTATICAS
-            iluminaciones[3] = new Iluminacion(Color.DarkRed, "LuzEstatica1", scene, new Vector3(-40f, 25f, 8f),
-                0f, 0f, 40f, 0.5f, 0f, false, false, true);
-            iluminaciones[4] = new Iluminacion(Color.DarkRed, "LuzEstatica2", scene, new Vector3(0f, 25f, 0f),
-                0f, 0f, 40f, 0.5f, 0f, false, false, true);
-            iluminaciones[5] = new Iluminacion(Color.DarkRed, "LuzEstatica3", scene, new Vector3(0f, 25f, 0f),
-                0f, 0f, 40f, 0.5f, 0f, false, false, true);
-            iluminaciones[6] = new Iluminacion(Color.DarkRed, "LuzEstatica4", scene, new Vector3(0f, 25f, 0f),
-                0f, 0f, 40f, 0.5f, 0f, false, false, true);
-            iluminaciones[7] = new Iluminacion(Color.DarkRed, "LuzEstatica5", scene, new Vector3(0f, 25f, 0f),
-                0f, 0f, 40f, 0.5f, 0f, false, false, true);
+            iluminaciones[3] = new Iluminacion(Color.DarkRed, "LuzEstatica1", scene, new Vector3(-40f, 25f, 8f), new Vector3(-1f, -1f, 0),
+                0f, 0f, 40f, 0.5f, 0f, false, false, true, true);
+            iluminaciones[4] = new Iluminacion(Color.DarkRed, "LuzEstatica2", scene, new Vector3(40f, 25f, -10f), new Vector3(0, -1f, -1f),
+                0f, 0f, 40f, 0.5f, 0f, false, false, true, true);
+            iluminaciones[5] = new Iluminacion(Color.DarkRed, "LuzEstatica3", scene, new Vector3(0f, 25f, 0f), new Vector3(0, -1f, 0),
+                0f, 0f, 40f, 0.5f, 0f, false, false, true, true);
+            iluminaciones[6] = new Iluminacion(Color.DarkRed, "LuzEstatica4", scene, new Vector3(0f, 25f, 0f), new Vector3(0, -1f, 0),
+                0f, 0f, 40f, 0.5f, 0f, false, false, true, true);
+            iluminaciones[7] = new Iluminacion(Color.DarkRed, "LuzEstatica5", scene, new Vector3(0f, 25f, 0f), new Vector3(1f, -1f, 0),
+                0f, 0f, 40f, 0.5f, 0f, false, false, true, true);
 
+
+            iluminaciones[3].definirPuntos(new Vector3(210f, 0f, 2030f), new Vector3(210f, 0f, 2600f), new Vector3(730f, 0f, 2030f), new Vector3(730f, 0f, 2600f));
+            iluminaciones[7].definirPuntos(new Vector3(230f, 0f, 1590f), new Vector3(230f, 0f, 1770f), new Vector3(1500f, 0f, 1590f), new Vector3(1500f, 0f, 1770f));
+            iluminaciones[5].definirPuntos(new Vector3(670f, 0f, 670f), new Vector3(670f, 0f, 1330f), new Vector3(1330f, 0f, 670f), new Vector3(1330f, 0f, 1330f));
+            iluminaciones[6].definirPuntos(new Vector3(450f, 0f, 1370f), new Vector3(450f, 0f, 1550f), new Vector3(1550f, 0f, 1370f), new Vector3(1550f, 0f, 1550f));
+            iluminaciones[4].definirPuntos(new Vector3(2030f, 0f, 240f), new Vector3(2030f, 0f, 750f), new Vector3(2580f, 0f, 240f), new Vector3(2580f, 0f, 750f));
 
         }
 
@@ -552,6 +585,28 @@ namespace TGC.Group.Model
             }
             fog.updateValues();
 
+            actualizarEfectoEnemigo();
+
+        }
+
+        void actualizarEfectoEnemigo()
+        {
+            contadorEnemigo += ElapsedTime;
+
+            if (contadorEnemigo >= 1f)
+            {
+                estadoEfectoEnemigo = !estadoEfectoEnemigo;
+                contadorEnemigo = 0;
+            }
+
+            efectoEnemigo = 0;
+            foreach (var en in enemigos)
+            {
+                if (en.estabaSiguiendo)
+                    if (estadoEfectoEnemigo)
+                        efectoEnemigo = 1;
+            }
+
         }
 
 
@@ -579,17 +634,12 @@ namespace TGC.Group.Model
 
 
             //Genero el shadow map
-
-            if(iluminacionEnMano != null)
             RenderShadowMap();
 
             D3DDevice.Instance.Device.BeginScene();
             // dibujo la escena pp dicha
             D3DDevice.Instance.Device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.Black, 1.0f, 0);
             RenderScene(false);
-
-
-
 
             if (!((TgcFpsCamera)Camara).colisiones)
 
@@ -616,6 +666,7 @@ namespace TGC.Group.Model
                 DrawText.drawText(
           "Presionar F para encender", 0, 70, Color.OrangeRed);
 
+
             RenderFPS();
 
             if (mostrarBloqueado > 0)
@@ -627,6 +678,10 @@ namespace TGC.Group.Model
                 D3DDevice.Instance.Device.Transform.View = matrizView;
                 mostrarBloqueado -= ElapsedTime;
 
+            }
+            else if (mostrarBloqueado < 0)
+            {
+                mostrarBloqueado = 0;
             }
 
             if (contenedorCerca() != null)
@@ -651,12 +706,7 @@ namespace TGC.Group.Model
                 D3DDevice.Instance.Device.Transform.View = Matrix.Identity;
                 papel.render();
                 D3DDevice.Instance.Device.Transform.View = matrizView2;
-            }
-
-            else if (mostrarBloqueado < 0)
-            {
-                mostrarBloqueado = 0;
-            }
+            }            
 
 
             if (iluminacionEnMano != null)
@@ -682,9 +732,23 @@ namespace TGC.Group.Model
 
         public void RenderShadowMap()
         {
-            Vector3 posicion = Camara.Position + new Vector3(0.0001f, 0.00001f, 0.00001f);
-            Vector3 direccion = Camara.LookAt - posicion;
-            direccion.Normalize();
+            Iluminacion ilumCerca = iluminacionCerca();
+            Vector3 posicion;
+            Vector3 direccion;
+            if (ilumCerca == null)
+            {
+                posicion = new Vector3(0, 0, 0);
+                direccion = new Vector3(0, 0, 0);
+            }
+            else
+            {
+
+                posicion = ilumCerca.pointLightPosition;
+                direccion = ilumCerca.lookAt;
+            }
+  
+            //Vector3 direccion = new Vector3(0f, -1f, 0f);
+
 
             Microsoft.DirectX.Direct3D.Effect efecto;
             if (iluminacionEnMano == iluminaciones[1])
@@ -843,7 +907,9 @@ namespace TGC.Group.Model
 
                         mesh.UpdateMeshTransform();
 
-                        //Cargar variables de shader
+                        //Cargar variables de shader                        
+                        mesh.Effect.SetValue("efectoEnemigo", efectoEnemigo);
+
                         mesh.Effect.SetValue("cantidadLuces", j);
                         mesh.Effect.SetValue("lightColor", lightColors);
                         mesh.Effect.SetValue("lightPosition", pointLightPositions);
@@ -925,8 +991,8 @@ namespace TGC.Group.Model
                     enTacho.salir((TgcFpsCamera)Camara);
                     enTacho = null;
                     foreach (var enemigo in enemigos)
-                        if (enemigo.persecutor)
-                            enemigo.setEstado(Enemigo.Estado.Persiguiendo);
+                        if (enemigo.estabaSiguiendo)
+                        enemigo.setEstado(Enemigo.Estado.Persiguiendo);
                 }
                 else
                 {
@@ -938,7 +1004,10 @@ namespace TGC.Group.Model
 
                         foreach (var enemigo in enemigos)
                         {
-                            enemigo.retornar();
+                            if (enemigo.vigilador)
+                                enemigo.vigilar();
+                            else
+                                enemigo.retornar();
                         }
                     }                    
 
@@ -985,6 +1054,39 @@ namespace TGC.Group.Model
             return null;
         }
 
+        private Iluminacion iluminacionCerca()
+        {
+            /*
+            float masCerca = 0f;
+            Iluminacion ilum = null;
+
+            foreach (var iluminacion in iluminaciones)
+            {
+                float dist = TgcCollisionUtils.sqDistPointAABB(Camara.Position, iluminacion.mesh.BoundingBox);
+                if (meshesARenderizar.Contains(iluminacion.mesh) && iluminacion.esEstatica)
+                {
+                    if (dist < masCerca || ilum == null)
+                    {
+                        ilum = iluminacion;
+                        masCerca = dist;
+                    }  
+
+                }
+            }
+            return ilum;
+            */
+
+            foreach (var iluminacion in iluminaciones)
+            {
+                if (meshesARenderizar.Contains(iluminacion.mesh) && iluminacion.esEstatica && iluminacion.estaCerca(Camara.Position))
+                {
+                    return iluminacion;
+
+                }
+            }
+            return null;
+        }
+
 
 
         /// <summary>
@@ -1015,6 +1117,7 @@ namespace TGC.Group.Model
             bateria3.dispose();
             bateria4.dispose();
             bloqueado.dispose();
+            esconderse.dispose();
             effect.Dispose();
             effectLinterna.Dispose();
             scene.disposeAll();

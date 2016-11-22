@@ -46,10 +46,6 @@ namespace TGC.Group.Model
             zona1.Add(scene.getMeshByName("Box3"));
             zona1.Add(scene.getMeshByName("Box4"));
             zona1.Add(scene.getMeshByName("Box5"));
-            //zona1.Add(scene.getMeshByName("Esqueleto13"));
-            //zona1.Add(scene.getMeshByName("Esqueleto12"));
-            //zona1.Add(scene.getMeshByName("Esqueleto11"));
-            //zona1.Add(scene.getMeshByName("Esqueleto10"));
             scene.getMeshByName("Esqueleto20").AlphaBlendEnable = true;
             zona1.Add(scene.getMeshByName("Esqueleto20"));
             zona1.Add(scene.getMeshByName("BarrilPolvora10"));

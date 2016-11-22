@@ -25,6 +25,8 @@ namespace TGC.Group.Model
 
         protected Estado estado;
 
+        public bool estabaSiguiendo = false;
+
         public Vector3 posicionInicial;
 
         public List<Vector3> puntosARecorrer = new List<Vector3>();
@@ -33,8 +35,6 @@ namespace TGC.Group.Model
         //public Vector3 posicion2= new Vector3(584f,  2f, 562f);
 
         public bool vigilador = false;
-
-        public bool persecutor = false;
 
         public int posicion = 0;
 
@@ -119,21 +119,28 @@ namespace TGC.Group.Model
             mesh.playAnimation(selectedAnim, true);
         }
 
+        public void vigilar()
+        {
+            this.vigilador = true;
+            this.setEstado(Estado.Vigilando);
+            estabaSiguiendo = false;
+        }
+
         public void activar()
         {
-            persecutor = false;
             this.setEstado(Estado.Persiguiendo);
+            estabaSiguiendo = true;
         }
 
         public void desactivar()
         {
             this.setEstado(Estado.Parado);
+            estabaSiguiendo = false;
         }
 
         public void retornar()
         {
-            if (this.estado == Estado.Persiguiendo)
-                persecutor = true;
+            estabaSiguiendo = false;
             if (this.estado != Estado.Parado)
                 this.setEstado(Estado.Retornando);
         }

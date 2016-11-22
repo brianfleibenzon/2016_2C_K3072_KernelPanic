@@ -33,9 +33,18 @@ namespace TGC.Group.Model
 
         public bool usarFog;
 
-        public Iluminacion(Color unColor, string nombre, TgcScene scene, Vector3 posicionLuz,
+        public bool esEstatica;
+        public Vector3 lookAt;
+
+        Vector3 punto1;
+        Vector3 punto2;
+        Vector3 punto3;
+        Vector3 punto4;
+
+
+        public Iluminacion(Color unColor, string nombre, TgcScene scene, Vector3 posicionLuz, Vector3 lookAt,
             float intensidadAgarrada, float atenuacionAgarrada, float intensidad, float atenuacion,
-            float duracion, bool variarLuz, bool puedeApagarse, bool usarFog)
+            float duracion, bool variarLuz, bool puedeApagarse, bool usarFog, bool esEstatica)
         {
             this.lightColors = unColor;
             this.mesh = scene.getMeshByName(nombre);
@@ -48,6 +57,26 @@ namespace TGC.Group.Model
             this.duracion = duracion;
             this.puedeApagarse = puedeApagarse;
             this.usarFog = usarFog;
+            this.esEstatica = esEstatica;
+            this.lookAt = lookAt;
+        }
+
+        public bool estaCerca(Vector3 posicion)
+        {
+            if (posicion.X > punto1.X && posicion.Z > punto1.Z &&
+                posicion.X > punto2.X && posicion.Z < punto2.Z &&
+                posicion.X < punto3.X && posicion.Z > punto3.Z &&
+                posicion.X < punto4.X && posicion.Z < punto4.Z)
+                return true;
+            return false;
+        }
+
+        public void definirPuntos(Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4)
+        {
+            punto1 = p1;
+            punto2 = p2;
+            punto3 = p3;
+            punto4 = p4;
         }
 
         public void variarLuz(float ElpasedTime)
