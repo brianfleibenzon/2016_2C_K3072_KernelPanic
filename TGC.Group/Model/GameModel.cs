@@ -406,7 +406,7 @@ namespace TGC.Group.Model
 
 
             iluminaciones[3].definirPuntos(new Vector3(210f, 0f, 2030f), new Vector3(210f, 0f, 2600f), new Vector3(730f, 0f, 2030f), new Vector3(730f, 0f, 2600f));
-            iluminaciones[7].definirPuntos(new Vector3(230f, 0f, 1590f), new Vector3(230f, 0f, 1770f), new Vector3(1770f, 0f, 1590f), new Vector3(1770f, 0f, 1770f));
+            iluminaciones[7].definirPuntos(new Vector3(230f, 0f, 1590f), new Vector3(230f, 0f, 1770f), new Vector3(1500f, 0f, 1590f), new Vector3(1500f, 0f, 1770f));
             iluminaciones[5].definirPuntos(new Vector3(670f, 0f, 670f), new Vector3(670f, 0f, 1330f), new Vector3(1330f, 0f, 670f), new Vector3(1330f, 0f, 1330f));
             iluminaciones[6].definirPuntos(new Vector3(450f, 0f, 1370f), new Vector3(450f, 0f, 1550f), new Vector3(1550f, 0f, 1370f), new Vector3(1550f, 0f, 1550f));
             iluminaciones[4].definirPuntos(new Vector3(2030f, 0f, 240f), new Vector3(2030f, 0f, 750f), new Vector3(2580f, 0f, 240f), new Vector3(2580f, 0f, 750f));
@@ -665,6 +665,7 @@ namespace TGC.Group.Model
             else if (!luzActivada && iluminacionEnMano != null && iluminacionEnMano.puedeApagarse)
                 DrawText.drawText(
           "Presionar F para encender", 0, 70, Color.OrangeRed);
+
 
             RenderFPS();
 
