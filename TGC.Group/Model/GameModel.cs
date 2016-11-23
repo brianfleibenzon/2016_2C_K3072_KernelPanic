@@ -1117,6 +1117,7 @@ namespace TGC.Group.Model
             bateria3.dispose();
             bateria4.dispose();
             bloqueado.dispose();
+            papel.dispose();
             esconderse.dispose();
             effect.Dispose();
             effectLinterna.Dispose();
