@@ -605,7 +605,7 @@ namespace TGC.Group.Model
             efectoEnemigo = 0;
             foreach (var en in enemigos)
             {
-                if (en.estabaSiguiendo)
+                if (en.estado == Enemigo.Estado.Persiguiendo)
                     if (estadoEfectoEnemigo)
                         efectoEnemigo = 1;
             }
@@ -869,7 +869,7 @@ namespace TGC.Group.Model
                 enemigo.mesh.Effect.SetValue("materialSpecularColor",
                    ColorValue.FromColor(Color.DarkGray));
                 enemigo.mesh.Effect.SetValue("materialSpecularExp", 100f);
-
+                enemigo.mesh.Effect.SetValue("efectoEnemigo", efectoEnemigo);
                 enemigo.render(ElapsedTime);
             }
 
@@ -904,7 +904,7 @@ namespace TGC.Group.Model
 
             if (contadorMilisegundos == 30)
             {
-                contadorTiempo = contadorTiempo + 0.5f;
+                contadorTiempo = contadorTiempo + 0.3f;
                 contadorMilisegundos = 0;
             }
 

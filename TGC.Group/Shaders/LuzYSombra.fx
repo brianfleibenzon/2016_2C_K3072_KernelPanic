@@ -175,14 +175,14 @@ float4 PixScene(float2 Tex : TEXCOORD0,
 
 
 
-	//if (efectoEnemigo == 1) {
+	if (efectoEnemigo == 1) {
 	float aux = Tex.y;
 	Tex.y = aux + (sin((Tex.x * 100.0f + time)) * 0.025f);
 	//vPos.y = vPos.y + (sin(vPos.x * 100.0f) * 0.01f);
 	//vNormal.y = vNormal.y + (sin(vNormal.x * 100.0f) * 0.01f);
 	//vPosLight.y = vPosLight.y + (sin(vPosLight.x * 100.0f) * 0.01f);
 	//iWorldNormal.y = iWorldNormal.y + (sin(iWorldNormal.x * 100.0f) * 0.01f);
-	//}
+	}
 
 	if (cono > 0.1)
 	{
@@ -218,10 +218,15 @@ float4 PixScene(float2 Tex : TEXCOORD0,
 	
 	color_base.rgb *= min(K + 1.0, 1.6) * 0.5 * diffuseLighting;
 	
-	//if (efectoEnemigo==1) {
-		color_base.g += 0.1;
-		color_base.r += 0.4;
-	//}
+	if (efectoEnemigo==1) {
+	//float _grayColor = (color.r + color.g + color.b) / 3;
+	float grayColor = (color_base.r + color_base.g + color_base.b) / 3;
+	color_base.r += (grayColor - color_base.r);
+	color_base.g += (grayColor - color_base.g);
+	color_base.b += (grayColor - color_base.b);
+	//color_base.g += 0.1;
+	//color_base.r += 0.4;
+	}
 	
 	return color_base;
 }
