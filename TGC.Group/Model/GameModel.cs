@@ -605,7 +605,7 @@ namespace TGC.Group.Model
             efectoEnemigo = 0;
             foreach (var en in enemigos)
             {
-                if (en.estabaSiguiendo)
+                if (en.estado == Enemigo.Estado.Persiguiendo)
                     if (estadoEfectoEnemigo)
                         efectoEnemigo = 1;
             }
