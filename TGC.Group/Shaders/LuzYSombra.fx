@@ -56,6 +56,8 @@ float4 lightPosition[4]; //Posicion de las luces
 float lightIntensity[4]; //Intensidad de las luces
 float lightAttenuation[4]; //Factor de atenuacion de las luces
 
+float time;
+
 float bateria = 100;
 
 int efectoEnemigo = 0;
@@ -93,6 +95,9 @@ void PixShadow(float2 Depth : TEXCOORD0, out float4 Color : COLOR)
 	// parche para ver el shadow map
 	//float k = Depth.x/Depth.y;
 	//Color = (1-k);
+
+	//Depth.y = Depth.y + (sin(Depth.x * 100.0f) * 0.01f);
+
 	Color = Depth.x / Depth.y;
 }
 
@@ -166,6 +171,19 @@ float4 PixScene(float2 Tex : TEXCOORD0,
 	float3 vLight = normalize(float3(vPos - g_vLightPos));
 	float cono = dot(vLight, g_vLightDir);
 	float4 K = 0.0;
+
+
+
+
+	//if (efectoEnemigo == 1) {
+	float aux = Tex.y;
+	Tex.y = aux + (sin((Tex.x * 100.0f + time)) * 0.025f);
+	//vPos.y = vPos.y + (sin(vPos.x * 100.0f) * 0.01f);
+	//vNormal.y = vNormal.y + (sin(vNormal.x * 100.0f) * 0.01f);
+	//vPosLight.y = vPosLight.y + (sin(vPosLight.x * 100.0f) * 0.01f);
+	//iWorldNormal.y = iWorldNormal.y + (sin(iWorldNormal.x * 100.0f) * 0.01f);
+	//}
+
 	if (cono > 0.1)
 	{
 		// coordenada de textura CT
@@ -200,9 +218,10 @@ float4 PixScene(float2 Tex : TEXCOORD0,
 	
 	color_base.rgb *= min(K + 1.0, 1.6) * 0.5 * diffuseLighting;
 	
-	if (efectoEnemigo==1)
-		color_base.r += 0.1;
-	
+	//if (efectoEnemigo==1) {
+		color_base.g += 0.1;
+		color_base.r += 0.4;
+	//}
 	
 	return color_base;
 }
