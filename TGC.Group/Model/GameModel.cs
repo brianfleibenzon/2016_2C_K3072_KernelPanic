@@ -120,8 +120,8 @@ namespace TGC.Group.Model
         Size resolucionPantalla = System.Windows.Forms.SystemInformation.PrimaryMonitorSize;
         float contador = 0;
 
-        int efectoEnemigo = 0;
-        bool estadoEfectoEnemigo = false;
+        int efectoEnemigo = 5;
+        bool subiendo = true;
         float contadorEnemigo = 0;
 
         //ECONDIDAS
@@ -593,19 +593,33 @@ namespace TGC.Group.Model
         {
             contadorEnemigo += ElapsedTime;
 
-            if (contadorEnemigo >= 1f)
+            if (contadorEnemigo >= 0.05f)
             {
-                estadoEfectoEnemigo = !estadoEfectoEnemigo;
+                if (subiendo)
+                    if (efectoEnemigo < 15)
+                        efectoEnemigo++;
+                    else
+                        subiendo = false;
+                else
+                    if (efectoEnemigo > 5)
+                        efectoEnemigo--;
+                    else
+                        subiendo = true;
+
                 contadorEnemigo = 0;
             }
 
-            efectoEnemigo = 0;
+
+            bool hayEnemigosSiguiendo = false;
             foreach (var en in enemigos)
             {
-                if (en.estabaSiguiendo)
-                    if (estadoEfectoEnemigo)
-                        efectoEnemigo = 1;
+                if (en.estado == Enemigo.Estado.Persiguiendo)
+                    hayEnemigosSiguiendo = true;
             }
+
+            if (!hayEnemigosSiguiendo)
+                efectoEnemigo=0;
+
 
         }
 
@@ -862,6 +876,8 @@ namespace TGC.Group.Model
                 enemigo.mesh.Effect.SetValue("materialSpecularColor",
                    ColorValue.FromColor(Color.DarkGray));
                 enemigo.mesh.Effect.SetValue("materialSpecularExp", 100f);
+
+                enemigo.mesh.Effect.SetValue("efectoEnemigo", efectoEnemigo);
 
                 enemigo.render(ElapsedTime);
             }

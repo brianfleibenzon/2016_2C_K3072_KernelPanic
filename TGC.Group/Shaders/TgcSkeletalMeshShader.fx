@@ -46,6 +46,8 @@ float4 eyePosition; //Posicion de la camara
 float lightIntensity[4]; //Intensidad de la luz
 float lightAttenuation[4];
 
+int efectoEnemigo = 0;
+
 /**************************************************************************************/
 /* VERTEX_COLOR */
 /**************************************************************************************/
@@ -291,6 +293,19 @@ float4 ps_DiffuseMap(PS_DIFFUSE_MAP input) : COLOR0
 	
 	//Obtener texel de la textura
 	float4 texelColor = tex2D(diffuseMap, input.Texcoord);
+	
+	if (efectoEnemigo!=0){
+		float pos = efectoEnemigo * 0.001;
+		
+		texelColor += tex2D(diffuseMap, input.Texcoord + float2(pos, pos));
+		texelColor += tex2D(diffuseMap, input.Texcoord + float2(-pos, pos));
+		texelColor += tex2D(diffuseMap, input.Texcoord + float2(pos, -pos));
+		texelColor += tex2D(diffuseMap, input.Texcoord + float2(-pos, -pos));
+		
+		texelColor = texelColor/5;
+		texelColor.a = 1;
+	}
+	
 	
 	float colorFinal = computeDiffuseComponent(input.WorldPosition, 0);
 	

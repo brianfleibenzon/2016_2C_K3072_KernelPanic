@@ -65,6 +65,7 @@ float bateria = 100;
 
 int efectoEnemigo = 0;
 
+
 //Output del Vertex Shader
 struct VS_OUTPUT
 {
@@ -182,6 +183,24 @@ float4 PixScene(float2 Tex : TEXCOORD0,
 	float3 iSpotHalfAngleVec	: TEXCOORD6
 ) :COLOR
 {
+
+
+	float4 vSample = tex2D(diffuseMap, Tex);
+	
+	if (efectoEnemigo!=0){
+		float pos = efectoEnemigo * 0.001;
+		
+		vSample += tex2D(diffuseMap, Tex + float2(pos, pos));
+		vSample += tex2D(diffuseMap, Tex + float2(-pos, pos));
+		vSample += tex2D(diffuseMap, Tex + float2(pos, -pos));
+		vSample += tex2D(diffuseMap, Tex + float2(-pos, -pos));
+		
+		vSample = vSample/5;
+		vSample.a = 1;
+	}
+
+
+
 	float3 vLight = normalize(float3(vPos - g_vLightPos));
 	float cono = dot(vLight, g_vLightDir);
 	float4 K = 0.0;
@@ -222,16 +241,11 @@ float4 PixScene(float2 Tex : TEXCOORD0,
 		diffuseLighting += computeDiffuseComponent(vPos, Nn, i);		
 
 
-	float4 color_base = tex2D(diffuseMap, Tex);
+	vSample *= min(bateria + 20, 100) / 100;
 	
-	color_base *= min(bateria + 20, 100) / 100;
+	vSample.rgb *= min(K + 1.0, 1.6) * 0.5 * diffuseLighting;	
 	
-	color_base.rgb *= min(K + 1.0, 1.6) * 0.5 * diffuseLighting;
-	
-	if (efectoEnemigo==1)
-		color_base.r += 0.1;
-	
-	return color_base;
+	return vSample;
 }
 
 technique RenderScene
