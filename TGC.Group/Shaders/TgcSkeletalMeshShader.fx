@@ -46,6 +46,7 @@ float4 eyePosition; //Posicion de la camara
 float lightIntensity[4]; //Intensidad de la luz
 float lightAttenuation[4];
 
+int efectoEnemigo = 0;
 /**************************************************************************************/
 /* VERTEX_COLOR */
 /**************************************************************************************/
@@ -300,6 +301,13 @@ float4 ps_DiffuseMap(PS_DIFFUSE_MAP input) : COLOR0
 	
 	float4 finalColor = float4(intensidad * lightColor[0].r + colorFinal * texelColor.r, intensidad * lightColor[0].g + colorFinal * texelColor.g, intensidad * lightColor[0].b + colorFinal * texelColor.b, materialDiffuseColor.a);
 	
+	if (efectoEnemigo == 1) {
+		float grayColor = (finalColor.r + finalColor.g + finalColor.b) / 3;
+		finalColor.r += (grayColor - finalColor.r);
+		finalColor.g += (grayColor - finalColor.g);
+		finalColor.b += (grayColor - finalColor.b);
+	}
+
 	return finalColor;	
 }
 

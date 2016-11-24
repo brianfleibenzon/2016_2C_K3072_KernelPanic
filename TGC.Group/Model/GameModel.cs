@@ -115,6 +115,9 @@ namespace TGC.Group.Model
 
         private readonly int SHADOWMAP_SIZE = 1024;
 
+        private float contadorTiempo = 0;
+        private int contadorMilisegundos = 0;
+
         //VARIABLES DE BATERIA
 
         Size resolucionPantalla = System.Windows.Forms.SystemInformation.PrimaryMonitorSize;
@@ -602,20 +605,24 @@ namespace TGC.Group.Model
             efectoEnemigo = 0;
             foreach (var en in enemigos)
             {
-                if (en.estabaSiguiendo)
+                if (en.estado == Enemigo.Estado.Persiguiendo)
                     if (estadoEfectoEnemigo)
                         efectoEnemigo = 1;
             }
 
         }
 
+        public int auxMilisegundos = 0;
+        public int milisegundoActual;
 
-        /// <summary>
-        ///     Se llama cada vez que hay que refrescar la pantalla.
-        ///     Escribir aquí todo el código referido al renderizado.
-        ///     Borrar todo lo que no haga falta.
-        /// </summary>
-        public override void Render()
+
+
+    /// <summary>
+    ///     Se llama cada vez que hay que refrescar la pantalla.
+    ///     Escribir aquí todo el código referido al renderizado.
+    ///     Borrar todo lo que no haga falta.
+    /// </summary>
+    public override void Render()
         {
             //Inicio el render de la escena, para ejemplos simples. Cuando tenemos postprocesado o shaders es mejor realizar las operaciones según nuestra conveniencia.
             //PreRender();
@@ -862,7 +869,7 @@ namespace TGC.Group.Model
                 enemigo.mesh.Effect.SetValue("materialSpecularColor",
                    ColorValue.FromColor(Color.DarkGray));
                 enemigo.mesh.Effect.SetValue("materialSpecularExp", 100f);
-
+                enemigo.mesh.Effect.SetValue("efectoEnemigo", efectoEnemigo);
                 enemigo.render(ElapsedTime);
             }
 
@@ -886,6 +893,20 @@ namespace TGC.Group.Model
             Vector3 lightDir;
             lightDir = Camara.LookAt - Camara.Position;
             lightDir.Normalize();
+
+
+            milisegundoActual = DateTime.Now.Millisecond;
+            if (auxMilisegundos != milisegundoActual)
+            {
+                contadorMilisegundos++;
+                auxMilisegundos = milisegundoActual;
+            }
+
+            if (contadorMilisegundos == 30)
+            {
+                contadorTiempo = contadorTiempo + 0.3f;
+                contadorMilisegundos = 0;
+            }
 
             foreach (var mesh in ListaARenderizar)
             {
@@ -919,7 +940,7 @@ namespace TGC.Group.Model
                             ColorValue.FromColor((Color.Black)));
                         mesh.Effect.SetValue("materialDiffuseColor",
                             ColorValue.FromColor(Color.White));
-
+                        mesh.Effect.SetValue("time", contadorTiempo);
                         if (iluminacionEnMano != null)
                             mesh.Effect.SetValue("bateria", getBateria());
 

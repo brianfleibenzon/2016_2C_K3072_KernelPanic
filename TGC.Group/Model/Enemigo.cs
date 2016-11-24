@@ -23,7 +23,7 @@ namespace TGC.Group.Model
 
         private float MovementSpeed = 150f;
 
-        protected Estado estado;
+        public Estado estado;
 
         public bool estabaSiguiendo = false;
 
@@ -123,7 +123,6 @@ namespace TGC.Group.Model
         {
             this.vigilador = true;
             this.setEstado(Estado.Vigilando);
-            estabaSiguiendo = false;
         }
 
         public void activar()
